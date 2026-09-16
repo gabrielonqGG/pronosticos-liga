@@ -1,25 +1,21 @@
 name: Actualizar Pronósticos
 on:
   schedule:
-    - cron: '0 23 * * 5' # Se ejecuta todos los viernes a las 23:00 UTC
-  workflow_dispatch: # Permite ejecutarlo manualmente
+    - cron: '0 23 * * *' # Se ejecuta todos los días a las 23:00
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v3
-
-      - name: Configurar Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      - name: Instalar Pandas
-        run: pip install pandas
-
       - name: Ejecutar motor predictivo
+        env:
+          API_KEY_FOOTBALL: ${{ secrets.API_KEY_FOOTBALL }}
         run: python generar_pronosticos.py
 
       - name: Guardar cambios
