@@ -3,6 +3,7 @@ import random
 import urllib.request
 import pandas as pd
 import re
+import io
 
 claves_zona_a = [
     "argentinos", "tucum", "banfield", "barracas",
@@ -50,29 +51,28 @@ def procesar_datos():
     datos_finales = {"anual": [], "zonaA": [], "zonaB": []}
     
     try:
-        # Apuntamos a una web de estadísticas sin firewalls agresivos
         url = "https://www.futbolargentino.com/primera-division/tabla-de-posiciones"
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-        html = urllib.request.urlopen(req, timeout=15).read()
+        html_bytes = urllib.request.urlopen(req, timeout=15).read()
+        html_str = html_bytes.decode('utf-8')
         
-        tablas = pd.read_html(html)
-        df_stats = None
+        # LA CORRECCIÓN CLAVE: io.StringIO fuerza a pandas a leerlo como texto HTML
+        tablas = pd.read_html(io.StringIO(html_str))
         
-        # Buscamos dinámicamente la tabla que tenga a todos los equipos
-        for tabla in tablas:
-            if len(tabla) >= 28 and any('Equipo' in str(c) for c in tabla.columns):
-                df_stats = tabla
-                break
-                
-        if df_stats is None:
-            raise Exception("No se encontró la tabla esperada en la web.")
+        # Agarramos TODAS las tablas que tengan la palabra 'Equipo' (Zona A y Zona B)
+        tablas_validas = [t for t in tablas if any('Equipo' in str(c) for c in t.columns)]
             
+        if not tablas_validas:
+            raise Exception("No se encontraron tablas de posiciones.")
+            
+        # Juntamos los 30 equipos en una sola tabla virtual
+        df_stats = pd.concat(tablas_validas, ignore_index=True)
+        
         df_stats.columns = [str(c).upper().strip() for c in df_stats.columns]
         col_equipo = [c for c in df_stats.columns if 'EQUIPO' in c][0]
         
         for i in range(len(df_stats)):
             nombre_crudo = str(df_stats.iloc[i][col_equipo])
-            # Limpiamos cualquier número o símbolo que la web le ponga al lado del nombre
             nombre = re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]', '', nombre_crudo).strip()
             
             try:
@@ -85,13 +85,12 @@ def procesar_datos():
                 col_dg = [c for c in df_stats.columns if 'DIF' in c or 'DG' in c]
                 dg = int(df_stats.iloc[i][col_dg[0]]) if col_dg else 0
             except:
-                # Si le cambian el nombre a las columnas, extraemos por posición de fila
-                pts = int(df_stats.iloc[i, 2])
-                pj = int(df_stats.iloc[i, 3])
-                pg = int(df_stats.iloc[i, 4])
-                pe = int(df_stats.iloc[i, 5])
-                pp = int(df_stats.iloc[i, 6])
-                dg = int(df_stats.iloc[i, 9])
+                pts = int(df_stats.iloc[i, 3])
+                pj = int(df_stats.iloc[i, 4])
+                pg = int(df_stats.iloc[i, 5])
+                pe = int(df_stats.iloc[i, 6])
+                pp = int(df_stats.iloc[i, 7])
+                dg = int(df_stats.iloc[i, 10])
             
             datos_equipo = {
                 "name": nombre,
