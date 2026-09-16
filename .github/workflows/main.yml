@@ -1,0 +1,28 @@
+name: Actualizar Pronosticos
+on:
+  schedule:
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Ejecutar motor predictivo
+        env:
+          API_KEY_FOOTBALL: ${{ secrets.API_KEY_FOOTBALL }}
+        run: python generar_pronosticos.py
+
+      - name: Guardar cambios
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pronosticos.json
+          git commit -m "Actualizacion automatica" || echo "Sin cambios"
+          git push
