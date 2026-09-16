@@ -1,6 +1,8 @@
 import json
 import random
 import urllib.request
+import pandas as pd
+import re
 
 claves_zona_a = [
     "argentinos", "tucum", "banfield", "barracas",
@@ -46,89 +48,64 @@ def calcular_prob_zona(pos):
 
 def procesar_datos():
     datos_finales = {"anual": [], "zonaA": [], "zonaB": []}
-    exito = False
-    equipos_procesados = set()
     
-    url_base = "https://site.api.espn.com/apis/v2/sports/soccer/arg.1/standings"
-    
-    # Armamos un escuadrón de 3 puentes distintos para burlar a ESPN
-    rutas_proxy = [
-        f"https://api.codetabs.com/v1/proxy?quest={url_base}",
-        f"https://corsproxy.io/?url={url_base}",
-        url_base # Último intento directo por si ESPN baja la guardia
-    ]
-    
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'application/json'
-    }
-
-    # El script prueba una ruta por una hasta que alguna funcione
-    for ruta in rutas_proxy:
-        if exito:
-            break
-        try:
-            print(f"Intentando penetrar por: {ruta}")
-            req = urllib.request.Request(ruta, headers=headers)
-            response = urllib.request.urlopen(req, timeout=15).read()
-            texto = response.decode('utf-8')
+    try:
+        # Apuntamos a una web de estadísticas sin firewalls agresivos
+        url = "https://www.futbolargentino.com/primera-division/tabla-de-posiciones"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+        html = urllib.request.urlopen(req, timeout=15).read()
+        
+        tablas = pd.read_html(html)
+        df_stats = None
+        
+        # Buscamos dinámicamente la tabla que tenga a todos los equipos
+        for tabla in tablas:
+            if len(tabla) >= 28 and any('Equipo' in str(c) for c in tabla.columns):
+                df_stats = tabla
+                break
+                
+        if df_stats is None:
+            raise Exception("No se encontró la tabla esperada en la web.")
             
-            # ESCUDO ANTI-RUPTURAS: Si no arranca con una llave JSON '{', lo descartamos
-            if not texto.strip().startswith('{'):
-                print("ESPN bloqueó este puente y mandó basura. Saltando al siguiente...")
-                continue
-                
-            data = json.loads(texto)
+        df_stats.columns = [str(c).upper().strip() for c in df_stats.columns]
+        col_equipo = [c for c in df_stats.columns if 'EQUIPO' in c][0]
+        
+        for i in range(len(df_stats)):
+            nombre_crudo = str(df_stats.iloc[i][col_equipo])
+            # Limpiamos cualquier número o símbolo que la web le ponga al lado del nombre
+            nombre = re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]', '', nombre_crudo).strip()
             
-            entries = []
-            for child in data.get('children', []):
-                stands = child.get('standings', {})
-                entries.extend(stands.get('entries', []))
+            try:
+                pts = int(df_stats.iloc[i]['PTS'])
+                pj = int(df_stats.iloc[i]['PJ'])
+                pg = int(df_stats.iloc[i]['PG'])
+                pe = int(df_stats.iloc[i]['PE'])
+                pp = int(df_stats.iloc[i]['PP'])
                 
-            if not entries:
-                continue
-                
-            for entry in entries:
-                nombre = entry['team']['name']
-                if nombre in equipos_procesados:
-                    continue
-                equipos_procesados.add(nombre)
-                
-                stats = entry.get('stats', [])
-                pj = pg = pe = pp = dg = pts = 0
-                
-                for s in stats:
-                    nombre_stat = s.get('name', '')
-                    valor_stat = int(s.get('value', 0))
-                    
-                    if nombre_stat == 'gamesPlayed': pj = valor_stat
-                    elif nombre_stat == 'wins': pg = valor_stat
-                    elif nombre_stat == 'ties': pe = valor_stat
-                    elif nombre_stat == 'losses': pp = valor_stat
-                    elif nombre_stat == 'pointDifferential': dg = valor_stat
-                    elif nombre_stat == 'points': pts = valor_stat
-                
-                datos_equipo = {
-                    "name": nombre,
-                    "pj": pj, "pg": pg, "pe": pe, "pp": pp, "dg": dg, "pts": pts
-                }
-                
-                datos_finales["anual"].append(datos_equipo.copy())
-                
-                es_zona_a = any(clave in nombre.lower() for clave in claves_zona_a)
-                if es_zona_a:
-                    datos_finales["zonaA"].append(datos_equipo.copy())
-                else:
-                    datos_finales["zonaB"].append(datos_equipo.copy())
-                    
-            exito = True
-            print(f"¡HACK EXITOSO! Se descargaron {len(equipos_procesados)} equipos.")
+                col_dg = [c for c in df_stats.columns if 'DIF' in c or 'DG' in c]
+                dg = int(df_stats.iloc[i][col_dg[0]]) if col_dg else 0
+            except:
+                # Si le cambian el nombre a las columnas, extraemos por posición de fila
+                pts = int(df_stats.iloc[i, 2])
+                pj = int(df_stats.iloc[i, 3])
+                pg = int(df_stats.iloc[i, 4])
+                pe = int(df_stats.iloc[i, 5])
+                pp = int(df_stats.iloc[i, 6])
+                dg = int(df_stats.iloc[i, 9])
             
-        except Exception as e:
-            print(f"El puente falló. Detalle del error: {e}")
-
-    # Si todo sale bien, calculamos la matemática
-    if exito:
+            datos_equipo = {
+                "name": nombre,
+                "pj": pj, "pg": pg, "pe": pe, "pp": pp, "dg": dg, "pts": pts
+            }
+            
+            datos_finales["anual"].append(datos_equipo.copy())
+            
+            es_zona_a = any(clave in nombre.lower() for clave in claves_zona_a)
+            if es_zona_a:
+                datos_finales["zonaA"].append(datos_equipo.copy())
+            else:
+                datos_finales["zonaB"].append(datos_equipo.copy())
+                
         for zona in ["anual", "zonaA", "zonaB"]:
             if datos_finales[zona]:
                 datos_finales[zona].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
@@ -140,9 +117,11 @@ def procesar_datos():
                         eq.update({"champ": c, "lib": l, "sud": s, "rel": r})
                     else:
                         eq["playoff"] = calcular_prob_zona(eq["pos"])
-    else:
-        # Si de verdad los 3 puentes caen, salvavidas limpio sin romper Python
-        print("Bloqueo total. Activando salvavidas para proteger la web.")
+
+        print(f"¡Extracción impecable! Equipos procesados: {len(datos_finales['anual'])}")
+        
+    except Exception as e:
+        print(f"Error detectado: {e}")
         for zona in ["anual", "zonaA", "zonaB"]:
             for i in range(1, 16 if zona != "anual" else 31):
                 datos_finales[zona].append({
