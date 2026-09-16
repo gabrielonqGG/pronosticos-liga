@@ -1,8 +1,8 @@
 import json
 import random
-import pandas as pd
-from playwright.sync_api import sync_playwright
+import urllib.request
 
+# Lista de palabras clave para identificar a los 15 equipos de la Zona A
 claves_zona_a = [
     "argentinos", "tucum", "banfield", "barracas",
     "riestra", "gimnasia", "huracan", "independiente",
@@ -45,76 +45,87 @@ def calcular_prob_zona(pos):
     else:
         return round(random.uniform(0.0, 20.0) / (pos - 7), 1)
 
-def procesar_scraping():
+def procesar_datos():
     datos_finales = {"anual": [], "zonaA": [], "zonaB": []}
     
     try:
-        # Abrimos un navegador real en segundo plano
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page()
-            page.goto("https://www.promiedos.com.ar/primera", timeout=60000)
-            
-            # Esperamos a que cargue la tabla de posiciones en la página
-            page.wait_for_selector("table", timeout=15000)
-            html = page.content()
-            browser.close()
-            
-        tablas = pd.read_html(html)
+        # CONEXIÓN DIRECTA A LA BASE DE DATOS OCULTA DE ESPN (Anti-bloqueos)
+        url = "https://site.api.espn.com/apis/v2/sports/soccer/arg.1/standings"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        response = urllib.request.urlopen(req, timeout=15).read()
+        data = json.loads(response.decode('utf-8'))
         
-        df_stats = None
-        for tabla in tablas:
-            if len(tabla) >= 28 and 'Equipo' in tabla.columns:
-                df_stats = tabla
-                break
+        # Juntamos todos los equipos sin importar cómo los agrupe ESPN internamente
+        entries = []
+        for child in data.get('children', []):
+            stands = child.get('standings', {})
+            entries.extend(stands.get('entries', []))
+            
+        equipos_procesados = set()
+        
+        for entry in entries:
+            nombre = entry['team']['name']
+            
+            # Evitamos duplicados
+            if nombre in equipos_procesados:
+                continue
+            equipos_procesados.add(nombre)
+            
+            stats = entry.get('stats', [])
+            pj = pg = pe = pp = dg = pts = 0
+            
+            # Buscamos los valores exactos en el diccionario de estadísticas
+            for s in stats:
+                nombre_stat = s.get('name', '')
+                valor_stat = int(s.get('value', 0))
                 
-        if df_stats is None:
-            raise Exception("No se encontró la tabla de posiciones en el HTML obtenido.")
-            
-        total_equipos = len(df_stats)
-        
-        for i in range(total_equipos):
-            nombre = str(df_stats.iloc[i]['Equipo']).strip()
+                if nombre_stat == 'gamesPlayed': pj = valor_stat
+                elif nombre_stat == 'wins': pg = valor_stat
+                elif nombre_stat == 'ties': pe = valor_stat
+                elif nombre_stat == 'losses': pp = valor_stat
+                elif nombre_stat == 'pointDifferential': dg = valor_stat
+                elif nombre_stat == 'points': pts = valor_stat
             
             datos_equipo = {
                 "name": nombre,
-                "pj": int(df_stats.iloc[i]['PJ']),
-                "pg": int(df_stats.iloc[i]['PG']),
-                "pe": int(df_stats.iloc[i]['PE']),
-                "pp": int(df_stats.iloc[i]['PP']),
-                "dg": int(df_stats.iloc[i]['DIF']),
-                "pts": int(df_stats.iloc[i]['Pts'])
+                "pj": pj, "pg": pg, "pe": pe, "pp": pp, "dg": dg, "pts": pts
             }
             
+            # 1. Asignar a tabla Anual
             datos_finales["anual"].append(datos_equipo.copy())
             
+            # 2. Asignar a su Zona correspondiente
             es_zona_a = any(clave in nombre.lower() for clave in claves_zona_a)
             if es_zona_a:
                 datos_finales["zonaA"].append(datos_equipo.copy())
             else:
                 datos_finales["zonaB"].append(datos_equipo.copy())
                 
-        datos_finales["anual"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
-        for i, eq in enumerate(datos_finales["anual"]):
-            eq["pos"] = i + 1
-            c, l, s, r = calcular_prob_anual(eq["pos"], total_equipos)
-            eq.update({"champ": c, "lib": l, "sud": s, "rel": r})
-
-        for zona in ["zonaA", "zonaB"]:
+        # Ordenamos las 3 tablas y calculamos las probabilidades
+        for zona in ["anual", "zonaA", "zonaB"]:
             if datos_finales[zona]:
+                # Ordenar por Puntos y luego por Diferencia de Goles
                 datos_finales[zona].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
+                
+                total_en_tabla = len(datos_finales[zona])
                 for i, eq in enumerate(datos_finales[zona]):
                     eq["pos"] = i + 1
-                    eq["playoff"] = calcular_prob_zona(eq["pos"])
+                    
+                    if zona == "anual":
+                        c, l, s, r = calcular_prob_anual(eq["pos"], total_en_tabla)
+                        eq.update({"champ": c, "lib": l, "sud": s, "rel": r})
+                    else:
+                        eq["playoff"] = calcular_prob_zona(eq["pos"])
 
-        print(f"¡Scraping con navegador real exitoso! Se procesaron {total_equipos} equipos.")
+        print(f"¡Éxito total! Datos procesados en tiempo real desde la API interna. Total: {len(equipos_procesados)} equipos.")
         
     except Exception as e:
-        print(f"Error con Playwright: {e}")
+        print(f"Error detectado: {e}")
+        # Salvavidas de emergencia mínimo
         for zona in ["anual", "zonaA", "zonaB"]:
             for i in range(1, 16 if zona != "anual" else 31):
                 datos_finales[zona].append({
-                    "pos": i, "name": f"Equipo {i} (Reintentando...)", 
+                    "pos": i, "name": f"Sin conexión", 
                     "pj": 0, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0,
                     "champ": 0, "lib": 0, "sud": 0, "rel": 0, "playoff": 0
                 })
@@ -123,4 +134,4 @@ def procesar_scraping():
         json.dump(datos_finales, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
-    procesar_scraping()
+    procesar_datos()
