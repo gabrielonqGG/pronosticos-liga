@@ -172,76 +172,16 @@
 
     <script>
         // DATOS PARA TABLA ANUAL (30 EQUIPOS)
-        const dataAnual = [
-            { pos: 1, name: "Vélez Sarsfield", pj: 25, pg: 15, pe: 6, pp: 4, dg: 22, pts: 51, champ: 76.5, lib: 98.9, sud: 1.1, rel: 0 },
-            { pos: 2, name: "River Plate", pj: 25, pg: 14, pe: 7, pp: 4, dg: 18, pts: 49, champ: 18.2, lib: 90.5, sud: 9.5, rel: 0 },
-            { pos: 3, name: "Talleres (C)", pj: 25, pg: 13, pe: 8, pp: 4, dg: 15, pts: 47, champ: 4.8, lib: 72.1, sud: 27.9, rel: 0 },
-            { pos: 4, name: "Huracán", pj: 25, pg: 13, pe: 7, pp: 5, dg: 14, pts: 46, champ: 0.5, lib: 45.2, sud: 54.8, rel: 0 },
-            { pos: 5, name: "Unión de Santa Fe", pj: 25, pg: 12, pe: 8, pp: 5, dg: 9, pts: 44, champ: 0, lib: 25.1, sud: 74.9, rel: 0 },
-            { pos: 6, name: "Racing Club", pj: 25, pg: 12, pe: 7, pp: 6, dg: 11, pts: 43, champ: 0, lib: 15.5, sud: 84.5, rel: 0 },
-            { pos: 7, name: "Boca Juniors", pj: 25, pg: 11, pe: 9, pp: 5, dg: 8, pts: 42, champ: 0, lib: 8.2, sud: 91.8, rel: 0 },
-            { pos: 8, name: "Instituto", pj: 25, pg: 11, pe: 7, pp: 7, dg: 6, pts: 40, champ: 0, lib: 3.1, sud: 85.4, rel: 0 },
-            { pos: 9, name: "Belgrano", pj: 25, pg: 10, pe: 9, pp: 6, dg: 4, pts: 39, champ: 0, lib: 1.2, sud: 78.5, rel: 0 },
-            { pos: 10, name: "Estudiantes LP", pj: 25, pg: 10, pe: 8, pp: 7, dg: 5, pts: 38, champ: 0, lib: 0, sud: 15.4, rel: 0 },
-            { pos: 11, name: "Argentinos Juniors", pj: 25, pg: 9, pe: 9, pp: 7, dg: 2, pts: 36, champ: 0, lib: 0, sud: 8.2, rel: 0 },
-            { pos: 12, name: "Gimnasia LP", pj: 25, pg: 9, pe: 8, pp: 8, dg: 1, pts: 35, champ: 0, lib: 0, sud: 4.1, rel: 0 },
-            { pos: 13, name: "Rosario Central", pj: 25, pg: 9, pe: 7, pp: 9, dg: 0, pts: 34, champ: 0, lib: 0, sud: 1.5, rel: 0 },
-            { pos: 14, name: "Lanús", pj: 25, pg: 8, pe: 9, pp: 8, dg: -1, pts: 33, champ: 0, lib: 0, sud: 0.5, rel: 0 },
-            { pos: 15, name: "Independiente", pj: 25, pg: 7, pe: 11, pp: 7, dg: 0, pts: 32, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 16, name: "Defensa y Justicia", pj: 25, pg: 7, pe: 10, pp: 8, dg: -2, pts: 31, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 17, name: "Platense", pj: 25, pg: 7, pe: 9, pp: 9, dg: -3, pts: 30, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 18, name: "San Lorenzo", pj: 25, pg: 6, pe: 10, pp: 9, dg: -4, pts: 28, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 19, name: "Newell's", pj: 25, pg: 6, pe: 9, pp: 10, dg: -5, pts: 27, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 20, name: "Banfield", pj: 25, pg: 6, pe: 8, pp: 11, dg: -7, pts: 26, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 21, name: "Tigre", pj: 25, pg: 5, pe: 10, pp: 10, dg: -8, pts: 25, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 22, name: "Godoy Cruz", pj: 25, pg: 5, pe: 9, pp: 11, dg: -9, pts: 24, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 23, name: "Atlético Tucumán", pj: 25, pg: 5, pe: 8, pp: 12, dg: -11, pts: 23, champ: 0, lib: 0, sud: 0, rel: 0.5 },
-            { pos: 24, name: "Barracas Central", pj: 25, pg: 4, pe: 9, pp: 12, dg: -13, pts: 21, champ: 0, lib: 0, sud: 0, rel: 2.1 },
-            { pos: 25, name: "Quilmes", pj: 25, pg: 4, pe: 8, pp: 13, dg: -15, pts: 20, champ: 0, lib: 0, sud: 0, rel: 8.5 },
-            { pos: 26, name: "Deportivo Riestra", pj: 25, pg: 4, pe: 7, pp: 14, dg: -18, pts: 19, champ: 0, lib: 0, sud: 0, rel: 15.2 },
-            { pos: 27, name: "Sarmiento (J)", pj: 25, pg: 3, pe: 9, pp: 13, dg: -19, pts: 18, champ: 0, lib: 0, sud: 0, rel: 28.4 },
-            { pos: 28, name: "Indep. Rivadavia", pj: 25, pg: 3, pe: 8, pp: 14, dg: -21, pts: 17, champ: 0, lib: 0, sud: 0, rel: 45.6 },
-            { pos: 29, name: "San Martín (T)", pj: 25, pg: 2, pe: 8, pp: 15, dg: -23, pts: 14, champ: 0, lib: 0, sud: 0, rel: 85.5 },
-            { pos: 30, name: "Central Córdoba", pj: 25, pg: 2, pe: 6, pp: 17, dg: -26, pts: 12, champ: 0, lib: 0, sud: 0, rel: 98.2 }
-        ];
+        // Cargar datos reales desde el archivo generado por Python
+fetch('pronosticos.json')
+    .then(response => response.json())
+    .then(data => {
+        renderTable('body-anual', data.anual, false);
+        renderTable('body-zonaA', data.zonaA, true);
+        renderTable('body-zonaB', data.zonaB, true);
+    })
+    .catch(error => console.error("Aún no se generó el archivo de pronósticos:", error));
 
-        // DATOS ZONA A (15 EQUIPOS)
-        const dataZonaA = [
-            { pos: 1, name: "Vélez Sarsfield", pj: 8, pg: 6, pe: 2, pp: 0, dg: 9, pts: 20, champ: 45.2, lib: 95.5, sud: 0, rel: 0 },
-            { pos: 2, name: "River Plate", pj: 8, pg: 5, pe: 2, pp: 1, dg: 7, pts: 17, champ: 25.1, lib: 82.4, sud: 0, rel: 0 },
-            { pos: 3, name: "Talleres (C)", pj: 8, pg: 4, pe: 3, pp: 1, dg: 5, pts: 15, champ: 15.5, lib: 65.8, sud: 0, rel: 0 },
-            { pos: 4, name: "Huracán", pj: 8, pg: 4, pe: 2, pp: 2, dg: 4, pts: 14, champ: 8.2, lib: 52.1, sud: 0, rel: 0 },
-            { pos: 5, name: "Boca Juniors", pj: 8, pg: 3, pe: 4, pp: 1, dg: 3, pts: 13, champ: 4.5, lib: 35.6, sud: 0, rel: 0 },
-            { pos: 6, name: "Belgrano", pj: 8, pg: 3, pe: 3, pp: 2, dg: 2, pts: 12, champ: 1.5, lib: 22.4, sud: 0, rel: 0 },
-            { pos: 7, name: "Argentinos Juniors", pj: 8, pg: 3, pe: 2, pp: 3, dg: 0, pts: 11, champ: 0, lib: 12.5, sud: 0, rel: 0 },
-            { pos: 8, name: "Rosario Central", pj: 8, pg: 2, pe: 4, pp: 2, dg: -1, pts: 10, champ: 0, lib: 5.2, sud: 0, rel: 0 },
-            { pos: 9, name: "San Lorenzo", pj: 8, pg: 2, pe: 3, pp: 3, dg: -2, pts: 9, champ: 0, lib: 2.1, sud: 0, rel: 0 },
-            { pos: 10, name: "Gimnasia LP", pj: 8, pg: 2, pe: 2, pp: 4, dg: -3, pts: 8, champ: 0, lib: 0.5, sud: 0, rel: 0 },
-            { pos: 11, name: "Banfield", pj: 8, pg: 1, pe: 4, pp: 3, dg: -4, pts: 7, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 12, name: "Lanús", pj: 8, pg: 1, pe: 3, pp: 4, dg: -5, pts: 6, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 13, name: "Sarmiento (J)", pj: 8, pg: 1, pe: 2, pp: 5, dg: -6, pts: 5, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 14, name: "Barracas Central", pj: 8, pg: 0, pe: 4, pp: 4, dg: -7, pts: 4, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 15, name: "Central Córdoba", pj: 8, pg: 0, pe: 2, pp: 6, dg: -9, pts: 2, champ: 0, lib: 0, sud: 0, rel: 0 }
-        ];
-
-        // DATOS ZONA B (15 EQUIPOS)
-        const dataZonaB = [
-            { pos: 1, name: "Unión de Santa Fe", pj: 8, pg: 5, pe: 3, pp: 0, dg: 8, pts: 18, champ: 35.5, lib: 92.1, sud: 0, rel: 0 },
-            { pos: 2, name: "Racing Club", pj: 8, pg: 5, pe: 2, pp: 1, dg: 7, pts: 17, champ: 28.4, lib: 85.5, sud: 0, rel: 0 },
-            { pos: 3, name: "Instituto", pj: 8, pg: 4, pe: 3, pp: 1, dg: 5, pts: 15, champ: 18.2, lib: 72.4, sud: 0, rel: 0 },
-            { pos: 4, name: "Estudiantes LP", pj: 8, pg: 4, pe: 2, pp: 2, dg: 4, pts: 14, champ: 12.5, lib: 58.2, sud: 0, rel: 0 },
-            { pos: 5, name: "Independiente", pj: 8, pg: 3, pe: 4, pp: 1, dg: 3, pts: 13, champ: 4.2, lib: 42.1, sud: 0, rel: 0 },
-            { pos: 6, name: "Defensa y Justicia", pj: 8, pg: 3, pe: 3, pp: 2, dg: 2, pts: 12, champ: 1.2, lib: 25.4, sud: 0, rel: 0 },
-            { pos: 7, name: "Platense", pj: 8, pg: 2, pe: 4, pp: 2, dg: 1, pts: 10, champ: 0, lib: 15.2, sud: 0, rel: 0 },
-            { pos: 8, name: "Newell's", pj: 8, pg: 2, pe: 3, pp: 3, dg: -1, pts: 9, champ: 0, lib: 8.5, sud: 0, rel: 0 },
-            { pos: 9, name: "Tigre", pj: 8, pg: 2, pe: 2, pp: 4, dg: -2, pts: 8, champ: 0, lib: 3.2, sud: 0, rel: 0 },
-            { pos: 10, name: "Godoy Cruz", pj: 8, pg: 1, pe: 4, pp: 3, dg: -3, pts: 7, champ: 0, lib: 0.8, sud: 0, rel: 0 },
-            { pos: 11, name: "Atlético Tucumán", pj: 8, pg: 1, pe: 3, pp: 4, dg: -4, pts: 6, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 12, name: "Quilmes", pj: 8, pg: 1, pe: 2, pp: 5, dg: -6, pts: 5, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 13, name: "Deportivo Riestra", pj: 8, pg: 0, pe: 4, pp: 4, dg: -7, pts: 4, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 14, name: "Indep. Rivadavia", pj: 8, pg: 0, pe: 3, pp: 5, dg: -8, pts: 3, champ: 0, lib: 0, sud: 0, rel: 0 },
-            { pos: 15, name: "San Martín (T)", pj: 8, pg: 0, pe: 2, pp: 6, dg: -9, pts: 2, champ: 0, lib: 0, sud: 0, rel: 0 }
-        ];
 
         function getColorOpacity(value, baseColor) {
             if (value === 0) return 'transparent';
