@@ -29,7 +29,6 @@
         h1 { margin: 0; font-size: 22px; display: flex; align-items: center; justify-content: center; gap: 8px;}
         .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 5px; }
         
-        /* Sistema de Pestañas (Tabs) */
         .tabs {
             display: flex;
             justify-content: center;
@@ -60,14 +59,14 @@
             border-radius: 8px; 
             background: var(--bg-card);
             box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
-            display: none; /* Se ocultan por defecto, JS muestra la activa */
+            display: none;
         }
         .table-container.active { display: block; }
 
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            min-width: 850px; /* Ancho ampliado para las nuevas columnas */
+            min-width: 850px; 
             text-align: center; 
         }
         th, td { 
@@ -101,7 +100,6 @@
         .stat-col { color: var(--text-muted); }
         .stat-pts { font-weight: bold; color: var(--text-main); font-size: 14px; }
         
-        /* Celdas de probabilidad */
         .pct-cell { font-weight: 600; color: #fff; text-shadow: 0px 1px 2px rgba(0,0,0,0.4); }
         .pct-0 { color: var(--border); font-weight: normal; text-shadow: none; }
     </style>
@@ -118,18 +116,12 @@
         <button class="tab-btn" onclick="showTab('zonaB', this)">Clausura - Zona B</button>
     </div>
 
-    <!-- TABLA ANUAL -->
     <div id="anual" class="table-container active">
         <table>
             <thead>
                 <tr>
                     <th style="text-align: left; padding-left: 20px;">Equipo</th>
-                    <th title="Partidos Jugados">PJ</th>
-                    <th title="Ganados">G</th>
-                    <th title="Empatados">E</th>
-                    <th title="Perdidos">P</th>
-                    <th title="Diferencia de Goles">DG</th>
-                    <th title="Puntos actuales">PTS</th>
+                    <th title="Partidos Jugados">PJ</th><th title="Ganados">G</th><th title="Empatados">E</th><th title="Perdidos">P</th><th title="Diferencia de Goles">DG</th><th title="Puntos actuales">PTS</th>
                     <th title="Probabilidad de salir campeón anual">🏆 Camp</th>
                     <th title="Probabilidad de quedar entre los puestos 1 y 3">🌎 Lib (1-3)</th>
                     <th title="Probabilidad de quedar entre los puestos 4 y 9">✈️ Sud (4-9)</th>
@@ -140,7 +132,6 @@
         </table>
     </div>
 
-    <!-- ZONA A -->
     <div id="zonaA" class="table-container">
         <table>
             <thead>
@@ -155,7 +146,6 @@
         </table>
     </div>
 
-    <!-- ZONA B -->
     <div id="zonaB" class="table-container">
         <table>
             <thead>
@@ -171,41 +161,29 @@
     </div>
 
     <script>
-        // DATOS PARA TABLA ANUAL (30 EQUIPOS)
-        // Cargar datos reales desde el archivo generado por Python
-fetch('pronosticos.json')
-    .then(response => response.json())
-    .then(data => {
-        renderTable('body-anual', data.anual, false);
-        renderTable('body-zonaA', data.zonaA, true);
-        renderTable('body-zonaB', data.zonaB, true);
-    })
-    .catch(error => console.error("Aún no se generó el archivo de pronósticos:", error));
-
-
         function getColorOpacity(value, baseColor) {
-            if (value === 0) return 'transparent';
+            if (!value || value === 0) return 'transparent';
             const opacity = Math.max(0.15, (value / 100) * 0.85);
             return `rgba(${baseColor}, ${opacity})`;
         }
 
         function formatPct(val) {
-            return val === 0 ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
+            return (!val || val === 0) ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
         }
 
         function renderTable(tbodyId, data, isZone) {
             const tbody = document.getElementById(tbodyId);
             tbody.innerHTML = "";
+            if (!data) return;
             
-            const colorChamp = "251, 191, 36"; // Dorado
-            const colorLib = "16, 185, 129";   // Verde
-            const colorSud = "59, 130, 246";   // Azul
-            const colorRel = "239, 68, 68";    // Rojo
+            const colorChamp = "251, 191, 36"; 
+            const colorLib = "16, 185, 129";   
+            const colorSud = "59, 130, 246";   
+            const colorRel = "239, 68, 68";    
 
             data.forEach(t => {
                 let probsHtml = '';
                 if (!isZone) {
-                    // Columnas Anuales
                     probsHtml = `
                         <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
                         <td class="pct-cell" style="background-color: ${getColorOpacity(t.lib, colorLib)}">${formatPct(t.lib)}</td>
@@ -213,10 +191,12 @@ fetch('pronosticos.json')
                         <td class="pct-cell" style="background-color: ${getColorOpacity(t.rel, colorRel)}">${formatPct(t.rel)}</td>
                     `;
                 } else {
-                    // Columnas de Zona (Clausura). 'lib' acá se usa como probabilidad de cuartos de final.
+                    let cuartos = t.pos <= 4 ? Math.min(100, t.lib + t.sud + 20) : t.sud;
+                    if(cuartos > 100) cuartos = 100;
+                    
                     probsHtml = `
                         <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.lib, colorLib)}">${formatPct(t.lib)}</td>
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(cuartos, colorLib)}">${formatPct(cuartos)}</td>
                     `;
                 }
 
@@ -237,7 +217,6 @@ fetch('pronosticos.json')
             });
         }
 
-        // Lógica para cambiar de pestañas
         function showTab(tabId, btn) {
             document.querySelectorAll('.table-container').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -246,10 +225,16 @@ fetch('pronosticos.json')
             btn.classList.add('active');
         }
 
-        // Cargar las 3 tablas al iniciar
-        renderTable('body-anual', dataAnual, false);
-        renderTable('body-zonaA', dataZonaA, true);
-        renderTable('body-zonaB', dataZonaB, true);
+        // Acá la magia: lee el JSON externo
+        fetch('pronosticos.json')
+            .then(response => response.json())
+            .then(data => {
+                if(data.anual) renderTable('body-anual', data.anual, false);
+                if(data.zonaA) renderTable('body-zonaA', data.zonaA, true);
+                if(data.zonaB) renderTable('body-zonaB', data.zonaB, true);
+            })
+            .catch(error => console.error("Falta generar el JSON con la info nueva:", error));
     </script>
 </body>
 </html>
+
