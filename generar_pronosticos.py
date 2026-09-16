@@ -1,7 +1,7 @@
 import json
 import random
-import urllib.request
 import pandas as pd
+import cloudscraper
 
 claves_zona_a = [
     "argentinos", "tucum", "banfield", "barracas",
@@ -50,32 +50,24 @@ def procesar_scraping():
     
     try:
         url = "https://www.promiedos.com.ar/primera"
-        # Cabeceras robustas para simular un navegador real y saltar bloqueos
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'es-AR,es;q=0.8,en-US;q=0.5,en;q=0.3',
-        }
-        req = urllib.request.Request(url, headers=headers)
-        html = urllib.request.urlopen(req, timeout=20).read()
+        # Usamos cloudscraper para evadir el bloqueo de Cloudflare
+        scraper = cloudscraper.create_scraper(browser={'browser': 'chrome', 'platform': 'windows', 'desktop': True})
+        html = scraper.get(url).text
         
-        # Leemos el HTML 
         tablas = pd.read_html(html)
         
         df_stats = None
         for tabla in tablas:
-            # Buscamos la tabla que tenga a los 30 equipos y la columna 'Equipo'
             if len(tabla) >= 28 and 'Equipo' in tabla.columns:
                 df_stats = tabla
                 break
                 
         if df_stats is None:
-            raise Exception("No se encontró la tabla de posiciones en Promiedos.")
+            raise Exception("No se encontró la tabla en Promiedos.")
             
         total_equipos = len(df_stats)
         
         for i in range(total_equipos):
-            # En Promiedos las columnas son directas y muy limpias
             nombre = str(df_stats.iloc[i]['Equipo']).strip()
             
             datos_equipo = {
@@ -96,7 +88,6 @@ def procesar_scraping():
             else:
                 datos_finales["zonaB"].append(datos_equipo.copy())
                 
-        # Procesar posiciones y probabilidades finales
         datos_finales["anual"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
         for i, eq in enumerate(datos_finales["anual"]):
             eq["pos"] = i + 1
@@ -110,14 +101,14 @@ def procesar_scraping():
                     eq["pos"] = i + 1
                     eq["playoff"] = calcular_prob_zona(eq["pos"])
 
-        print(f"¡Scraping de Promiedos exitoso! Se procesaron {total_equipos} equipos.")
+        print(f"¡Scraping exitoso! Se leyeron {total_equipos} equipos.")
         
     except Exception as e:
         print(f"Error en el scraping: {e}")
         for zona in ["anual", "zonaA", "zonaB"]:
             for i in range(1, 16 if zona != "anual" else 31):
                 datos_finales[zona].append({
-                    "pos": i, "name": f"Error Servidor {i}", 
+                    "pos": i, "name": f"Bloqueo Servidor {i}", 
                     "pj": 0, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0,
                     "champ": 0, "lib": 0, "sud": 0, "rel": 0, "playoff": 0
                 })
