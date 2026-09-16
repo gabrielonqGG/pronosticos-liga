@@ -3,47 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pronósticos Liga Profesional</title>
+    <title>Pronósticos de Temporada - Liga Argentina</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #f5f5f5; margin: 0; }
-        header { background: #16213e; padding: 20px; text-align: center; border-bottom: 2px solid #43aa8b; }
-        .container { max-width: 800px; margin: 30px auto; padding: 0 15px; }
-        table { width: 100%; border-collapse: collapse; background: #16213e; border-radius: 8px; overflow: hidden; }
-        th, td { padding: 15px; text-align: center; border-bottom: 1px solid #2a2a4a; }
-        th { background: rgba(0,0,0,0.2); color: #a0a0a0; font-size: 12px; text-transform: uppercase; }
-        .highest-prob { background-color: #43aa8b; color: #fff; font-weight: bold; border-radius: 4px; padding: 5px 10px;}
-        .prob-box { padding: 5px 10px; }
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: var(--bg-main); 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 10px; 
+        }
+        header { 
+            text-align: center; 
+            padding: 25px 0 15px 0; 
+            border-bottom: 1px solid var(--border); 
+            margin-bottom: 20px;
+        }
+        h1 { margin: 0; font-size: 22px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 5px; }
+        
+        .table-container { 
+            overflow-x: auto; /* Permite deslizar hacia los costados en celulares */
+            border-radius: 8px; 
+            background: var(--bg-card);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            min-width: 650px; 
+            text-align: center; 
+        }
+        th, td { 
+            padding: 12px 10px; 
+            border-bottom: 1px solid var(--border); 
+            font-size: 14px; 
+        }
+        th { 
+            color: var(--text-muted); 
+            font-weight: 600; 
+            font-size: 11px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .team-cell { 
+            text-align: left; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        .pos { 
+            color: var(--text-muted); 
+            width: 20px; 
+            display: inline-block; 
+            text-align: right; 
+            font-size: 12px;
+            font-weight: normal;
+        }
+        
+        /* Estilos de las celdas de probabilidad */
+        .pct-cell { font-weight: 600; color: #fff; text-shadow: 0px 1px 2px rgba(0,0,0,0.4); }
+        .pct-0 { color: var(--border); font-weight: normal; text-shadow: none; }
     </style>
 </head>
 <body>
-    <header><h1>⚽ Liga Argentina - Predicciones</h1></header>
-    <div class="container">
+    <header>
+        <h1>⚽ Pronósticos Liga Profesional</h1>
+        <div class="subtitle">Probabilidades estimadas para el final de la temporada</div>
+    </header>
+
+    <div class="table-container">
         <table>
             <thead>
-                <tr><th>Fecha</th><th>Local</th><th>Empate</th><th>Visitante</th></tr>
+                <tr>
+                    <th style="text-align: left; padding-left: 20px;">Equipo</th>
+                    <th title="Puntos actuales">Pts</th>
+                    <th title="Probabilidad de salir campeón">🏆 Campeón</th>
+                    <th title="Probabilidad de clasificar a Copa Libertadores">🌎 Libertadores</th>
+                    <th title="Probabilidad de clasificar a Copa Sudamericana">✈️ Sudamericana</th>
+                    <th title="Probabilidad de descender">⬇️ Descenso</th>
+                </tr>
             </thead>
-            <tbody id="forecast-body"></tbody>
+            <tbody id="league-body"></tbody>
         </table>
     </div>
+
     <script>
-        // Los datos ya están cargados directamente aquí
-        const data = [
-            { date: "20 Sep", home: "Talleres", away: "Instituto", p1: 56, pX: 25, p2: 19 },
-            { date: "20 Sep", home: "Boca Juniors", away: "River Plate", p1: 34, pX: 30, p2: 36 },
-            { date: "21 Sep", home: "Belgrano", away: "Racing Club", p1: 33, pX: 34, p2: 33 }
+        // Datos simulados (Aquí irían los resultados matemáticos de tu motor)
+        const teamsData = [
+            { pos: 1, name: "Vélez Sarsfield", pts: 45, champ: 78.5, lib: 99.9, sud: 100, rel: 0 },
+            { pos: 2, name: "Talleres (C)", pts: 39, champ: 12.3, lib: 85.0, sud: 98.2, rel: 0 },
+            { pos: 3, name: "Huracán", pts: 38, champ: 5.1, lib: 72.4, sud: 95.1, rel: 0 },
+            { pos: 4, name: "Unión de Santa Fe", pts: 36, champ: 2.8, lib: 54.2, sud: 88.7, rel: 0 },
+            { pos: 5, name: "River Plate", pts: 35, champ: 1.0, lib: 45.6, sud: 82.3, rel: 0 },
+            { pos: 6, name: "Racing Club", pts: 34, champ: 0.3, lib: 30.1, sud: 75.0, rel: 0 },
+            { pos: 7, name: "Boca Juniors", pts: 32, champ: 0, lib: 15.5, sud: 60.4, rel: 0 },
+            { pos: 8, name: "Belgrano", pts: 30, champ: 0, lib: 5.2, sud: 45.8, rel: 0 },
+            { pos: 26, name: "Sarmiento (J)", pts: 15, champ: 0, lib: 0, sud: 0, rel: 65.4 },
+            { pos: 27, name: "Indep. Rivadavia", pts: 12, champ: 0, lib: 0, sud: 0, rel: 82.1 },
+            { pos: 28, name: "Central Córdoba", pts: 9, champ: 0, lib: 0, sud: 0, rel: 95.8 }
         ];
 
-        const tbody = document.getElementById("forecast-body");
+        // Función para calcular la intensidad del color de fondo basado en el porcentaje
+        function getColorOpacity(value, baseColor) {
+            if (value === 0) return 'transparent';
+            // Convierte el porcentaje en una opacidad entre 0.15 y 0.85
+            const opacity = Math.max(0.15, (value / 100) * 0.85);
+            return `rgba(${baseColor}, ${opacity})`;
+        }
+
+        const tbody = document.getElementById("league-body");
         
-        data.forEach(match => {
-            const max = Math.max(match.p1, match.pX, match.p2);
+        teamsData.forEach(t => {
+            // Códigos de colores RGB para pintar las celdas
+            const colorChamp = "251, 191, 36"; // Dorado (Campeón)
+            const colorLib = "16, 185, 129";   // Verde (Libertadores)
+            const colorSud = "59, 130, 246";   // Azul (Sudamericana)
+            const colorRel = "239, 68, 68";    // Rojo (Descenso)
+
+            const formatPct = (val) => val === 0 ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
+
             tbody.innerHTML += `
                 <tr>
-                    <td style="color:#a0a0a0;font-size:13px">${match.date}</td>
-                    <td>${match.home} <br><span class="prob-box ${match.p1 === max ? 'highest-prob' : ''}">${match.p1}%</span></td>
-                    <td><br><span class="prob-box ${match.pX === max ? 'highest-prob' : ''}">${match.pX}%</span></td>
-                    <td>${match.away} <br><span class="prob-box ${match.p2 === max ? 'highest-prob' : ''}">${match.p2}%</span></td>
-                </tr>`;
+                    <td class="team-cell" style="padding-left: 20px;">
+                        <span class="pos">${t.pos}</span> ${t.name}
+                    </td>
+                    <td style="font-weight: bold; color: var(--text-muted);">${t.pts}</td>
+                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
+                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.lib, colorLib)}">${formatPct(t.lib)}</td>
+                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.sud, colorSud)}">${formatPct(t.sud)}</td>
+                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.rel, colorRel)}">${formatPct(t.rel)}</td>
+                </tr>
+            `;
         });
     </script>
 </body>
