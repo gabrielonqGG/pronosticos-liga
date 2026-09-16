@@ -1,0 +1,26 @@
+[
+    {
+        "date": "20 Sep",
+        "home": "Talleres",
+        "away": "Instituto",
+        "p1": 56,
+        "pX": 25,
+        "p2": 19
+    },
+    {
+        "date": "20 Sep",
+        "home": "Boca Juniors",
+        "away": "River Plate",
+        "p1": 34,
+        "pX": 30,
+        "p2": 36
+    },
+    {
+        "date": "21 Sep",
+        "home": "Belgrano",
+        "away": "Racing Club",
+        "p1": 33,
+        "pX": 34,
+        "p2": 33
+    }
+]
