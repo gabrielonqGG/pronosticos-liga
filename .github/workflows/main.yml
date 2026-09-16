@@ -14,14 +14,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Instalar dependencias y navegador
-        run: |
-          pip install pandas lxml html5lib playwright
-          playwright install chromium
-
-      - name: Ejecutar motor con navegador fantasma
-        env:
-          API_KEY_FOOTBALL: ${{ secrets.API_KEY_FOOTBALL }}
+      - name: Ejecutar motor con API Oculta
         run: python generar_pronosticos.py
 
       - name: Guardar cambios
@@ -29,5 +22,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add pronosticos.json
-          git commit -m "Actualizacion automatica con Playwright" || echo "Sin cambios"
+          git commit -m "Actualizacion automatica via API ESPN" || echo "Sin cambios"
           git push
