@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronósticos Liga Profesional</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #f5f5f5; margin: 0; }
+        header { background: #16213e; padding: 20px; text-align: center; border-bottom: 2px solid #43aa8b; }
+        .container { max-width: 800px; margin: 30px auto; padding: 0 15px; }
+        table { width: 100%; border-collapse: collapse; background: #16213e; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 15px; text-align: center; border-bottom: 1px solid #2a2a4a; }
+        th { background: rgba(0,0,0,0.2); color: #a0a0a0; font-size: 12px; text-transform: uppercase; }
+        .highest-prob { background-color: #43aa8b; color: #fff; font-weight: bold; border-radius: 4px; padding: 5px 10px;}
+        .prob-box { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <header><h1>⚽ Liga Argentina - Predicciones</h1></header>
+    <div class="container">
+        <table>
+            <thead>
+                <tr><th>Fecha</th><th>Local</th><th>Empate</th><th>Visitante</th></tr>
+            </thead>
+            <tbody id="forecast-body"></tbody>
+        </table>
+    </div>
+    <script>
+        fetch('pronosticos.json')
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.getElementById("forecast-body");
+                data.forEach(match => {
+                    const max = Math.max(match.p1, match.pX, match.p2);
+                    tbody.innerHTML += `
+                        <tr>
+                            <td style="color:#a0a0a0;font-size:13px">${match.date}</td>
+                            <td>${match.home} <br><span class="prob-box ${match.p1 === max ? 'highest-prob' : ''}">${match.p1}%</span></td>
+                            <td><br><span class="prob-box ${match.pX === max ? 'highest-prob' : ''}">${match.pX}%</span></td>
+                            <td>${match.away} <br><span class="prob-box ${match.p2 === max ? 'highest-prob' : ''}">${match.p2}%</span></td>
+                        </tr>`;
+                });
+            });
+    </script>
+</body>
+</html>
 
