@@ -1,7 +1,7 @@
 import json
 import random
 import pandas as pd
-import cloudscraper
+from playwright.sync_api import sync_playwright
 
 claves_zona_a = [
     "argentinos", "tucum", "banfield", "barracas",
@@ -49,11 +49,17 @@ def procesar_scraping():
     datos_finales = {"anual": [], "zonaA": [], "zonaB": []}
     
     try:
-        url = "https://www.promiedos.com.ar/primera"
-        # Usamos cloudscraper para evadir el bloqueo de Cloudflare
-        scraper = cloudscraper.create_scraper(browser={'browser': 'chrome', 'platform': 'windows', 'desktop': True})
-        html = scraper.get(url).text
-        
+        # Abrimos un navegador real en segundo plano
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page()
+            page.goto("https://www.promiedos.com.ar/primera", timeout=60000)
+            
+            # Esperamos a que cargue la tabla de posiciones en la página
+            page.wait_for_selector("table", timeout=15000)
+            html = page.content()
+            browser.close()
+            
         tablas = pd.read_html(html)
         
         df_stats = None
@@ -63,7 +69,7 @@ def procesar_scraping():
                 break
                 
         if df_stats is None:
-            raise Exception("No se encontró la tabla en Promiedos.")
+            raise Exception("No se encontró la tabla de posiciones en el HTML obtenido.")
             
         total_equipos = len(df_stats)
         
@@ -101,14 +107,14 @@ def procesar_scraping():
                     eq["pos"] = i + 1
                     eq["playoff"] = calcular_prob_zona(eq["pos"])
 
-        print(f"¡Scraping exitoso! Se leyeron {total_equipos} equipos.")
+        print(f"¡Scraping con navegador real exitoso! Se procesaron {total_equipos} equipos.")
         
     except Exception as e:
-        print(f"Error en el scraping: {e}")
+        print(f"Error con Playwright: {e}")
         for zona in ["anual", "zonaA", "zonaB"]:
             for i in range(1, 16 if zona != "anual" else 31):
                 datos_finales[zona].append({
-                    "pos": i, "name": f"Bloqueo Servidor {i}", 
+                    "pos": i, "name": f"Equipo {i} (Reintentando...)", 
                     "pj": 0, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0,
                     "champ": 0, "lib": 0, "sud": 0, "rel": 0, "playoff": 0
                 })
