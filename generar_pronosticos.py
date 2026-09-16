@@ -3,11 +3,17 @@ import json
 import urllib.request
 import random
 
-# Traemos la llave secreta desde GitHub Actions
 API_KEY = os.environ.get("API_KEY_FOOTBALL")
 
+# Equipos de la Zona A del Clausura
+equipos_zona_a = [
+    "Argentinos Jrs", "Atletico Tucuman", "Banfield", "Barracas Central",
+    "Deportivo Riestra", "Gimnasia L.P.", "Huracan", "Independiente",
+    "Instituto Cordoba", "River Plate", "Rosario Central", "Talleres Cordoba",
+    "Velez Sarsfield", "Independ. Rivadavia"
+]
+
 def calcular_probabilidades(pos, total_equipos):
-    # Lógica matemática para repartir los porcentajes mutuamente excluyentes
     champ = 0; lib = 0; sud = 0; rel = 0
     if pos == 1:
         champ = round(random.uniform(50.0, 85.0), 1)
@@ -41,39 +47,61 @@ def procesar_datos():
     
     if API_KEY:
         try:
-            # Conexión a la API (Liga Profesional ID: 128)
-            url = "https://v3.football.api-sports.io/standings?league=128&season=2024"
+            url = "https://v3.football.api-sports.io/standings?league=128&season=2026"
             req = urllib.request.Request(url, headers={'x-apisports-key': API_KEY})
             response = urllib.request.urlopen(req)
             data = json.loads(response.read().decode('utf-8'))
             
-            # Navegamos por la estructura del JSON que nos devuelve la API
-            standings = data['response'][0]['league']['standings'][0]
-            total = len(standings)
+            listas_tablas = data['response'][0]['league']['standings']
             
-            for team in standings:
-                pos = team['rank']
-                champ, lib, sud, rel = calcular_probabilidades(pos, total)
+            # Recorremos la(s) tabla(s) que mande la API
+            for tabla in listas_tablas:
+                total_equipos_tabla = len(tabla)
                 
-                datos_finales["anual"].append({
-                    "pos": pos,
-                    "name": team['team']['name'],
-                    "pj": team['all']['played'],
-                    "pg": team['all']['win'],
-                    "pe": team['all']['draw'],
-                    "pp": team['all']['lose'],
-                    "dg": team['goalsDiff'],
-                    "pts": team['points'],
-                    "champ": champ,
-                    "lib": lib,
-                    "sud": sud,
-                    "rel": rel
-                })
-            print("¡Datos reales de la API procesados con éxito!")
+                for team in tabla:
+                    nombre_equipo = team['team']['name']
+                    pos = team['rank']
+                    champ, lib, sud, rel = calcular_probabilidades(pos, total_equipos_tabla)
+                    
+                    datos_equipo = {
+                        "pos": pos,
+                        "name": nombre_equipo,
+                        "pj": team['all']['played'],
+                        "pg": team['all']['win'],
+                        "pe": team['all']['draw'],
+                        "pp": team['all']['lose'],
+                        "dg": team['goalsDiff'],
+                        "pts": team['points'],
+                        "champ": champ,
+                        "lib": lib,
+                        "sud": sud,
+                        "rel": rel
+                    }
+                    
+                    # 1. Lo agregamos siempre a la Tabla Anual
+                    datos_finales["anual"].append(datos_equipo)
+                    
+                    # 2. Lo filtramos a su Zona correspondiente manualmente
+                    if nombre_equipo in equipos_zona_a:
+                        datos_finales["zonaA"].append(datos_equipo)
+                    else:
+                        datos_finales["zonaB"].append(datos_equipo)
+            
+            # Recalculamos las posiciones de la Zona A
+            datos_finales["zonaA"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
+            for i, equipo in enumerate(datos_finales["zonaA"]):
+                equipo["pos"] = i + 1
+                
+            # Recalculamos las posiciones de la Zona B
+            datos_finales["zonaB"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
+            for i, equipo in enumerate(datos_finales["zonaB"]):
+                equipo["pos"] = i + 1
+
+            print("¡Datos procesados y zonas divididas con éxito!")
+            
         except Exception as e:
             print(f"Hubo un error conectando a la API: {e}")
     
-    # Escribimos el archivo final
     with open('pronosticos.json', 'w', encoding='utf-8') as f:
         json.dump(datos_finales, f, ensure_ascii=False, indent=4)
 
