@@ -14,9 +14,10 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Instalar librerias
+        run: pip install pandas lxml html5lib
+
       - name: Ejecutar motor predictivo
-        env:
-          API_KEY_FOOTBALL: ${{ secrets.API_KEY_FOOTBALL }}
         run: python generar_pronosticos.py
 
       - name: Guardar cambios
