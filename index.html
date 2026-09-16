@@ -138,8 +138,7 @@
                 <tr>
                     <th style="text-align: left; padding-left: 20px;">Equipo</th>
                     <th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>PTS</th>
-                    <th title="Probabilidad de ganar la Zona A">🏆 Ganar Zona</th>
-                    <th title="Probabilidad de clasificar a Cuartos de Final (1-4)">✅ Cuartos (1-4)</th>
+                    <th title="Probabilidad de clasificar a Playoffs (1-8)">✅ Playoffs (1-8)</th>
                 </tr>
             </thead>
             <tbody id="body-zonaA"></tbody>
@@ -152,8 +151,7 @@
                 <tr>
                     <th style="text-align: left; padding-left: 20px;">Equipo</th>
                     <th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>PTS</th>
-                    <th title="Probabilidad de ganar la Zona B">🏆 Ganar Zona</th>
-                    <th title="Probabilidad de clasificar a Cuartos de Final (1-4)">✅ Cuartos (1-4)</th>
+                    <th title="Probabilidad de clasificar a Playoffs (1-8)">✅ Playoffs (1-8)</th>
                 </tr>
             </thead>
             <tbody id="body-zonaB"></tbody>
@@ -191,12 +189,8 @@
                         <td class="pct-cell" style="background-color: ${getColorOpacity(t.rel, colorRel)}">${formatPct(t.rel)}</td>
                     `;
                 } else {
-                    let cuartos = t.pos <= 4 ? Math.min(100, t.lib + t.sud + 20) : t.sud;
-                    if(cuartos > 100) cuartos = 100;
-                    
                     probsHtml = `
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(cuartos, colorLib)}">${formatPct(cuartos)}</td>
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.playoff, colorLib)}">${formatPct(t.playoff)}</td>
                     `;
                 }
 
@@ -225,7 +219,6 @@
             btn.classList.add('active');
         }
 
-        // Acá la magia: lee el JSON externo
         fetch('pronosticos.json')
             .then(response => response.json())
             .then(data => {
@@ -233,8 +226,7 @@
                 if(data.zonaA) renderTable('body-zonaA', data.zonaA, true);
                 if(data.zonaB) renderTable('body-zonaB', data.zonaB, true);
             })
-            .catch(error => console.error("Falta generar el JSON con la info nueva:", error));
+            .catch(error => console.error("Falta generar el JSON:", error));
     </script>
 </body>
 </html>
-
