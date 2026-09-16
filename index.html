@@ -8,9 +8,11 @@
         :root {
             --bg-main: #0f172a;
             --bg-card: #1e293b;
+            --bg-hover: #334155;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
+            --accent: #43aa8b;
         }
         body { 
             font-family: 'Segoe UI', system-ui, sans-serif; 
@@ -21,36 +23,63 @@
         }
         header { 
             text-align: center; 
-            padding: 25px 0 15px 0; 
-            border-bottom: 1px solid var(--border); 
+            padding: 20px 0 10px 0; 
             margin-bottom: 20px;
         }
         h1 { margin: 0; font-size: 22px; display: flex; align-items: center; justify-content: center; gap: 8px;}
         .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 5px; }
         
+        /* Sistema de Pestañas (Tabs) */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { background: var(--bg-hover); color: var(--text-main); }
+        .tab-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
         .table-container { 
-            overflow-x: auto; /* Permite deslizar hacia los costados en celulares */
+            overflow-x: auto;
             border-radius: 8px; 
             background: var(--bg-card);
             box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+            display: none; /* Se ocultan por defecto, JS muestra la activa */
         }
+        .table-container.active { display: block; }
+
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            min-width: 650px; 
+            min-width: 850px; /* Ancho ampliado para las nuevas columnas */
             text-align: center; 
         }
         th, td { 
-            padding: 12px 10px; 
+            padding: 10px 8px; 
             border-bottom: 1px solid var(--border); 
-            font-size: 14px; 
+            font-size: 13px; 
         }
         th { 
             color: var(--text-muted); 
             font-weight: 600; 
             font-size: 11px; 
             text-transform: uppercase; 
-            letter-spacing: 0.5px;
         }
         .team-cell { 
             text-align: left; 
@@ -58,6 +87,7 @@
             display: flex; 
             align-items: center; 
             gap: 8px; 
+            min-width: 150px;
         }
         .pos { 
             color: var(--text-muted); 
@@ -68,81 +98,218 @@
             font-weight: normal;
         }
         
-        /* Estilos de las celdas de probabilidad */
+        .stat-col { color: var(--text-muted); }
+        .stat-pts { font-weight: bold; color: var(--text-main); font-size: 14px; }
+        
+        /* Celdas de probabilidad */
         .pct-cell { font-weight: 600; color: #fff; text-shadow: 0px 1px 2px rgba(0,0,0,0.4); }
         .pct-0 { color: var(--border); font-weight: normal; text-shadow: none; }
     </style>
 </head>
 <body>
     <header>
-        <h1>⚽ Pronósticos Liga Profesional</h1>
-        <div class="subtitle">Probabilidades estimadas para el final de la temporada</div>
+        <h1>⚽ Stats Liga Profesional</h1>
+        <div class="subtitle">Pronósticos y posiciones actualizadas</div>
     </header>
 
-    <div class="table-container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('anual', this)">Tabla Anual</button>
+        <button class="tab-btn" onclick="showTab('zonaA', this)">Clausura - Zona A</button>
+        <button class="tab-btn" onclick="showTab('zonaB', this)">Clausura - Zona B</button>
+    </div>
+
+    <!-- TABLA ANUAL -->
+    <div id="anual" class="table-container active">
         <table>
             <thead>
                 <tr>
                     <th style="text-align: left; padding-left: 20px;">Equipo</th>
-                    <th title="Puntos actuales">Pts</th>
-                    <th title="Probabilidad de salir campeón">🏆 Campeón</th>
-                    <th title="Probabilidad de clasificar a Copa Libertadores">🌎 Libertadores</th>
-                    <th title="Probabilidad de clasificar a Copa Sudamericana">✈️ Sudamericana</th>
-                    <th title="Probabilidad de descender">⬇️ Descenso</th>
+                    <th title="Partidos Jugados">PJ</th>
+                    <th title="Ganados">G</th>
+                    <th title="Empatados">E</th>
+                    <th title="Perdidos">P</th>
+                    <th title="Diferencia de Goles">DG</th>
+                    <th title="Puntos actuales">PTS</th>
+                    <th title="Probabilidad de salir campeón anual">🏆 Camp</th>
+                    <th title="Probabilidad de quedar entre los puestos 1 y 3">🌎 Lib (1-3)</th>
+                    <th title="Probabilidad de quedar entre los puestos 4 y 9">✈️ Sud (4-9)</th>
+                    <th title="Probabilidad de quedar en zona de descenso (últimos 2)">⬇️ Desc</th>
                 </tr>
             </thead>
-            <tbody id="league-body"></tbody>
+            <tbody id="body-anual"></tbody>
+        </table>
+    </div>
+
+    <!-- ZONA A -->
+    <div id="zonaA" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding-left: 20px;">Equipo</th>
+                    <th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>PTS</th>
+                    <th title="Probabilidad de ganar la Zona A">🏆 Ganar Zona</th>
+                    <th title="Probabilidad de clasificar a Cuartos de Final (1-4)">✅ Cuartos (1-4)</th>
+                </tr>
+            </thead>
+            <tbody id="body-zonaA"></tbody>
+        </table>
+    </div>
+
+    <!-- ZONA B -->
+    <div id="zonaB" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding-left: 20px;">Equipo</th>
+                    <th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>PTS</th>
+                    <th title="Probabilidad de ganar la Zona B">🏆 Ganar Zona</th>
+                    <th title="Probabilidad de clasificar a Cuartos de Final (1-4)">✅ Cuartos (1-4)</th>
+                </tr>
+            </thead>
+            <tbody id="body-zonaB"></tbody>
         </table>
     </div>
 
     <script>
-        // Datos simulados (Aquí irían los resultados matemáticos de tu motor)
-        const teamsData = [
-            { pos: 1, name: "Vélez Sarsfield", pts: 45, champ: 78.5, lib: 99.9, sud: 100, rel: 0 },
-            { pos: 2, name: "Talleres (C)", pts: 39, champ: 12.3, lib: 85.0, sud: 98.2, rel: 0 },
-            { pos: 3, name: "Huracán", pts: 38, champ: 5.1, lib: 72.4, sud: 95.1, rel: 0 },
-            { pos: 4, name: "Unión de Santa Fe", pts: 36, champ: 2.8, lib: 54.2, sud: 88.7, rel: 0 },
-            { pos: 5, name: "River Plate", pts: 35, champ: 1.0, lib: 45.6, sud: 82.3, rel: 0 },
-            { pos: 6, name: "Racing Club", pts: 34, champ: 0.3, lib: 30.1, sud: 75.0, rel: 0 },
-            { pos: 7, name: "Boca Juniors", pts: 32, champ: 0, lib: 15.5, sud: 60.4, rel: 0 },
-            { pos: 8, name: "Belgrano", pts: 30, champ: 0, lib: 5.2, sud: 45.8, rel: 0 },
-            { pos: 26, name: "Sarmiento (J)", pts: 15, champ: 0, lib: 0, sud: 0, rel: 65.4 },
-            { pos: 27, name: "Indep. Rivadavia", pts: 12, champ: 0, lib: 0, sud: 0, rel: 82.1 },
-            { pos: 28, name: "Central Córdoba", pts: 9, champ: 0, lib: 0, sud: 0, rel: 95.8 }
+        // DATOS PARA TABLA ANUAL (30 EQUIPOS)
+        const dataAnual = [
+            { pos: 1, name: "Vélez Sarsfield", pj: 25, pg: 15, pe: 6, pp: 4, dg: 22, pts: 51, champ: 76.5, lib: 98.9, sud: 1.1, rel: 0 },
+            { pos: 2, name: "River Plate", pj: 25, pg: 14, pe: 7, pp: 4, dg: 18, pts: 49, champ: 18.2, lib: 90.5, sud: 9.5, rel: 0 },
+            { pos: 3, name: "Talleres (C)", pj: 25, pg: 13, pe: 8, pp: 4, dg: 15, pts: 47, champ: 4.8, lib: 72.1, sud: 27.9, rel: 0 },
+            { pos: 4, name: "Huracán", pj: 25, pg: 13, pe: 7, pp: 5, dg: 14, pts: 46, champ: 0.5, lib: 45.2, sud: 54.8, rel: 0 },
+            { pos: 5, name: "Unión de Santa Fe", pj: 25, pg: 12, pe: 8, pp: 5, dg: 9, pts: 44, champ: 0, lib: 25.1, sud: 74.9, rel: 0 },
+            { pos: 6, name: "Racing Club", pj: 25, pg: 12, pe: 7, pp: 6, dg: 11, pts: 43, champ: 0, lib: 15.5, sud: 84.5, rel: 0 },
+            { pos: 7, name: "Boca Juniors", pj: 25, pg: 11, pe: 9, pp: 5, dg: 8, pts: 42, champ: 0, lib: 8.2, sud: 91.8, rel: 0 },
+            { pos: 8, name: "Instituto", pj: 25, pg: 11, pe: 7, pp: 7, dg: 6, pts: 40, champ: 0, lib: 3.1, sud: 85.4, rel: 0 },
+            { pos: 9, name: "Belgrano", pj: 25, pg: 10, pe: 9, pp: 6, dg: 4, pts: 39, champ: 0, lib: 1.2, sud: 78.5, rel: 0 },
+            { pos: 10, name: "Estudiantes LP", pj: 25, pg: 10, pe: 8, pp: 7, dg: 5, pts: 38, champ: 0, lib: 0, sud: 15.4, rel: 0 },
+            { pos: 11, name: "Argentinos Juniors", pj: 25, pg: 9, pe: 9, pp: 7, dg: 2, pts: 36, champ: 0, lib: 0, sud: 8.2, rel: 0 },
+            { pos: 12, name: "Gimnasia LP", pj: 25, pg: 9, pe: 8, pp: 8, dg: 1, pts: 35, champ: 0, lib: 0, sud: 4.1, rel: 0 },
+            { pos: 13, name: "Rosario Central", pj: 25, pg: 9, pe: 7, pp: 9, dg: 0, pts: 34, champ: 0, lib: 0, sud: 1.5, rel: 0 },
+            { pos: 14, name: "Lanús", pj: 25, pg: 8, pe: 9, pp: 8, dg: -1, pts: 33, champ: 0, lib: 0, sud: 0.5, rel: 0 },
+            { pos: 15, name: "Independiente", pj: 25, pg: 7, pe: 11, pp: 7, dg: 0, pts: 32, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 16, name: "Defensa y Justicia", pj: 25, pg: 7, pe: 10, pp: 8, dg: -2, pts: 31, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 17, name: "Platense", pj: 25, pg: 7, pe: 9, pp: 9, dg: -3, pts: 30, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 18, name: "San Lorenzo", pj: 25, pg: 6, pe: 10, pp: 9, dg: -4, pts: 28, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 19, name: "Newell's", pj: 25, pg: 6, pe: 9, pp: 10, dg: -5, pts: 27, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 20, name: "Banfield", pj: 25, pg: 6, pe: 8, pp: 11, dg: -7, pts: 26, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 21, name: "Tigre", pj: 25, pg: 5, pe: 10, pp: 10, dg: -8, pts: 25, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 22, name: "Godoy Cruz", pj: 25, pg: 5, pe: 9, pp: 11, dg: -9, pts: 24, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 23, name: "Atlético Tucumán", pj: 25, pg: 5, pe: 8, pp: 12, dg: -11, pts: 23, champ: 0, lib: 0, sud: 0, rel: 0.5 },
+            { pos: 24, name: "Barracas Central", pj: 25, pg: 4, pe: 9, pp: 12, dg: -13, pts: 21, champ: 0, lib: 0, sud: 0, rel: 2.1 },
+            { pos: 25, name: "Quilmes", pj: 25, pg: 4, pe: 8, pp: 13, dg: -15, pts: 20, champ: 0, lib: 0, sud: 0, rel: 8.5 },
+            { pos: 26, name: "Deportivo Riestra", pj: 25, pg: 4, pe: 7, pp: 14, dg: -18, pts: 19, champ: 0, lib: 0, sud: 0, rel: 15.2 },
+            { pos: 27, name: "Sarmiento (J)", pj: 25, pg: 3, pe: 9, pp: 13, dg: -19, pts: 18, champ: 0, lib: 0, sud: 0, rel: 28.4 },
+            { pos: 28, name: "Indep. Rivadavia", pj: 25, pg: 3, pe: 8, pp: 14, dg: -21, pts: 17, champ: 0, lib: 0, sud: 0, rel: 45.6 },
+            { pos: 29, name: "San Martín (T)", pj: 25, pg: 2, pe: 8, pp: 15, dg: -23, pts: 14, champ: 0, lib: 0, sud: 0, rel: 85.5 },
+            { pos: 30, name: "Central Córdoba", pj: 25, pg: 2, pe: 6, pp: 17, dg: -26, pts: 12, champ: 0, lib: 0, sud: 0, rel: 98.2 }
         ];
 
-        // Función para calcular la intensidad del color de fondo basado en el porcentaje
+        // DATOS ZONA A (15 EQUIPOS)
+        const dataZonaA = [
+            { pos: 1, name: "Vélez Sarsfield", pj: 8, pg: 6, pe: 2, pp: 0, dg: 9, pts: 20, champ: 45.2, lib: 95.5, sud: 0, rel: 0 },
+            { pos: 2, name: "River Plate", pj: 8, pg: 5, pe: 2, pp: 1, dg: 7, pts: 17, champ: 25.1, lib: 82.4, sud: 0, rel: 0 },
+            { pos: 3, name: "Talleres (C)", pj: 8, pg: 4, pe: 3, pp: 1, dg: 5, pts: 15, champ: 15.5, lib: 65.8, sud: 0, rel: 0 },
+            { pos: 4, name: "Huracán", pj: 8, pg: 4, pe: 2, pp: 2, dg: 4, pts: 14, champ: 8.2, lib: 52.1, sud: 0, rel: 0 },
+            { pos: 5, name: "Boca Juniors", pj: 8, pg: 3, pe: 4, pp: 1, dg: 3, pts: 13, champ: 4.5, lib: 35.6, sud: 0, rel: 0 },
+            { pos: 6, name: "Belgrano", pj: 8, pg: 3, pe: 3, pp: 2, dg: 2, pts: 12, champ: 1.5, lib: 22.4, sud: 0, rel: 0 },
+            { pos: 7, name: "Argentinos Juniors", pj: 8, pg: 3, pe: 2, pp: 3, dg: 0, pts: 11, champ: 0, lib: 12.5, sud: 0, rel: 0 },
+            { pos: 8, name: "Rosario Central", pj: 8, pg: 2, pe: 4, pp: 2, dg: -1, pts: 10, champ: 0, lib: 5.2, sud: 0, rel: 0 },
+            { pos: 9, name: "San Lorenzo", pj: 8, pg: 2, pe: 3, pp: 3, dg: -2, pts: 9, champ: 0, lib: 2.1, sud: 0, rel: 0 },
+            { pos: 10, name: "Gimnasia LP", pj: 8, pg: 2, pe: 2, pp: 4, dg: -3, pts: 8, champ: 0, lib: 0.5, sud: 0, rel: 0 },
+            { pos: 11, name: "Banfield", pj: 8, pg: 1, pe: 4, pp: 3, dg: -4, pts: 7, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 12, name: "Lanús", pj: 8, pg: 1, pe: 3, pp: 4, dg: -5, pts: 6, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 13, name: "Sarmiento (J)", pj: 8, pg: 1, pe: 2, pp: 5, dg: -6, pts: 5, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 14, name: "Barracas Central", pj: 8, pg: 0, pe: 4, pp: 4, dg: -7, pts: 4, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 15, name: "Central Córdoba", pj: 8, pg: 0, pe: 2, pp: 6, dg: -9, pts: 2, champ: 0, lib: 0, sud: 0, rel: 0 }
+        ];
+
+        // DATOS ZONA B (15 EQUIPOS)
+        const dataZonaB = [
+            { pos: 1, name: "Unión de Santa Fe", pj: 8, pg: 5, pe: 3, pp: 0, dg: 8, pts: 18, champ: 35.5, lib: 92.1, sud: 0, rel: 0 },
+            { pos: 2, name: "Racing Club", pj: 8, pg: 5, pe: 2, pp: 1, dg: 7, pts: 17, champ: 28.4, lib: 85.5, sud: 0, rel: 0 },
+            { pos: 3, name: "Instituto", pj: 8, pg: 4, pe: 3, pp: 1, dg: 5, pts: 15, champ: 18.2, lib: 72.4, sud: 0, rel: 0 },
+            { pos: 4, name: "Estudiantes LP", pj: 8, pg: 4, pe: 2, pp: 2, dg: 4, pts: 14, champ: 12.5, lib: 58.2, sud: 0, rel: 0 },
+            { pos: 5, name: "Independiente", pj: 8, pg: 3, pe: 4, pp: 1, dg: 3, pts: 13, champ: 4.2, lib: 42.1, sud: 0, rel: 0 },
+            { pos: 6, name: "Defensa y Justicia", pj: 8, pg: 3, pe: 3, pp: 2, dg: 2, pts: 12, champ: 1.2, lib: 25.4, sud: 0, rel: 0 },
+            { pos: 7, name: "Platense", pj: 8, pg: 2, pe: 4, pp: 2, dg: 1, pts: 10, champ: 0, lib: 15.2, sud: 0, rel: 0 },
+            { pos: 8, name: "Newell's", pj: 8, pg: 2, pe: 3, pp: 3, dg: -1, pts: 9, champ: 0, lib: 8.5, sud: 0, rel: 0 },
+            { pos: 9, name: "Tigre", pj: 8, pg: 2, pe: 2, pp: 4, dg: -2, pts: 8, champ: 0, lib: 3.2, sud: 0, rel: 0 },
+            { pos: 10, name: "Godoy Cruz", pj: 8, pg: 1, pe: 4, pp: 3, dg: -3, pts: 7, champ: 0, lib: 0.8, sud: 0, rel: 0 },
+            { pos: 11, name: "Atlético Tucumán", pj: 8, pg: 1, pe: 3, pp: 4, dg: -4, pts: 6, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 12, name: "Quilmes", pj: 8, pg: 1, pe: 2, pp: 5, dg: -6, pts: 5, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 13, name: "Deportivo Riestra", pj: 8, pg: 0, pe: 4, pp: 4, dg: -7, pts: 4, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 14, name: "Indep. Rivadavia", pj: 8, pg: 0, pe: 3, pp: 5, dg: -8, pts: 3, champ: 0, lib: 0, sud: 0, rel: 0 },
+            { pos: 15, name: "San Martín (T)", pj: 8, pg: 0, pe: 2, pp: 6, dg: -9, pts: 2, champ: 0, lib: 0, sud: 0, rel: 0 }
+        ];
+
         function getColorOpacity(value, baseColor) {
             if (value === 0) return 'transparent';
-            // Convierte el porcentaje en una opacidad entre 0.15 y 0.85
             const opacity = Math.max(0.15, (value / 100) * 0.85);
             return `rgba(${baseColor}, ${opacity})`;
         }
 
-        const tbody = document.getElementById("league-body");
-        
-        teamsData.forEach(t => {
-            // Códigos de colores RGB para pintar las celdas
-            const colorChamp = "251, 191, 36"; // Dorado (Campeón)
-            const colorLib = "16, 185, 129";   // Verde (Libertadores)
-            const colorSud = "59, 130, 246";   // Azul (Sudamericana)
-            const colorRel = "239, 68, 68";    // Rojo (Descenso)
+        function formatPct(val) {
+            return val === 0 ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
+        }
 
-            const formatPct = (val) => val === 0 ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
+        function renderTable(tbodyId, data, isZone) {
+            const tbody = document.getElementById(tbodyId);
+            tbody.innerHTML = "";
+            
+            const colorChamp = "251, 191, 36"; // Dorado
+            const colorLib = "16, 185, 129";   // Verde
+            const colorSud = "59, 130, 246";   // Azul
+            const colorRel = "239, 68, 68";    // Rojo
 
-            tbody.innerHTML += `
-                <tr>
-                    <td class="team-cell" style="padding-left: 20px;">
-                        <span class="pos">${t.pos}</span> ${t.name}
-                    </td>
-                    <td style="font-weight: bold; color: var(--text-muted);">${t.pts}</td>
-                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
-                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.lib, colorLib)}">${formatPct(t.lib)}</td>
-                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.sud, colorSud)}">${formatPct(t.sud)}</td>
-                    <td class="pct-cell" style="background-color: ${getColorOpacity(t.rel, colorRel)}">${formatPct(t.rel)}</td>
-                </tr>
-            `;
-        });
+            data.forEach(t => {
+                let probsHtml = '';
+                if (!isZone) {
+                    // Columnas Anuales
+                    probsHtml = `
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.lib, colorLib)}">${formatPct(t.lib)}</td>
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.sud, colorSud)}">${formatPct(t.sud)}</td>
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.rel, colorRel)}">${formatPct(t.rel)}</td>
+                    `;
+                } else {
+                    // Columnas de Zona (Clausura). 'lib' acá se usa como probabilidad de cuartos de final.
+                    probsHtml = `
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
+                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.lib, colorLib)}">${formatPct(t.lib)}</td>
+                    `;
+                }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="team-cell" style="padding-left: 20px;">
+                            <span class="pos">${t.pos}</span> ${t.name}
+                        </td>
+                        <td class="stat-col">${t.pj}</td>
+                        <td class="stat-col">${t.pg}</td>
+                        <td class="stat-col">${t.pe}</td>
+                        <td class="stat-col">${t.pp}</td>
+                        <td class="stat-col" style="font-weight: 500;">${t.dg > 0 ? '+'+t.dg : t.dg}</td>
+                        <td class="stat-pts">${t.pts}</td>
+                        ${probsHtml}
+                    </tr>
+                `;
+            });
+        }
+
+        // Lógica para cambiar de pestañas
+        function showTab(tabId, btn) {
+            document.querySelectorAll('.table-container').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // Cargar las 3 tablas al iniciar
+        renderTable('body-anual', dataAnual, false);
+        renderTable('body-zonaA', dataZonaA, true);
+        renderTable('body-zonaB', dataZonaB, true);
     </script>
 </body>
 </html>
