@@ -5,12 +5,12 @@ import random
 
 API_KEY = os.environ.get("API_KEY_FOOTBALL")
 
-# Equipos de la Zona A del Clausura
-equipos_zona_a = [
-    "Argentinos Jrs", "Atletico Tucuman", "Banfield", "Barracas Central",
-    "Deportivo Riestra", "Gimnasia L.P.", "Huracan", "Independiente",
-    "Instituto Cordoba", "River Plate", "Rosario Central", "Talleres Cordoba",
-    "Velez Sarsfield", "Independ. Rivadavia"
+# Usamos palabras clave en minúscula para que coincida sin importar cómo lo escriba la API
+claves_zona_a = [
+    "argentinos", "tucuman", "banfield", "barracas",
+    "riestra", "gimnasia", "huracan", "independiente",
+    "instituto", "river", "rosario", "talleres",
+    "velez", "rivadavia"
 ]
 
 def calcular_probabilidades(pos, total_equipos):
@@ -44,6 +44,7 @@ def calcular_probabilidades(pos, total_equipos):
 
 def procesar_datos():
     datos_finales = {"anual": [], "zonaA": [], "zonaB": []}
+    api_exitosa = False
     
     if API_KEY:
         try:
@@ -52,20 +53,25 @@ def procesar_datos():
             response = urllib.request.urlopen(req)
             data = json.loads(response.read().decode('utf-8'))
             
+            # Verificamos si la API devolvió errores (ej: límite de consultas)
+            if 'errors' in data and data['errors']:
+                raise Exception(f"La API devolvió un error: {data['errors']}")
+            
+            if not data.get('response'):
+                raise Exception("La API no devolvió datos para la Liga 128 en el año 2026.")
+            
             listas_tablas = data['response'][0]['league']['standings']
             
-            # Recorremos la(s) tabla(s) que mande la API
             for tabla in listas_tablas:
                 total_equipos_tabla = len(tabla)
-                
                 for team in tabla:
-                    nombre_equipo = team['team']['name']
+                    nombre = team['team']['name']
                     pos = team['rank']
                     champ, lib, sud, rel = calcular_probabilidades(pos, total_equipos_tabla)
                     
                     datos_equipo = {
                         "pos": pos,
-                        "name": nombre_equipo,
+                        "name": nombre,
                         "pj": team['all']['played'],
                         "pg": team['all']['win'],
                         "pe": team['all']['draw'],
@@ -78,30 +84,42 @@ def procesar_datos():
                         "rel": rel
                     }
                     
-                    # 1. Lo agregamos siempre a la Tabla Anual
                     datos_finales["anual"].append(datos_equipo)
                     
-                    # 2. Lo filtramos a su Zona correspondiente manualmente
-                    if nombre_equipo in equipos_zona_a:
+                    # Asignación segura a Zonas
+                    es_zona_a = any(clave in nombre.lower() for clave in claves_zona_a)
+                    if es_zona_a:
                         datos_finales["zonaA"].append(datos_equipo)
                     else:
                         datos_finales["zonaB"].append(datos_equipo)
             
-            # Recalculamos las posiciones de la Zona A
-            datos_finales["zonaA"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
-            for i, equipo in enumerate(datos_finales["zonaA"]):
-                equipo["pos"] = i + 1
+            # Recalcular posiciones
+            if datos_finales["zonaA"]:
+                datos_finales["zonaA"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
+                for i, eq in enumerate(datos_finales["zonaA"]): eq["pos"] = i + 1
+            if datos_finales["zonaB"]:
+                datos_finales["zonaB"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
+                for i, eq in enumerate(datos_finales["zonaB"]): eq["pos"] = i + 1
                 
-            # Recalculamos las posiciones de la Zona B
-            datos_finales["zonaB"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
-            for i, equipo in enumerate(datos_finales["zonaB"]):
-                equipo["pos"] = i + 1
-
-            print("¡Datos procesados y zonas divididas con éxito!")
+            api_exitosa = True
+            print("¡Datos reales procesados y divididos con éxito!")
             
         except Exception as e:
-            print(f"Hubo un error conectando a la API: {e}")
+            print(f"\n--- ERROR CRÍTICO DETECTADO ---")
+            print(f"Detalle: {e}")
+            print(f"-------------------------------\n")
     
+    # Si la API falla, generamos datos de simulación temporales para que la web no se rompa
+    if not api_exitosa:
+        print("Activando salvavidas: Cargando datos de simulación temporales.")
+        equipos_simulados = ["Velez", "River", "Boca", "Talleres", "Racing", "Huracan"]
+        for i, eq in enumerate(equipos_simulados):
+            c, l, s, r = calcular_probabilidades(i+1, 6)
+            fake_data = {"pos": i+1, "name": eq + " (Datos Simulados por Error de API)", "pj": 10, "pg": 5, "pe": 3, "pp": 2, "dg": 5, "pts": 20 - i, "champ": c, "lib": l, "sud": s, "rel": r}
+            datos_finales["anual"].append(fake_data)
+            datos_finales["zonaA"].append(fake_data)
+            datos_finales["zonaB"].append(fake_data)
+
     with open('pronosticos.json', 'w', encoding='utf-8') as f:
         json.dump(datos_finales, f, ensure_ascii=False, indent=4)
 
