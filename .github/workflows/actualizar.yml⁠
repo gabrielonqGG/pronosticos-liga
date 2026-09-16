@@ -1,7 +1,7 @@
-name: Actualizar Pronósticos
+name: Actualizar Pronosticos
 on:
   schedule:
-    - cron: '0 23 * * *' # Se ejecuta todos los días a las 23:00
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 jobs:
@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
@@ -23,5 +24,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add pronosticos.json
-          git commit -m "Actualización automática de pronósticos" || echo "Sin cambios"
+          git commit -m "Actualizacion automatica" || echo "Sin cambios"
           git push
