@@ -40,7 +40,6 @@ def calcular_prob_anual(pos, total_equipos):
     return champ, lib, sud, rel
 
 def calcular_prob_zona(pos):
-    # Lógica para los 8 clasificados a Playoffs Interzonales
     if pos <= 8:
         return round(random.uniform(60.0, 99.0) - (pos * 1.5), 1)
     else:
@@ -50,30 +49,43 @@ def procesar_scraping():
     datos_finales = {"anual": [], "zonaA": [], "zonaB": []}
     
     try:
-        url = "https://www.espn.com.ar/futbol/posiciones/_/liga/arg.1"
-        # Le ponemos un camuflaje para que ESPN no nos bloquee
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+        url = "https://www.promiedos.com.ar/primera"
+        # Cabeceras robustas para simular un navegador real y saltar bloqueos
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'es-AR,es;q=0.8,en-US;q=0.5,en;q=0.3',
+        }
         req = urllib.request.Request(url, headers=headers)
-        html = urllib.request.urlopen(req, timeout=15).read()
+        html = urllib.request.urlopen(req, timeout=20).read()
         
+        # Leemos el HTML 
         tablas = pd.read_html(html)
-        df_nombres = tablas[0]
-        df_stats = tablas[1]
         
-        total_equipos = len(df_nombres)
+        df_stats = None
+        for tabla in tablas:
+            # Buscamos la tabla que tenga a los 30 equipos y la columna 'Equipo'
+            if len(tabla) >= 28 and 'Equipo' in tabla.columns:
+                df_stats = tabla
+                break
+                
+        if df_stats is None:
+            raise Exception("No se encontró la tabla de posiciones en Promiedos.")
+            
+        total_equipos = len(df_stats)
         
         for i in range(total_equipos):
-            nombre_crudo = str(df_nombres.iloc[i, 0])
-            nombre = ''.join([letra for letra in nombre_crudo if not letra.isdigit()]).strip()
+            # En Promiedos las columnas son directas y muy limpias
+            nombre = str(df_stats.iloc[i]['Equipo']).strip()
             
             datos_equipo = {
                 "name": nombre,
-                "pj": int(df_stats.iloc[i]['J']),
-                "pg": int(df_stats.iloc[i]['G']),
-                "pe": int(df_stats.iloc[i]['E']),
-                "pp": int(df_stats.iloc[i]['P']),
+                "pj": int(df_stats.iloc[i]['PJ']),
+                "pg": int(df_stats.iloc[i]['PG']),
+                "pe": int(df_stats.iloc[i]['PE']),
+                "pp": int(df_stats.iloc[i]['PP']),
                 "dg": int(df_stats.iloc[i]['DIF']),
-                "pts": int(df_stats.iloc[i]['PTS'])
+                "pts": int(df_stats.iloc[i]['Pts'])
             }
             
             datos_finales["anual"].append(datos_equipo.copy())
@@ -84,7 +96,7 @@ def procesar_scraping():
             else:
                 datos_finales["zonaB"].append(datos_equipo.copy())
                 
-        # Procesar posiciones y probabilidades
+        # Procesar posiciones y probabilidades finales
         datos_finales["anual"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
         for i, eq in enumerate(datos_finales["anual"]):
             eq["pos"] = i + 1
@@ -98,16 +110,14 @@ def procesar_scraping():
                     eq["pos"] = i + 1
                     eq["playoff"] = calcular_prob_zona(eq["pos"])
 
-        print(f"¡Scraping de ESPN exitoso! Se procesaron {total_equipos} equipos.")
+        print(f"¡Scraping de Promiedos exitoso! Se procesaron {total_equipos} equipos.")
         
     except Exception as e:
         print(f"Error en el scraping: {e}")
-        print("Activando salvavidas para no romper la web...")
-        # Generamos datos de emergencia para que la web nunca quede en blanco
         for zona in ["anual", "zonaA", "zonaB"]:
             for i in range(1, 16 if zona != "anual" else 31):
                 datos_finales[zona].append({
-                    "pos": i, "name": f"Equipo {i} (Error ESPN)", 
+                    "pos": i, "name": f"Error Servidor {i}", 
                     "pj": 0, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0,
                     "champ": 0, "lib": 0, "sud": 0, "rel": 0, "playoff": 0
                 })
