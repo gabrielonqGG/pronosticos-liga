@@ -125,150 +125,7 @@
         let sortConfig = { key: 'pts', asc: false };
         let isSimMode = false;
         let fechaActualIndex = 0;
-
-        // Fixture completo de las 7 fechas restantes (15 partidos exactos por fecha)
-        const fixtureRestante = [
-            {
-                titulo: "Fecha 10",
-                partidos: [
-                    { fecha: "18/09/2026", local: "Central Córdoba SE", visita: "Defensa y Justicia", gl: null, gv: null },
-                    { fecha: "18/09/2026", local: "Racing Club", visita: "Sarmiento", gl: null, gv: null },
-                    { fecha: "19/09/2026", local: "Gimnasia Mendoza", visita: "Deportivo Riestra", gl: null, gv: null },
-                    { fecha: "19/09/2026", local: "Gimnasia La Plata", visita: "Banfield", gl: null, gv: null },
-                    { fecha: "19/09/2026", local: "Unión de Santa Fe", visita: "Independiente", gl: null, gv: null },
-                    { fecha: "19/09/2026", local: "River Plate", visita: "Huracán", gl: null, gv: null },
-                    { fecha: "19/09/2026", local: "Instituto", visita: "Talleres de Córdoba", gl: null, gv: null },
-                    { fecha: "20/09/2026", local: "San Lorenzo", visita: "Boca Juniors", gl: null, gv: null },
-                    { fecha: "20/09/2026", local: "Platense", visita: "Newells Old Boys", gl: null, gv: null },
-                    { fecha: "20/09/2026", local: "Rosario Central", visita: "Argentinos Juniors", gl: null, gv: null },
-                    { fecha: "20/09/2026", local: "Belgrano", visita: "Estudiantes Río Cuarto", gl: null, gv: null },
-                    { fecha: "20/09/2026", local: "Vélez Sarsfield", visita: "Tigre", gl: null, gv: null },
-                    { fecha: "21/09/2026", local: "Aldosivi", visita: "Atlético Tucumán", gl: null, gv: null },
-                    { fecha: "21/09/2026", local: "Barracas Central", visita: "Independiente Rivadavia", gl: null, gv: null },
-                    { fecha: "21/09/2026", local: "Lanús", visita: "Estudiantes de La Plata", gl: null, gv: null }
-                ]
-            },
-            {
-                titulo: "Fecha 11",
-                partidos: [
-                    { fecha: "25/09/2026", local: "Boca Juniors", visita: "Estudiantes de La Plata", gl: null, gv: null },
-                    { fecha: "25/09/2026", local: "Independiente", visita: "River Plate", gl: null, gv: null },
-                    { fecha: "26/09/2026", local: "Argentinos Juniors", visita: "Vélez Sarsfield", gl: null, gv: null },
-                    { fecha: "26/09/2026", local: "Talleres de Córdoba", visita: "Belgrano", gl: null, gv: null },
-                    { fecha: "26/09/2026", local: "Huracán", visita: "San Lorenzo", gl: null, gv: null },
-                    { fecha: "26/09/2026", local: "Defensa y Justicia", visita: "Racing Club", gl: null, gv: null },
-                    { fecha: "27/09/2026", local: "Independiente Rivadavia", visita: "Rosario Central", gl: null, gv: null },
-                    { fecha: "27/09/2026", local: "Newells Old Boys", visita: "Instituto", gl: null, gv: null },
-                    { fecha: "27/09/2026", local: "Tigre", visita: "Platense", gl: null, gv: null },
-                    { fecha: "27/09/2026", local: "Estudiantes Río Cuarto", visita: "Central Córdoba SE", gl: null, gv: null },
-                    { fecha: "28/09/2026", local: "Banfield", visita: "Unión de Santa Fe", gl: null, gv: null },
-                    { fecha: "28/09/2026", local: "Deportivo Riestra", visita: "Gimnasia La Plata", gl: null, gv: null },
-                    { fecha: "28/09/2026", local: "Sarmiento", visita: "Gimnasia Mendoza", gl: null, gv: null },
-                    { fecha: "29/09/2026", local: "Atlético Tucumán", visita: "Barracas Central", gl: null, gv: null },
-                    { fecha: "29/09/2026", local: "Aldosivi", visita: "Lanús", gl: null, gv: null }
-                ]
-            },
-            {
-                titulo: "Fecha 12",
-                partidos: [
-                    { fecha: "02/10/2026", local: "River Plate", visita: "Talleres de Córdoba", gl: null, gv: null },
-                    { fecha: "02/10/2026", local: "Belgrano", visita: "Boca Juniors", gl: null, gv: null },
-                    { fecha: "03/10/2026", local: "Vélez Sarsfield", visita: "Independiente", gl: null, gv: null },
-                    { fecha: "03/10/2026", local: "San Lorenzo", visita: "Argentinos Juniors", gl: null, gv: null },
-                    { fecha: "03/10/2026", local: "Estudiantes de La Plata", visita: "Independiente Rivadavia", gl: null, gv: null },
-                    { fecha: "03/10/2026", local: "Rosario Central", visita: "Racing Club", gl: null, gv: null },
-                    { fecha: "04/10/2026", local: "Instituto", visita: "Newells Old Boys", gl: null, gv: null },
-                    { fecha: "04/10/2026", local: "Platense", visita: "Tigre", gl: null, gv: null },
-                    { fecha: "04/10/2026", local: "Central Córdoba SE", visita: "Estudiantes Río Cuarto", gl: null, gv: null },
-                    { fecha: "04/10/2026", local: "Unión de Santa Fe", visita: "Banfield", gl: null, gv: null },
-                    { fecha: "05/10/2026", local: "Gimnasia La Plata", visita: "Deportivo Riestra", gl: null, gv: null },
-                    { fecha: "05/10/2026", local: "Gimnasia Mendoza", visita: "Sarmiento", gl: null, gv: null },
-                    { fecha: "05/10/2026", local: "Barracas Central", visita: "Atlético Tucumán", gl: null, gv: null },
-                    { fecha: "06/10/2026", local: "Lanús", visita: "Aldosivi", gl: null, gv: null },
-                    { fecha: "06/10/2026", local: "Huracán", visita: "Defensa y Justicia", gl: null, gv: null }
-                ]
-            },
-            {
-                titulo: "Fecha 13",
-                partidos: [
-                    { fecha: "16/10/2026", local: "Boca Juniors", visita: "River Plate", gl: null, gv: null },
-                    { fecha: "16/10/2026", local: "Independiente", visita: "San Lorenzo", gl: null, gv: null },
-                    { fecha: "17/10/2026", local: "Argentinos Juniors", visita: "Estudiantes de La Plata", gl: null, gv: null },
-                    { fecha: "17/10/2026", local: "Talleres de Córdoba", visita: "Vélez Sarsfield", gl: null, gv: null },
-                    { fecha: "17/10/2026", local: "Independiente Rivadavia", visita: "Belgrano", gl: null, gv: null },
-                    { fecha: "17/10/2026", local: "Racing Club", visita: "Rosario Central", gl: null, gv: null },
-                    { fecha: "18/10/2026", local: "Newells Old Boys", visita: "Instituto", gl: null, gv: null },
-                    { fecha: "18/10/2026", local: "Tigre", visita: "Platense", gl: null, gv: null },
-                    { fecha: "18/10/2026", local: "Estudiantes Río Cuarto", visita: "Central Córdoba SE", gl: null, gv: null },
-                    { fecha: "18/10/2026", local: "Banfield", visita: "Unión de Santa Fe", gl: null, gv: null },
-                    { fecha: "19/10/2026", local: "Deportivo Riestra", visita: "Gimnasia La Plata", gl: null, gv: null },
-                    { fecha: "19/10/2026", local: "Gimnasia Mendoza", visita: "Sarmiento", gl: null, gv: null },
-                    { fecha: "19/10/2026", local: "Atlético Tucumán", visita: "Barracas Central", gl: null, gv: null },
-                    { fecha: "20/10/2026", local: "Aldosivi", visita: "Lanús", gl: null, gv: null },
-                    { fecha: "20/10/2026", local: "Defensa y Justicia", visita: "Huracán", gl: null, gv: null }
-                ]
-            },
-            {
-                titulo: "Fecha 14",
-                partidos: [
-                    { fecha: "23/10/2026", local: "River Plate", visita: "Independiente Rivadavia", gl: null, gv: null },
-                    { fecha: "23/10/2026", local: "Belgrano", visita: "Argentinos Juniors", gl: null, gv: null },
-                    { fecha: "24/10/2026", local: "Vélez Sarsfield", visita: "Boca Juniors", gl: null, gv: null },
-                    { fecha: "24/10/2026", local: "San Lorenzo", visita: "Talleres de Córdoba", gl: null, gv: null },
-                    { fecha: "24/10/2026", local: "Estudiantes de La Plata", visita: "Independiente", gl: null, gv: null },
-                    { fecha: "24/10/2026", local: "Rosario Central", visita: "Huracán", gl: null, gv: null },
-                    { fecha: "25/10/2026", local: "Instituto", visita: "Racing Club", gl: null, gv: null },
-                    { fecha: "25/10/2026", local: "Platense", visita: "Newells Old Boys", gl: null, gv: null },
-                    { fecha: "25/10/2026", local: "Central Córdoba SE", visita: "Tigre", gl: null, gv: null },
-                    { fecha: "25/10/2026", local: "Unión de Santa Fe", visita: "Defensa y Justicia", gl: null, gv: null },
-                    { fecha: "26/10/2026", local: "Gimnasia La Plata", visita: "Banfield", gl: null, gv: null },
-                    { fecha: "26/10/2026", local: "Sarmiento", visita: "Deportivo Riestra", gl: null, gv: null },
-                    { fecha: "26/10/2026", local: "Barracas Central", visita: "Aldosivi", gl: null, gv: null },
-                    { fecha: "27/10/2026", local: "Lanús", visita: "Gimnasia Mendoza", gl: null, gv: null },
-                    { fecha: "27/10/2026", local: "Atlético Tucumán", visita: "Estudiantes Río Cuarto", gl: null, gv: null }
-                ]
-            },
-            {
-                titulo: "Fecha 15",
-                partidos: [
-                    { fecha: "30/10/2026", local: "Independiente Rivadavia", visita: "Vélez Sarsfield", gl: null, gv: null },
-                    { fecha: "30/10/2026", local: "Argentinos Juniors", visita: "River Plate", gl: null, gv: null },
-                    { fecha: "31/10/2026", local: "Boca Juniors", visita: "San Lorenzo", gl: null, gv: null },
-                    { fecha: "31/10/2026", local: "Talleres de Córdoba", visita: "Estudiantes de La Plata", gl: null, gv: null },
-                    { fecha: "31/10/2026", local: "Independiente", visita: "Belgrano", gl: null, gv: null },
-                    { fecha: "31/10/2026", local: "Huracán", visita: "Instituto", gl: null, gv: null },
-                    { fecha: "01/11/2026", local: "Racing Club", visita: "Platense", gl: null, gv: null },
-                    { fecha: "01/11/2026", local: "Newells Old Boys", visita: "Central Córdoba SE", gl: null, gv: null },
-                    { fecha: "01/11/2026", local: "Tigre", visita: "Unión de Santa Fe", gl: null, gv: null },
-                    { fecha: "01/11/2026", local: "Estudiantes Río Cuarto", visita: "Barracas Central", gl: null, gv: null },
-                    { fecha: "02/11/2026", local: "Banfield", visita: "Sarmiento", gl: null, gv: null },
-                    { fecha: "02/11/2026", local: "Deportivo Riestra", visita: "Lanús", gl: null, gv: null },
-                    { fecha: "02/11/2026", local: "Aldosivi", visita: "Atlético Tucumán", gl: null, gv: null },
-                    { fecha: "03/11/2026", local: "Gimnasia Mendoza", visita: "Gimnasia La Plata", gl: null, gv: null },
-                    { fecha: "03/11/2026", local: "Defensa y Justicia", visita: "Rosario Central", gl: null, gv: null }
-                ]
-            },
-            {
-                titulo: "Fecha 16",
-                partidos: [
-                    { fecha: "07/11/2026", local: "River Plate", visita: "Boca Juniors", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "San Lorenzo", visita: "Independiente", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Estudiantes de La Plata", visita: "Argentinos Juniors", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Vélez Sarsfield", visita: "Talleres de Córdoba", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Belgrano", visita: "Independiente Rivadavia", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Rosario Central", visita: "Racing Club", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Instituto", visita: "Newells Old Boys", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Platense", visita: "Tigre", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Central Córdoba SE", visita: "Estudiantes Río Cuarto", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Unión de Santa Fe", visita: "Banfield", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Gimnasia La Plata", visita: "Deportivo Riestra", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Sarmiento", visita: "Gimnasia Mendoza", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Barracas Central", visita: "Atlético Tucumán", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Lanús", visita: "Aldosivi", gl: null, gv: null },
-                    { fecha: "07/11/2026", local: "Huracán", visita: "Defensa y Justicia", gl: null, gv: null }
-                ]
-            }
-        ];
+        let fixtureRestante = [];
 
         const thAnual = `<thead><tr><th data-key="pos">#</th><th data-key="name">Equipo</th><th data-key="pj">PJ</th><th data-key="pg">G</th><th data-key="pe">E</th><th data-key="pp">P</th><th data-key="dg">DG</th><th data-key="pts">PTS</th><th data-key="champ">🏆 CAMP</th><th data-key="lib">🌎 LIB</th><th data-key="sud">✈️ SUD</th><th data-key="rel">⬇️ DESC</th></tr></thead><tbody></tbody>`;
         const thZonas = `<thead><tr><th data-key="pos">#</th><th data-key="name">Equipo</th><th data-key="pj">PJ</th><th data-key="pg">G</th><th data-key="pe">E</th><th data-key="pp">P</th><th data-key="dg">DG</th><th data-key="pts">PTS</th><th data-key="playoff">✅ PLAYOFFS</th></tr></thead><tbody></tbody>`;
@@ -283,37 +140,44 @@
                 apiData = JSON.parse(JSON.stringify(data));
                 currentData = JSON.parse(JSON.stringify(data));
                 if(data.ultima_actualizacion) document.getElementById('lastUpdate').innerText = "🔄 Actualizado: " + data.ultima_actualizacion;
+                
+                generarFixtureDinamico();
                 renderizarFecha();
                 renderAll();
                 setupSortListeners();
             });
 
-        // --- MATEMÁTICA Y PROBABILIDADES CALIBRADA ---
-        function erf(x) {
-            let sign = (x >= 0) ? 1 : -1; x = Math.abs(x);
-            let t = 1.0 / (1.0 + 0.3275911 * x);
-            let y = 1.0 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
-            return sign * y;
-        }
-        function normal_cdf(x, mu, sigma) {
-            if (sigma === 0) return x <= mu ? 1.0 : 0.0;
-            return 0.5 * (1 + erf((x - mu) / (sigma * Math.sqrt(2))));
-        }
-        function redistribuir_porcentajes(probs, slots) {
-            for (let k = 0; k < 10; k++) {
-                let exceso = probs.reduce((sum, p) => sum + (p > 100.0 ? p - 100.0 : 0), 0);
-                if (exceso <= 0.01) break;
-                probs = probs.map(p => Math.min(100.0, p));
-                let receptores = probs.map((p, i) => (p < 100.0 && p > 0.0) ? i : -1).filter(i => i !== -1);
-                if (receptores.length === 0) break;
-                let espacio_libre = receptores.reduce((sum, i) => sum + probs[i], 0);
-                receptores.forEach(i => {
-                    probs[i] += espacio_libre > 0 ? exceso * (probs[i] / espacio_libre) : exceso / receptores.length;
-                });
+        // --- GENERADOR DE FIXTURE DINÁMICO (7 Fechas Restantes, 15 partidos c/u) ---
+        function generarFixtureDinamico() {
+            let equipos = apiData.anual.map(t => t.name);
+            fixtureRestante = [];
+            let fechaBase = new Date(2026, 8, 18); // 18 de septiembre 2026
+
+            for (let f = 1; f <= 7; f++) {
+                let partidosFecha = [];
+                let disponibles = [...equipos];
+                // Rotación inteligente para simular emparejamientos lógicos
+                let rotados = disponibles.slice(f % 15).concat(disponibles.slice(0, f % 15));
+                
+                for (let i = 0; i < 15; i++) {
+                    let loc = rotados[i];
+                    let vis = rotados[rotados.length - 1 - i];
+                    let d = new Date(fechaBase);
+                    d.setDate(d.getDate() + (f - 1) * 3 + Math.floor(i / 5));
+                    
+                    partidosFecha.push({
+                        fecha: d.toLocaleDateString('es-AR'),
+                        local: loc,
+                        visita: vis,
+                        gl: null,
+                        gv: null
+                    });
+                }
+                fixtureRestante.push({ titulo: `Fecha ${9 + f}`, partidos: partidosFecha });
             }
-            return probs.map(p => Math.min(100.0, p));
         }
 
+        // --- MATEMÁTICA SOFTMAX DISTRIBUIDA (Evita porcentajes inflados) ---
         function recalcularProbabilidades(datos, tipo) {
             let total = datos.length;
             if (total === 0) return;
@@ -331,47 +195,58 @@
                 eq.pj_res = pj_res;
             });
 
-            function get_target(idx) {
-                idx = Math.max(0, Math.min(idx, total - 1));
-                return { mu: datos[idx]?.mu || 0, pts: datos[idx]?.pts || 0, pmax: datos[idx]?.pmax || 0 };
+            function calcular_softmax(slots, pts_corte, es_descenso = false) {
+                let pesos = [];
+                let max_mu = Math.max(...datos.map(d => d.mu));
+                
+                datos.forEach(eq => {
+                    let alpha = 1.8 / Math.max(1, eq.pj_res); // Temperatura balanceada para distribución real
+                    if (!es_descenso) {
+                        if (eq.pmax < pts_corte) pesos.push(0.0);
+                        else if (eq.pj_res === 0 && eq.pts >= pts_corte) pesos.push(1000);
+                        else pesos.push(Math.exp(alpha * (eq.mu - max_mu)));
+                    } else {
+                        if (eq.pmin > pts_max_descenso) pesos.push(0.0);
+                        else if (eq.pj_res === 0 && eq.pts <= pts_max_descenso) pesos.push(1000);
+                        else pesos.push(Math.exp(-alpha * (eq.mu - max_mu)));
+                    }
+                });
+
+                let suma = pesos.reduce((a, b) => a + b, 0);
+                if (suma === 0) return Array(total).fill(0.0);
+                
+                let probs = pesos.map(w => (w / suma) * slots * 100.0);
+                return probs.map(p => Math.min(100.0, Math.max(0.0, p)));
             }
+
+            let pts_1 = datos[0]?.pts || 0;
+            let pts_3 = datos[2]?.pts || 0;
+            let pts_8 = datos[7]?.pts || 0;
+            let pts_9 = datos[8]?.pts || 0;
+            let pts_max_descenso = total > 1 ? datos[total-2].pmax : 0;
 
             if (tipo === "anual") {
-                let t1 = get_target(0), t3 = get_target(2), t9 = get_target(8), tDesc = get_target(total - 3);
-                function calc_raw(target_mu, target_ref, is_desc=false) {
-                    return datos.map(eq => {
-                        if (!is_desc) {
-                            if (eq.pmax < target_ref) return 0.0;
-                            if (eq.pj_res === 0 && eq.pts >= target_ref) return 1.0;
-                            let p = 1.0 - normal_cdf(target_mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35);
-                            return Math.max(0.001, p);
-                        } else {
-                            if (eq.pmin > target_ref) return 0.0;
-                            if (eq.pj_res === 0 && eq.pts <= target_ref) return 1.0;
-                            let p = normal_cdf(target_mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35);
-                            return Math.max(0.001, p);
-                        }
-                    });
-                }
-                let p_1 = normalize_arr(calc_raw(t1.mu, t1.pts), 1);
-                let p_3 = normalize_arr(calc_raw(t3.mu, t3.pts), 3);
-                let p_9 = normalize_arr(calc_raw(t9.mu, t9.pts), 9);
-                let p_desc = normalize_arr(calc_raw(tDesc.mu, tDesc.pmax, true), 2);
+                let p1 = calcular_softmax(1, pts_1);
+                let p3 = calcular_softmax(3, pts_3);
+                let p9 = calcular_softmax(9, pts_9);
+                let pDesc = calcular_softmax(2, 0, true);
 
                 datos.forEach((eq, i) => {
-                    let c1 = p_1[i], c3 = Math.max(c1, p_3[i]), c9 = Math.max(c3, p_9[i]);
-                    eq.champ = c1; eq.lib = c3 - c1; eq.sud = c9 - c3; eq.rel = p_desc[i];
+                    let c1 = p1[i];
+                    let c3 = Math.max(c1, p3[i]);
+                    let c9 = Math.max(c3, p9[i]);
+                    
+                    eq.champ = c1;
+                    eq.lib = c3 - c1;
+                    eq.sud = c9 - c3;
+                    eq.rel = pDesc[i];
                 });
             } else {
-                let t8 = get_target(7);
-                let raw_pl = datos.map(eq => eq.pmax < t8.pts ? 0.0 : Math.max(0.001, 1.0 - normal_cdf(t8.mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35)));
-                let p_8 = normalize_arr(raw_pl, 8);
-                datos.forEach((eq, i) => eq.playoff = p_8[i]);
+                let p8 = calcular_softmax(8, pts_8);
+                datos.forEach((eq, i) => {
+                    eq.playoff = p8[i];
+                });
             }
-        }
-        function normalize_arr(raws, slots) {
-            let s = raws.reduce((a,b)=>a+b, 0);
-            return s === 0 ? Array(raws.length).fill(0.0) : redistribuir_porcentajes(raws.map(r => (r/s) * slots * 100.0), slots);
         }
 
         // --- GESTIÓN DE FECHAS SIMULADOR ---
@@ -438,8 +313,8 @@
                 f.partidos.forEach(p => {
                     if(p.gl !== null && p.gv !== null) {
                         ['anual', 'zonaA', 'zonaB'].forEach(zona => {
-                            let loc = currentData[zona].find(t => t.name.toLowerCase().includes(p.local.toLowerCase().substring(0,5)));
-                            let vis = currentData[zona].find(t => t.name.toLowerCase().includes(p.visita.toLowerCase().substring(0,5)));
+                            let loc = currentData[zona].find(t => t.name.toLowerCase() === p.local.toLowerCase());
+                            let vis = currentData[zona].find(t => t.name.toLowerCase() === p.visita.toLowerCase());
                             if(loc && vis) {
                                 loc.pj++; vis.pj++;
                                 loc.dg += (p.gl - p.gv); vis.dg += (p.gv - p.gl);
