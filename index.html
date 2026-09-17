@@ -1,232 +1,365 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pronósticos de Temporada - Liga Argentina</title>
+    <title>Stats Liga Profesional</title>
     <style>
+        /* Variables Nativas - Modo Oscuro (Por defecto) */
         :root {
-            --bg-main: #0f172a;
+            --bg-body: #0f172a;
             --bg-card: #1e293b;
-            --bg-hover: #334155;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
-            --accent: #43aa8b;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --hover-row: rgba(56, 189, 248, 0.05);
+            --sticky-bg: #1e293b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --champ: 251, 191, 36;
+            --lib: 16, 185, 129;
+            --sud: 59, 130, 246;
+            --rel: 239, 68, 68;
         }
-        body { 
-            font-family: 'Segoe UI', system-ui, sans-serif; 
-            background: var(--bg-main); 
-            color: var(--text-main); 
-            margin: 0; 
-            padding: 10px; 
+
+        /* Variables Nativas - Modo Claro */
+        [data-theme="light"] {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --accent: #0284c7;
+            --accent-hover: #0369a1;
+            --hover-row: rgba(2, 132, 199, 0.05);
+            --sticky-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-        header { 
-            text-align: center; 
-            padding: 20px 0 10px 0; 
-            margin-bottom: 20px;
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 10px;
+            transition: background-color 0.3s, color 0.3s;
         }
-        h1 { margin: 0; font-size: 22px; display: flex; align-items: center; justify-content: center; gap: 8px;}
-        .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 5px; }
-        
+
+        /* Controles Superiores */
+        .header-controls {
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h1 { margin: 0; font-size: 24px; display: flex; align-items: center; gap: 8px; }
+        .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box:focus { border-color: var(--accent); }
+
+        .theme-btn {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .theme-btn:hover { background: var(--hover-row); }
+
+        /* Pestañas */
         .tabs {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
         .tab-btn {
             background: var(--bg-card);
             color: var(--text-muted);
             border: 1px solid var(--border);
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 13px;
             transition: all 0.2s;
         }
-        .tab-btn:hover { background: var(--bg-hover); color: var(--text-main); }
-        .tab-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
+        .tab-btn:hover { background: var(--hover-row); color: var(--text-main); }
+        .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .table-container { 
-            overflow-x: auto;
-            border-radius: 8px; 
-            background: var(--bg-card);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3); 
+        /* Contenedor de Tabla - Responsive y Sticky */
+        .table-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: none;
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
         }
         .table-container.active { display: block; }
 
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            min-width: 850px; 
-            text-align: center; 
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        th, td { 
-            padding: 10px 8px; 
-            border-bottom: 1px solid var(--border); 
-            font-size: 13px; 
-        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 800px; text-align: center; }
+        
+        th, td { padding: 12px 10px; border-bottom: 1px solid var(--border); font-size: 14px; }
+        
         th { 
             color: var(--text-muted); 
-            font-weight: 600; 
-            font-size: 11px; 
+            font-size: 12px; 
             text-transform: uppercase; 
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
         }
-        .team-cell { 
-            text-align: left; 
-            font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            min-width: 150px;
-        }
-        .pos { 
-            color: var(--text-muted); 
-            width: 20px; 
-            display: inline-block; 
-            text-align: right; 
-            font-size: 12px;
-            font-weight: normal;
-        }
+        th:hover { background: var(--hover-row); color: var(--accent); }
         
-        .stat-col { color: var(--text-muted); }
-        .stat-pts { font-weight: bold; color: var(--text-main); font-size: 14px; }
-        
-        .pct-cell { font-weight: 600; color: #fff; text-shadow: 0px 1px 2px rgba(0,0,0,0.4); }
+        /* Sticky Column Magic */
+        th:first-child, td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            background: var(--sticky-bg);
+            text-align: left;
+            padding-left: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        }
+        th:first-child { z-index: 3; }
+
+        tbody tr:hover td { background: var(--hover-row); }
+        tbody tr:hover td:first-child { background: var(--hover-row); } /* Override sticky bg on hover */
+
+        .pos { display: inline-block; width: 24px; color: var(--text-muted); font-size: 12px; }
+        .team-name { font-weight: 600; }
+        .stat-pts { font-weight: bold; color: var(--text-main); font-size: 15px; }
+
+        /* Celdas de Probabilidad */
+        .pct-cell { font-weight: 600; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         .pct-0 { color: var(--border); font-weight: normal; text-shadow: none; }
+        
+        /* Flechas de ordenamiento */
+        .sort-icon::after { content: ' \2195'; opacity: 0.3; }
+        .sort-asc::after { content: ' \25B2'; opacity: 1; color: var(--accent); }
+        .sort-desc::after { content: ' \25BC'; opacity: 1; color: var(--accent); }
     </style>
 </head>
 <body>
-    <header>
-        <h1>⚽ Stats Liga Profesional</h1>
-        <div class="subtitle">Pronósticos y posiciones actualizadas</div>
-    </header>
+
+    <div class="header-controls">
+        <div style="text-align: center;">
+            <h1>⚽ Stats Liga Profesional</h1>
+            <div class="subtitle">Pronósticos y posiciones actualizadas en tiempo real</div>
+        </div>
+        
+        <div class="toolbar">
+            <input type="text" id="searchInput" class="search-box" placeholder="Buscar equipo...">
+            <button id="themeToggle" class="theme-btn">🌓 Tema Oscuro/Claro</button>
+        </div>
+    </div>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('anual', this)">Tabla Anual</button>
-        <button class="tab-btn" onclick="showTab('zonaA', this)">Clausura - Zona A</button>
-        <button class="tab-btn" onclick="showTab('zonaB', this)">Clausura - Zona B</button>
+        <button class="tab-btn active" data-target="anual">Tabla Anual</button>
+        <button class="tab-btn" data-target="zonaA">Clausura - Zona A</button>
+        <button class="tab-btn" data-target="zonaB">Clausura - Zona B</button>
     </div>
 
-    <div id="anual" class="table-container active">
-        <table>
-            <thead>
-                <tr>
-                    <th style="text-align: left; padding-left: 20px;">Equipo</th>
-                    <th title="Partidos Jugados">PJ</th><th title="Ganados">G</th><th title="Empatados">E</th><th title="Perdidos">P</th><th title="Diferencia de Goles">DG</th><th title="Puntos actuales">PTS</th>
-                    <th title="Probabilidad de salir campeón anual">🏆 Camp</th>
-                    <th title="Probabilidad de quedar entre los puestos 1 y 3">🌎 Lib (1-3)</th>
-                    <th title="Probabilidad de quedar entre los puestos 4 y 9">✈️ Sud (4-9)</th>
-                    <th title="Probabilidad de quedar en zona de descenso (últimos 2)">⬇️ Desc</th>
-                </tr>
-            </thead>
-            <tbody id="body-anual"></tbody>
-        </table>
-    </div>
-
-    <div id="zonaA" class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th style="text-align: left; padding-left: 20px;">Equipo</th>
-                    <th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>PTS</th>
-                    <th title="Probabilidad de clasificar a Playoffs (1-8)">✅ Playoffs (1-8)</th>
-                </tr>
-            </thead>
-            <tbody id="body-zonaA"></tbody>
-        </table>
-    </div>
-
-    <div id="zonaB" class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th style="text-align: left; padding-left: 20px;">Equipo</th>
-                    <th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>PTS</th>
-                    <th title="Probabilidad de clasificar a Playoffs (1-8)">✅ Playoffs (1-8)</th>
-                </tr>
-            </thead>
-            <tbody id="body-zonaB"></tbody>
-        </table>
-    </div>
+    <!-- Contenedores dinámicos generados por JS -->
+    <div id="anual" class="table-container active"><div class="table-wrapper"><table id="table-anual"></table></div></div>
+    <div id="zonaA" class="table-container"><div class="table-wrapper"><table id="table-zonaA"></table></div></div>
+    <div id="zonaB" class="table-container"><div class="table-wrapper"><table id="table-zonaB"></table></div></div>
 
     <script>
-        function getColorOpacity(value, baseColor) {
-            if (!value || value === 0) return 'transparent';
-            const opacity = Math.max(0.15, (value / 100) * 0.85);
-            return `rgba(${baseColor}, ${opacity})`;
+        // 1. Manejo del Tema (Oscuro/Claro)
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            let switchTo = theme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', switchTo);
+            localStorage.setItem('theme', switchTo);
+        });
+
+        // 2. Variables Globales y Lógica de Datos
+        let apiData = { anual: [], zonaA: [], zonaB: [] };
+        let currentTab = 'anual';
+        let sortConfig = { key: 'pos', asc: true };
+
+        const thAnual = `
+            <thead>
+                <tr>
+                    <th data-key="name" class="sort-icon">Equipo</th>
+                    <th data-key="pj" class="sort-icon" title="Partidos Jugados">PJ</th>
+                    <th data-key="pg" class="sort-icon" title="Ganados">G</th>
+                    <th data-key="pe" class="sort-icon" title="Empatados">E</th>
+                    <th data-key="pp" class="sort-icon" title="Perdidos">P</th>
+                    <th data-key="dg" class="sort-icon" title="Diferencia de Goles">DG</th>
+                    <th data-key="pts" class="sort-icon sort-desc" title="Puntos actuales">PTS</th>
+                    <th data-key="champ" class="sort-icon" title="Probabilidad de salir campeón">🏆 CAMP</th>
+                    <th data-key="lib" class="sort-icon" title="Libertadores (1-3)">🌎 LIB</th>
+                    <th data-key="sud" class="sort-icon" title="Sudamericana (4-9)">✈️ SUD</th>
+                    <th data-key="rel" class="sort-icon" title="Zona de Descenso">⬇️ DESC</th>
+                </tr>
+            </thead><tbody></tbody>`;
+
+        const thZonas = `
+            <thead>
+                <tr>
+                    <th data-key="name" class="sort-icon">Equipo</th>
+                    <th data-key="pj" class="sort-icon">PJ</th>
+                    <th data-key="pg" class="sort-icon">G</th>
+                    <th data-key="pe" class="sort-icon">E</th>
+                    <th data-key="pp" class="sort-icon">P</th>
+                    <th data-key="dg" class="sort-icon">DG</th>
+                    <th data-key="pts" class="sort-icon sort-desc">PTS</th>
+                    <th data-key="playoff" class="sort-icon">✅ PLAYOFFS (1-8)</th>
+                </tr>
+            </thead><tbody></tbody>`;
+
+        document.getElementById('table-anual').innerHTML = thAnual;
+        document.getElementById('table-zonaA').innerHTML = thZonas;
+        document.getElementById('table-zonaB').innerHTML = thZonas;
+
+        // 3. Fetch y Renderizado
+        fetch('pronosticos.json')
+            .then(response => response.json())
+            .then(data => {
+                apiData = data;
+                renderAll();
+                setupSortListeners();
+            }).catch(e => console.error("Generando JSON en GitHub Actions...", e));
+
+        function getBgOpacity(value, varColor) {
+            if (!value || value <= 0.1) return 'transparent';
+            const opacity = Math.max(0.15, (value / 100) * 0.9);
+            return `rgba(var(--${varColor}), ${opacity})`;
         }
 
         function formatPct(val) {
-            return (!val || val === 0) ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
+            return (!val || val <= 0.1) ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
         }
 
-        function renderTable(tbodyId, data, isZone) {
-            const tbody = document.getElementById(tbodyId);
-            tbody.innerHTML = "";
-            if (!data) return;
+        function renderTable(tabId) {
+            const isZone = tabId !== 'anual';
+            const table = document.getElementById(`table-${tabId}`);
+            const tbody = table.querySelector('tbody');
+            tbody.innerHTML = '';
             
-            const colorChamp = "251, 191, 36"; 
-            const colorLib = "16, 185, 129";   
-            const colorSud = "59, 130, 246";   
-            const colorRel = "239, 68, 68";    
+            let data = [...apiData[tabId]];
+            
+            // Lógica de Ordenamiento
+            data.sort((a, b) => {
+                let valA = a[sortConfig.key];
+                let valB = b[sortConfig.key];
+                if (typeof valA === 'string') return sortConfig.asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                return sortConfig.asc ? valA - valB : valB - valA;
+            });
+
+            // Lógica de Filtrado (Buscador)
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (query) data = data.filter(t => t.name.toLowerCase().includes(query));
 
             data.forEach(t => {
                 let probsHtml = '';
                 if (!isZone) {
                     probsHtml = `
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.champ, colorChamp)}">${formatPct(t.champ)}</td>
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.lib, colorLib)}">${formatPct(t.lib)}</td>
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.sud, colorSud)}">${formatPct(t.sud)}</td>
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.rel, colorRel)}">${formatPct(t.rel)}</td>
-                    `;
+                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.champ, 'champ')}">${formatPct(t.champ)}</td>
+                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.lib, 'lib')}">${formatPct(t.lib)}</td>
+                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.sud, 'sud')}">${formatPct(t.sud)}</td>
+                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.rel, 'rel')}">${formatPct(t.rel)}</td>`;
                 } else {
-                    probsHtml = `
-                        <td class="pct-cell" style="background-color: ${getColorOpacity(t.playoff, colorLib)}">${formatPct(t.playoff)}</td>
-                    `;
+                    probsHtml = `<td class="pct-cell" style="background-color: ${getBgOpacity(t.playoff, 'lib')}">${formatPct(t.playoff)}</td>`;
                 }
 
                 tbody.innerHTML += `
                     <tr>
-                        <td class="team-cell" style="padding-left: 20px;">
-                            <span class="pos">${t.pos}</span> ${t.name}
-                        </td>
-                        <td class="stat-col">${t.pj}</td>
-                        <td class="stat-col">${t.pg}</td>
-                        <td class="stat-col">${t.pe}</td>
-                        <td class="stat-col">${t.pp}</td>
-                        <td class="stat-col" style="font-weight: 500;">${t.dg > 0 ? '+'+t.dg : t.dg}</td>
+                        <td><span class="pos">${t.pos}</span> <span class="team-name">${t.name}</span></td>
+                        <td>${t.pj}</td><td>${t.pg}</td><td>${t.pe}</td><td>${t.pp}</td>
+                        <td style="color: var(--text-muted);">${t.dg > 0 ? '+'+t.dg : t.dg}</td>
                         <td class="stat-pts">${t.pts}</td>
                         ${probsHtml}
-                    </tr>
-                `;
+                    </tr>`;
+            });
+            updateSortIcons(table);
+        }
+
+        function renderAll() {
+            renderTable('anual');
+            renderTable('zonaA');
+            renderTable('zonaB');
+        }
+
+        // 4. Listeners (Pestañas, Buscador y Sort)
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.table-container').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                currentTab = e.target.getAttribute('data-target');
+                document.getElementById(currentTab).classList.add('active');
+                // Reset sort en cambio de pestaña por UX
+                sortConfig = { key: 'pts', asc: false };
+                renderAll();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', renderAll);
+
+        function setupSortListeners() {
+            document.querySelectorAll('th[data-key]').forEach(th => {
+                th.addEventListener('click', () => {
+                    const key = th.getAttribute('data-key');
+                    if (sortConfig.key === key) {
+                        sortConfig.asc = !sortConfig.asc;
+                    } else {
+                        sortConfig.key = key;
+                        sortConfig.asc = key === 'name' ? true : false; // Strings asc default, numbers desc default
+                    }
+                    renderAll();
+                });
             });
         }
 
-        function showTab(tabId, btn) {
-            document.querySelectorAll('.table-container').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
+        function updateSortIcons(table) {
+            table.querySelectorAll('th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+                if (th.getAttribute('data-key') === sortConfig.key) {
+                    th.classList.add(sortConfig.asc ? 'sort-asc' : 'sort-desc');
+                }
+            });
         }
-
-        fetch('pronosticos.json')
-            .then(response => response.json())
-            .then(data => {
-                if(data.anual) renderTable('body-anual', data.anual, false);
-                if(data.zonaA) renderTable('body-zonaA', data.zonaA, true);
-                if(data.zonaB) renderTable('body-zonaB', data.zonaB, true);
-            })
-            .catch(error => console.error("Falta generar el JSON:", error));
     </script>
 </body>
 </html>
