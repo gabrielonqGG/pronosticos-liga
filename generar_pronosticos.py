@@ -6,11 +6,6 @@ import io
 import math
 from datetime import datetime, timezone, timedelta
 
-# Función de Distribución Acumulada (Distribución Normal)
-def normal_cdf(x, mu, sigma):
-    if sigma == 0: return 1.0 if x <= mu else 0.0
-    return (1.0 + math.erf((x - mu) / (sigma * math.sqrt(2.0)))) / 2.0
-
 def aplicar_probabilidades(datos, tipo="anual"):
     total = len(datos)
     if total == 0: return
@@ -18,13 +13,13 @@ def aplicar_probabilidades(datos, tipo="anual"):
     # Partidos totales en el año (14 Copa + 27 Liga) o en la Zona (14)
     pj_total = 41 if tipo == "anual" else 14
     
-    # Identificamos los puntos REALES de los rivales a vencer en este instante
+    # Puntos reales de los puestos clave
     pts_1 = datos[0]['pts'] if total > 0 else 0
     pts_3 = datos[2]['pts'] if total > 2 else 0
     pts_8 = datos[7]['pts'] if total > 7 else 0
     pts_9 = datos[8]['pts'] if total > 8 else 0
     
-    # El puntaje MÁXIMO que puede llegar a alcanzar el equipo que hoy está descendiendo (anteúltimo)
+    # Puntaje máximo que puede alcanzar el que hoy desciende (anteúltimo)
     if total > 1:
         pts_max_descenso = datos[-2]['pts'] + (max(0, pj_total - datos[-2]['pj']) * 3)
     else:
@@ -39,7 +34,7 @@ def aplicar_probabilidades(datos, tipo="anual"):
         pts_maximos = pts + pts_en_juego
 
         if tipo == "anual":
-            # 1. Eliminaciones matemáticas estrictas (Corte a 0.0%)
+            # 1. Eliminaciones matemáticas estrictas (0.00% garantizado)
             puede_champ = pts_maximos >= pts_1
             puede_lib = pts_maximos >= pts_3
             puede_sud = pts_maximos >= pts_9
@@ -50,25 +45,19 @@ def aplicar_probabilidades(datos, tipo="anual"):
                 if pts >= pts_objetivo and pj_restantes == 0: return 100.0
                 
                 distancia = pts_objetivo - pts
-                # Si ya está adentro de los puestos de clasificación:
                 if distancia <= 0:
                     ventaja = abs(distancia)
-                    # Mayor ventaja = porcentaje más cercano a 100
                     return min(99.99, 80.0 + (ventaja * 2.5) + (15.0 / max(1, pj_restantes)))
                 
-                # Si está afuera, depende de cuántos puntos necesita ganar de los que quedan
                 ratio = distancia / pts_en_juego if pts_en_juego > 0 else 1
                 prob = (1.0 - ratio) * 100.0
-                
-                # Penalización por cantidad de equipos que tiene que superar
                 penalizacion = max(0, (pos_actual - target_pos) * 2.5)
-                return max(0.01, prob - penalizacion) # Mínimo 0.01% si matemáticamente tiene chance
+                return max(0.01, prob - penalizacion)
             
             champ = calc_pct(puede_champ, pts_1, pos, 1)
             lib = calc_pct(puede_lib, pts_3, pos, 3)
             sud = calc_pct(puede_sud, pts_9, pos, 9)
             
-            # Lógica inversa para el descenso
             if salvado_matematicamente:
                 rel = 0.0
             else:
@@ -80,7 +69,6 @@ def aplicar_probabilidades(datos, tipo="anual"):
                     ratio = distancia_a_salvacion / pts_en_juego if pts_en_juego > 0 else 1
                     rel = min(99.99, 50.0 + (ratio * 50.0))
 
-            # Ajuste visual de exclusión (quien va a Libertadores, no suma % en Sudamericana)
             if pos == 1: champ = max(champ, 90.0)
             lib = max(0.0, lib - champ)
             sud = max(0.0, sud - lib - champ)
@@ -106,8 +94,9 @@ def aplicar_probabilidades(datos, tipo="anual"):
                     prob = max(0.01, prob - penalizacion)
                     
             eq["playoff"] = round(prob, 2)
-            
+
 def extraer_tablas_validas(html_str):
+    # io.StringIO evita el error de FileNotFoundError de Pandas
     tablas = pd.read_html(io.StringIO(html_str))
     return [t for t in tablas if any('Equipo' in str(c) for c in t.columns)]
 
@@ -118,6 +107,7 @@ def procesar_dataframe(df):
     
     for i in range(len(df)):
         nombre_crudo = str(df.iloc[i][col_equipo])
+        # Filtra números y separa nombres pegados (Ej: RiverPlateRiver -> River Plate)
         nombre_letras = re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]', '', nombre_crudo).strip()
         nombre_limpio = re.sub(r'([a-zñáéíóú])([A-ZÑÁÉÍÓÚ])', r'\1|\2', nombre_letras).split('|')[0].strip()
         
@@ -144,29 +134,27 @@ def procesar_dataframe(df):
     return equipos
 
 def procesar_datos():
-    # Calculamos la hora exacta en Argentina (UTC-3)
+    # Sello de tiempo con el uso horario de Argentina (UTC-3)
     arg_tz = timezone(timedelta(hours=-3))
     fecha_actual = datetime.now(arg_tz).strftime("%d/%m/%Y a las %H:%M hs")
     
     datos_finales = {"anual": [], "zonaA": [], "zonaB": [], "ultima_actualizacion": fecha_actual}
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     
     try:
+        # 1. Scraping Tabla Anual
         url_anual = "https://www.futbolargentino.com/primera-division/tabla-general/tabla-de-posiciones"
         req_anual = urllib.request.Request(url_anual, headers=headers)
         html_anual = urllib.request.urlopen(req_anual, timeout=15).read().decode('utf-8')
         
         tablas_anual = extraer_tablas_validas(html_anual)
         if tablas_anual:
-            datos_finales["anual"] = procesar_dataframe(tablas_anual[0])
+            datos_finales["anual"] = procesar_dataframe(pd.concat(tablas_anual, ignore_index=True))
             datos_finales["anual"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
-            
-            total_equipos = len(datos_finales["anual"])
-            for i, eq in enumerate(datos_finales["anual"]):
-                eq["pos"] = i + 1
-                c, l, s, r = simular_prob_anual(eq["pos"], eq["pts"], eq["pj"], total_equipos)
-                eq.update({"champ": c, "lib": l, "sud": s, "rel": r})
+            for i, eq in enumerate(datos_finales["anual"]): eq["pos"] = i + 1
+            aplicar_probabilidades(datos_finales["anual"], "anual")
 
+        # 2. Scraping Zonas (A y B)
         url_zonas = "https://www.futbolargentino.com/primera-division/tabla-de-posiciones"
         req_zonas = urllib.request.Request(url_zonas, headers=headers)
         html_zonas = urllib.request.urlopen(req_zonas, timeout=15).read().decode('utf-8')
@@ -178,14 +166,14 @@ def procesar_datos():
             
             for zona in ["zonaA", "zonaB"]:
                 datos_finales[zona].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
-                for i, eq in enumerate(datos_finales[zona]):
-                    eq["pos"] = i + 1
-                    eq["playoff"] = simular_prob_zona(eq["pos"], eq["pts"], eq["pj"])
+                for i, eq in enumerate(datos_finales[zona]): eq["pos"] = i + 1
+                aplicar_probabilidades(datos_finales[zona], "zona")
 
         print(f"¡Éxito! Actualizado el {fecha_actual}")
         
     except Exception as e:
         print(f"Error detectado: {e}")
+        # Salvavidas para no romper el FrontEnd si la web se cae
         for zona in ["anual", "zonaA", "zonaB"]:
             for i in range(1, 16 if zona != "anual" else 31):
                 datos_finales[zona].append({
