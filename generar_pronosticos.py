@@ -11,91 +11,102 @@ def normal_cdf(x, mu, sigma):
     if sigma == 0: return 1.0 if x <= mu else 0.0
     return (1.0 + math.erf((x - mu) / (sigma * math.sqrt(2.0)))) / 2.0
 
-def simular_prob_anual(pos, pts, pj, total_equipos):
-    pj_total = 41 # 14 Copa + 27 Liga
-    pj_restantes = max(0, pj_total - pj)
-    pts_en_juego = pj_restantes * 3
+def aplicar_probabilidades(datos, tipo="anual"):
+    total = len(datos)
+    if total == 0: return
 
-    # Si el torneo terminó
-    if pj_restantes == 0:
-        return (100.0 if pos == 1 else 0.0,
-                100.0 if 1 <= pos <= 3 else 0.0,
-                100.0 if 4 <= pos <= 9 else 0.0,
-                100.0 if pos >= total_equipos - 1 else 0.0)
-
-    # Proyección estadística del equipo
-    ppg_actual = pts / pj if pj > 0 else 1.3
-    mu_restante = pj_restantes * ppg_actual
-    sigma_restante = math.sqrt(pj_restantes) * 1.35 # Desviación estándar de fútbol
-
-    # Umbrales históricos de clasificación para 41 fechas
-    umbral_champ = 84
-    umbral_lib = 71
-    umbral_sud = 58
-    umbral_desc = 42
-
-    def calcular_probabilidad_llegar(umbral):
-        if pts >= umbral: return 100.0
-        if pts + pts_en_juego < umbral: return 0.0 # Eliminación matemática estricta
-        pts_necesarios = umbral - pts
-        p = 1.0 - normal_cdf(pts_necesarios, mu_restante, sigma_restante)
-        return p * 100.0
-
-    def calcular_probabilidad_caer(umbral):
-        if pts + pts_en_juego < umbral: return 100.0
-        if pts >= umbral and pj_restantes == 0: return 0.0
-        pts_necesarios = umbral - pts
-        p = normal_cdf(pts_necesarios, mu_restante, sigma_restante)
-        return p * 100.0
-
-    # Probabilidades puras
-    champ_bruto = calcular_probabilidad_llegar(umbral_champ)
-    lib_bruto = calcular_probabilidad_llegar(umbral_lib)
-    sud_bruto = calcular_probabilidad_llegar(umbral_sud)
-    rel_bruto = calcular_probabilidad_caer(umbral_desc)
-
-    # Factor de corrección por la posición actual en la tabla
-    factor_lideres = max(0.01, 1.0 - ((pos - 1) / total_equipos))
-    factor_colistas = max(0.01, 1.0 - ((total_equipos - pos) / total_equipos))
-
-    champ = champ_bruto * math.pow(factor_lideres, 1.5)
-    lib = lib_bruto * factor_lideres
-    sud = sud_bruto * math.sqrt(factor_lideres)
-    rel = rel_bruto * math.pow(factor_colistas, 1.5)
-
-    # Exclusión mutua
-    sud = max(0.0, sud - lib)
-
-    return round(min(99.99, max(0.0, champ)), 2), \
-           round(min(99.99, max(0.0, lib)), 2), \
-           round(min(99.99, max(0.0, sud)), 2), \
-           round(min(99.99, max(0.0, rel)), 2)
-
-def simular_prob_zona(pos, pts, pj):
-    pj_total = 14
-    pj_restantes = max(0, pj_total - pj)
-    pts_en_juego = pj_restantes * 3
-
-    if pj_restantes == 0:
-        return 100.0 if pos <= 8 else 0.0
-
-    ppg_actual = pts / pj if pj > 0 else 1.3
-    mu_restante = pj_restantes * ppg_actual
-    sigma_restante = math.sqrt(pj_restantes) * 1.35
-
-    umbral_playoff = 19 # Puntos históricos para clasificar 8vo
-
-    if pts >= umbral_playoff: return 99.99
-    if pts + pts_en_juego < umbral_playoff: return 0.0
-
-    pts_necesarios = umbral_playoff - pts
-    p = 1.0 - normal_cdf(pts_necesarios, mu_restante, sigma_restante)
+    # Partidos totales en el año (14 Copa + 27 Liga) o en la Zona (14)
+    pj_total = 41 if tipo == "anual" else 14
     
-    factor_pos = max(0.01, 1.0 - ((pos - 1) / 15.0))
-    prob = (p * 100.0) * factor_pos
+    # Identificamos los puntos REALES de los rivales a vencer en este instante
+    pts_1 = datos[0]['pts'] if total > 0 else 0
+    pts_3 = datos[2]['pts'] if total > 2 else 0
+    pts_8 = datos[7]['pts'] if total > 7 else 0
+    pts_9 = datos[8]['pts'] if total > 8 else 0
+    
+    # El puntaje MÁXIMO que puede llegar a alcanzar el equipo que hoy está descendiendo (anteúltimo)
+    if total > 1:
+        pts_max_descenso = datos[-2]['pts'] + (max(0, pj_total - datos[-2]['pj']) * 3)
+    else:
+        pts_max_descenso = 0
 
-    return round(min(99.99, max(0.0, prob)), 2)
+    for pos, eq in enumerate(datos, start=1):
+        pts = eq['pts']
+        pj = eq['pj']
+        
+        pj_restantes = max(0, pj_total - pj)
+        pts_en_juego = pj_restantes * 3
+        pts_maximos = pts + pts_en_juego
 
+        if tipo == "anual":
+            # 1. Eliminaciones matemáticas estrictas (Corte a 0.0%)
+            puede_champ = pts_maximos >= pts_1
+            puede_lib = pts_maximos >= pts_3
+            puede_sud = pts_maximos >= pts_9
+            salvado_matematicamente = pts > pts_max_descenso
+            
+            def calc_pct(puede_llegar, pts_objetivo, pos_actual, target_pos):
+                if not puede_llegar: return 0.0
+                if pts >= pts_objetivo and pj_restantes == 0: return 100.0
+                
+                distancia = pts_objetivo - pts
+                # Si ya está adentro de los puestos de clasificación:
+                if distancia <= 0:
+                    ventaja = abs(distancia)
+                    # Mayor ventaja = porcentaje más cercano a 100
+                    return min(99.99, 80.0 + (ventaja * 2.5) + (15.0 / max(1, pj_restantes)))
+                
+                # Si está afuera, depende de cuántos puntos necesita ganar de los que quedan
+                ratio = distancia / pts_en_juego if pts_en_juego > 0 else 1
+                prob = (1.0 - ratio) * 100.0
+                
+                # Penalización por cantidad de equipos que tiene que superar
+                penalizacion = max(0, (pos_actual - target_pos) * 2.5)
+                return max(0.01, prob - penalizacion) # Mínimo 0.01% si matemáticamente tiene chance
+            
+            champ = calc_pct(puede_champ, pts_1, pos, 1)
+            lib = calc_pct(puede_lib, pts_3, pos, 3)
+            sud = calc_pct(puede_sud, pts_9, pos, 9)
+            
+            # Lógica inversa para el descenso
+            if salvado_matematicamente:
+                rel = 0.0
+            else:
+                pts_salvacion = datos[-3]['pts'] if total > 2 else 0
+                distancia_a_salvacion = pts_salvacion - pts
+                if distancia_a_salvacion <= 0:
+                    rel = max(0.01, 15.0 - abs(distancia_a_salvacion) * 3)
+                else:
+                    ratio = distancia_a_salvacion / pts_en_juego if pts_en_juego > 0 else 1
+                    rel = min(99.99, 50.0 + (ratio * 50.0))
+
+            # Ajuste visual de exclusión (quien va a Libertadores, no suma % en Sudamericana)
+            if pos == 1: champ = max(champ, 90.0)
+            lib = max(0.0, lib - champ)
+            sud = max(0.0, sud - lib - champ)
+
+            eq.update({"champ": round(champ, 2), "lib": round(lib, 2), "sud": round(sud, 2), "rel": round(rel, 2)})
+
+        elif tipo == "zona":
+            puede_playoff = pts_maximos >= pts_8
+            
+            if not puede_playoff:
+                prob = 0.0
+            elif pts >= pts_8 and pj_restantes == 0:
+                prob = 100.0
+            else:
+                distancia = pts_8 - pts
+                if distancia <= 0:
+                    ventaja = abs(distancia)
+                    prob = min(99.99, 85.0 + (ventaja * 2.0))
+                else:
+                    ratio = distancia / pts_en_juego if pts_en_juego > 0 else 1
+                    prob = (1.0 - ratio) * 100.0
+                    penalizacion = max(0, (pos - 8) * 3.0)
+                    prob = max(0.01, prob - penalizacion)
+                    
+            eq["playoff"] = round(prob, 2)
+            
 def extraer_tablas_validas(html_str):
     tablas = pd.read_html(io.StringIO(html_str))
     return [t for t in tablas if any('Equipo' in str(c) for c in t.columns)]
