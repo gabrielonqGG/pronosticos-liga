@@ -254,7 +254,8 @@
         }
 
         function formatPct(val) {
-            return (!val || val <= 0.1) ? '<span class="pct-0">-</span>' : `${val.toFixed(1)}%`;
+            return (!val || val <= 0.01) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`;
+        }
         }
 
         function renderTable(tabId) {
