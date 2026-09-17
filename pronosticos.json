@@ -1,6 +1,48 @@
 {
     "anual": [
         {
+            "name": "Independiente Rivadavia",
+            "pj": 25,
+            "pg": 14,
+            "pe": 6,
+            "pp": 5,
+            "dg": 14,
+            "pts": 48,
+            "pos": 1,
+            "champ": 60.0,
+            "lib": 24.46,
+            "sud": 14.41,
+            "rel": 0.0
+        },
+        {
+            "name": "Argentinos Juniors",
+            "pj": 25,
+            "pg": 13,
+            "pe": 8,
+            "pp": 4,
+            "dg": 9,
+            "pts": 47,
+            "pos": 2,
+            "champ": 40.0,
+            "lib": 37.65,
+            "sud": 20.22,
+            "rel": 0.0
+        },
+        {
+            "name": "Vélez Sarsfield",
+            "pj": 25,
+            "pg": 11,
+            "pe": 12,
+            "pp": 2,
+            "dg": 11,
+            "pts": 45,
+            "pos": 3,
+            "champ": 22.36,
+            "lib": 37.65,
+            "sud": 33.58,
+            "rel": 0.0
+        },
+        {
             "name": "Boca Juniors",
             "pj": 25,
             "pg": 11,
@@ -8,11 +50,67 @@
             "pp": 3,
             "dg": 14,
             "pts": 44,
-            "pos": 1,
-            "champ": 90.0,
-            "lib": 3.44,
-            "sud": 6.55,
-            "rel": 0.01
+            "pos": 4,
+            "champ": 15.54,
+            "lib": 24.46,
+            "sud": 49.74,
+            "rel": 0.0
+        },
+        {
+            "name": "Rosario Central",
+            "pj": 25,
+            "pg": 12,
+            "pe": 7,
+            "pp": 6,
+            "dg": 6,
+            "pts": 43,
+            "pos": 5,
+            "champ": 10.26,
+            "lib": 20.36,
+            "sud": 53.85,
+            "rel": 0.0
+        },
+        {
+            "name": "River Plate",
+            "pj": 25,
+            "pg": 13,
+            "pe": 3,
+            "pp": 9,
+            "dg": 12,
+            "pts": 42,
+            "pos": 6,
+            "champ": 6.42,
+            "lib": 15.94,
+            "sud": 55.29,
+            "rel": 0.0
+        },
+        {
+            "name": "Gimnasia La Plata",
+            "pj": 25,
+            "pg": 13,
+            "pe": 3,
+            "pp": 9,
+            "dg": 0,
+            "pts": 42,
+            "pos": 7,
+            "champ": 6.42,
+            "lib": 15.94,
+            "sud": 55.29,
+            "rel": 0.0
+        },
+        {
+            "name": "Estudiantes de La Plata",
+            "pj": 25,
+            "pg": 12,
+            "pe": 5,
+            "pp": 8,
+            "dg": 12,
+            "pts": 41,
+            "pos": 8,
+            "champ": 3.8,
+            "lib": 11.73,
+            "sud": 53.85,
+            "rel": 0.0
         },
         {
             "name": "Instituto",
@@ -22,11 +120,11 @@
             "pp": 9,
             "dg": 4,
             "pts": 40,
-            "pos": 2,
-            "champ": 89.17,
-            "lib": 0.0,
-            "sud": 10.82,
-            "rel": 0.01
+            "pos": 9,
+            "champ": 2.13,
+            "lib": 8.13,
+            "sud": 49.74,
+            "rel": 0.0
         },
         {
             "name": "Belgrano",
@@ -36,11 +134,11 @@
             "pp": 6,
             "dg": 7,
             "pts": 39,
-            "pos": 3,
-            "champ": 84.58,
-            "lib": 0.0,
-            "sud": 13.85,
-            "rel": 0.01
+            "pos": 10,
+            "champ": 1.13,
+            "lib": 5.29,
+            "sud": 33.58,
+            "rel": 0.0
         },
         {
             "name": "Independiente",
@@ -50,11 +148,11 @@
             "pp": 7,
             "dg": 5,
             "pts": 38,
-            "pos": 4,
-            "champ": 80.0,
-            "lib": 15.42,
-            "sud": 0.52,
-            "rel": 0.01
+            "pos": 11,
+            "champ": 0.56,
+            "lib": 3.24,
+            "sud": 26.81,
+            "rel": 0.0
         },
         {
             "name": "Lanús",
@@ -64,11 +162,25 @@
             "pp": 8,
             "dg": 6,
             "pts": 37,
-            "pos": 5,
-            "champ": 75.42,
-            "lib": 15.42,
-            "sud": 2.6,
-            "rel": 0.01
+            "pos": 12,
+            "champ": 0.27,
+            "lib": 1.87,
+            "sud": 20.22,
+            "rel": 0.0
+        },
+        {
+            "name": "Defensa y Justicia",
+            "pj": 25,
+            "pg": 9,
+            "pe": 9,
+            "pp": 7,
+            "dg": -1,
+            "pts": 36,
+            "pos": 13,
+            "champ": 0.12,
+            "lib": 1.01,
+            "sud": 14.41,
+            "rel": 0.0
         },
         {
             "name": "Huracán",
@@ -78,11 +190,25 @@
             "pp": 6,
             "dg": 5,
             "pts": 35,
-            "pos": 6,
-            "champ": 68.75,
-            "lib": 15.42,
-            "sud": 4.27,
-            "rel": 0.01
+            "pos": 14,
+            "champ": 0.05,
+            "lib": 0.51,
+            "sud": 9.69,
+            "rel": 0.0
+        },
+        {
+            "name": "Gimnasia Mendoza",
+            "pj": 25,
+            "pg": 10,
+            "pe": 5,
+            "pp": 10,
+            "dg": -3,
+            "pts": 35,
+            "pos": 15,
+            "champ": 0.05,
+            "lib": 0.51,
+            "sud": 9.69,
+            "rel": 0.0
         },
         {
             "name": "Sarmiento",
@@ -92,10 +218,52 @@
             "pp": 12,
             "dg": -4,
             "pts": 35,
-            "pos": 7,
-            "champ": 66.25,
-            "lib": 15.42,
-            "sud": 6.77,
+            "pos": 16,
+            "champ": 0.05,
+            "lib": 0.51,
+            "sud": 9.69,
+            "rel": 0.0
+        },
+        {
+            "name": "Unión de Santa Fe",
+            "pj": 25,
+            "pg": 9,
+            "pe": 7,
+            "pp": 9,
+            "dg": 6,
+            "pts": 34,
+            "pos": 17,
+            "champ": 0.02,
+            "lib": 0.25,
+            "sud": 6.15,
+            "rel": 0.01
+        },
+        {
+            "name": "Talleres de Córdoba",
+            "pj": 25,
+            "pg": 9,
+            "pe": 7,
+            "pp": 9,
+            "dg": 0,
+            "pts": 34,
+            "pos": 18,
+            "champ": 0.02,
+            "lib": 0.25,
+            "sud": 6.15,
+            "rel": 0.01
+        },
+        {
+            "name": "Barracas Central",
+            "pj": 25,
+            "pg": 8,
+            "pe": 9,
+            "pp": 8,
+            "dg": -1,
+            "pts": 33,
+            "pos": 19,
+            "champ": 0.01,
+            "lib": 0.11,
+            "sud": 3.69,
             "rel": 0.01
         },
         {
@@ -106,10 +274,10 @@
             "pp": 8,
             "dg": -2,
             "pts": 33,
-            "pos": 8,
-            "champ": 59.58,
-            "lib": 15.42,
-            "sud": 8.44,
+            "pos": 20,
+            "champ": 0.01,
+            "lib": 0.11,
+            "sud": 3.69,
             "rel": 0.01
         },
         {
@@ -120,11 +288,39 @@
             "pp": 7,
             "dg": 4,
             "pts": 32,
-            "pos": 9,
-            "champ": 55.0,
-            "lib": 15.42,
-            "sud": 10.52,
+            "pos": 21,
+            "champ": 0.01,
+            "lib": 0.04,
+            "sud": 2.08,
             "rel": 0.01
+        },
+        {
+            "name": "Atlético Tucumán",
+            "pj": 25,
+            "pg": 6,
+            "pe": 9,
+            "pp": 10,
+            "dg": -3,
+            "pts": 27,
+            "pos": 22,
+            "champ": 0.01,
+            "lib": 0.0,
+            "sud": 0.04,
+            "rel": 0.02
+        },
+        {
+            "name": "Racing Club",
+            "pj": 25,
+            "pg": 6,
+            "pe": 8,
+            "pp": 11,
+            "dg": -5,
+            "pts": 26,
+            "pos": 23,
+            "champ": 0.0,
+            "lib": 0.01,
+            "sud": 0.01,
+            "rel": 0.05
         },
         {
             "name": "Banfield",
@@ -134,11 +330,11 @@
             "pp": 13,
             "dg": -7,
             "pts": 26,
-            "pos": 10,
-            "champ": 40.0,
-            "lib": 15.42,
-            "sud": 29.58,
-            "rel": 0.01
+            "pos": 24,
+            "champ": 0.0,
+            "lib": 0.01,
+            "sud": 0.01,
+            "rel": 0.05
         },
         {
             "name": "Platense",
@@ -148,165 +344,53 @@
             "pp": 10,
             "dg": -10,
             "pts": 25,
-            "pos": 11,
-            "champ": 35.42,
-            "lib": 15.42,
-            "sud": 29.58,
-            "rel": 0.01
+            "pos": 25,
+            "champ": 0.0,
+            "lib": 0.01,
+            "sud": 0.0,
+            "rel": 0.12
         },
         {
-            "name": "Argentinos Juniors",
-            "pj": 23,
-            "pg": 5,
-            "pe": 3,
-            "pp": 1,
-            "dg": 5,
-            "pts": 18,
-            "pos": 12,
-            "champ": 24.35,
-            "lib": 14.26,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "Vélez Sarsfield",
-            "pj": 23,
-            "pg": 4,
+            "name": "Central Córdoba SE",
+            "pj": 25,
+            "pg": 6,
             "pe": 5,
-            "pp": 0,
-            "dg": 5,
-            "pts": 17,
-            "pos": 13,
-            "champ": 20.0,
-            "lib": 14.26,
-            "sud": 27.96,
-            "rel": 0.01
+            "pp": 14,
+            "dg": -16,
+            "pts": 23,
+            "pos": 26,
+            "champ": 0.0,
+            "lib": 0.0,
+            "sud": 0.01,
+            "rel": 0.56
         },
         {
-            "name": "Defensa y Justicia",
-            "pj": 23,
-            "pg": 5,
-            "pe": 2,
-            "pp": 2,
-            "dg": 2,
-            "pts": 17,
-            "pos": 14,
-            "champ": 17.5,
-            "lib": 14.26,
-            "sud": 27.96,
-            "rel": 0.01
+            "name": "Deportivo Riestra",
+            "pj": 25,
+            "pg": 3,
+            "pe": 11,
+            "pp": 11,
+            "dg": -9,
+            "pts": 20,
+            "pos": 27,
+            "champ": 0.0,
+            "lib": 0.0,
+            "sud": 0.01,
+            "rel": 3.8
         },
         {
-            "name": "Gimnasia Mendoza",
-            "pj": 23,
-            "pg": 5,
-            "pe": 1,
-            "pp": 3,
-            "dg": 5,
-            "pts": 16,
-            "pos": 15,
-            "champ": 13.15,
-            "lib": 14.26,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "Gimnasia La Plata",
-            "pj": 23,
-            "pg": 5,
-            "pe": 1,
-            "pp": 3,
-            "dg": 0,
-            "pts": 16,
-            "pos": 16,
-            "champ": 10.65,
-            "lib": 14.26,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "Rosario Central",
-            "pj": 23,
-            "pg": 4,
-            "pe": 3,
-            "pp": 2,
-            "dg": 2,
-            "pts": 15,
-            "pos": 17,
-            "champ": 6.3,
-            "lib": 14.26,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "Independiente Rivadavia",
-            "pj": 23,
-            "pg": 4,
-            "pe": 2,
-            "pp": 3,
-            "dg": 0,
-            "pts": 14,
-            "pos": 18,
-            "champ": 1.94,
-            "lib": 14.26,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "Unión de Santa Fe",
-            "pj": 23,
-            "pg": 4,
-            "pe": 1,
-            "pp": 4,
-            "dg": 2,
-            "pts": 13,
-            "pos": 19,
-            "champ": 0.01,
-            "lib": 11.84,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "Newells Old Boys",
-            "pj": 23,
+            "name": "Desconocido",
+            "pj": 25,
             "pg": 3,
             "pe": 4,
             "pp": 2,
             "dg": 2,
             "pts": 13,
-            "pos": 20,
-            "champ": 0.01,
-            "lib": 9.34,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "River Plate",
-            "pj": 23,
-            "pg": 4,
-            "pe": 1,
-            "pp": 4,
-            "dg": 2,
-            "pts": 13,
-            "pos": 21,
-            "champ": 0.01,
-            "lib": 6.84,
-            "sud": 27.96,
-            "rel": 0.01
-        },
-        {
-            "name": "Atlético Tucumán",
-            "pj": 23,
-            "pg": 3,
-            "pe": 4,
-            "pp": 2,
-            "dg": 2,
-            "pts": 13,
-            "pos": 22,
-            "champ": 0.01,
-            "lib": 4.34,
-            "sud": 27.96,
-            "rel": 0.01
+            "pos": 28,
+            "champ": 0.0,
+            "lib": 0.0,
+            "sud": 0.0,
+            "rel": 50.0
         },
         {
             "name": "Aldosivi",
@@ -316,109 +400,25 @@
             "pp": 14,
             "dg": -18,
             "pts": 13,
-            "pos": 23,
-            "champ": 0.01,
+            "pos": 29,
+            "champ": 0.0,
             "lib": 0.0,
-            "sud": 25.41,
-            "rel": 0.01
-        },
-        {
-            "name": "Barracas Central",
-            "pj": 23,
-            "pg": 3,
-            "pe": 3,
-            "pp": 3,
-            "dg": -1,
-            "pts": 12,
-            "pos": 24,
-            "champ": 0.01,
-            "lib": 0.0,
-            "sud": 25.45,
-            "rel": 0.01
-        },
-        {
-            "name": "Estudiantes de La Plata",
-            "pj": 23,
-            "pg": 3,
-            "pe": 1,
-            "pp": 5,
-            "dg": 0,
-            "pts": 10,
-            "pos": 25,
-            "champ": 0.01,
-            "lib": 0.0,
-            "sud": 19.25,
-            "rel": 6.0
-        },
-        {
-            "name": "Deportivo Riestra",
-            "pj": 23,
-            "pg": 2,
-            "pe": 3,
-            "pp": 4,
-            "dg": -2,
-            "pts": 9,
-            "pos": 26,
-            "champ": 0.01,
-            "lib": 0.0,
-            "sud": 14.9,
-            "rel": 9.0
-        },
-        {
-            "name": "Talleres de Córdoba",
-            "pj": 23,
-            "pg": 2,
-            "pe": 2,
-            "pp": 5,
-            "dg": -4,
-            "pts": 8,
-            "pos": 27,
-            "champ": 0.01,
-            "lib": 0.0,
-            "sud": 10.55,
-            "rel": 12.0
-        },
-        {
-            "name": "Central Córdoba SECentral Córdoba",
-            "pj": 23,
-            "pg": 2,
-            "pe": 1,
-            "pp": 6,
-            "dg": -6,
-            "pts": 7,
-            "pos": 28,
-            "champ": 0.01,
-            "lib": 0.0,
-            "sud": 6.19,
-            "rel": 15.0
+            "sud": 0.0,
+            "rel": 50.0
         },
         {
             "name": "Estudiantes Río Cuarto",
-            "pj": 23,
-            "pg": 1,
-            "pe": 3,
-            "pp": 5,
-            "dg": -7,
-            "pts": 6,
-            "pos": 29,
-            "champ": 0.01,
-            "lib": 0.0,
-            "sud": 1.84,
-            "rel": 50.93
-        },
-        {
-            "name": "Racing Club",
-            "pj": 23,
-            "pg": 1,
-            "pe": 2,
-            "pp": 6,
-            "dg": -7,
-            "pts": 5,
+            "pj": 25,
+            "pg": 2,
+            "pe": 5,
+            "pp": 18,
+            "dg": -26,
+            "pts": 11,
             "pos": 30,
-            "champ": 0.01,
+            "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 51.85
+            "rel": 69.39
         }
     ],
     "zonaA": [
@@ -431,7 +431,7 @@
             "dg": 4,
             "pts": 19,
             "pos": 1,
-            "playoff": 97.0
+            "playoff": 98.26
         },
         {
             "name": "Vélez Sarsfield",
@@ -442,7 +442,7 @@
             "dg": 5,
             "pts": 17,
             "pos": 2,
-            "playoff": 93.0
+            "playoff": 92.04
         },
         {
             "name": "Defensa y Justicia",
@@ -453,7 +453,7 @@
             "dg": 2,
             "pts": 17,
             "pos": 3,
-            "playoff": 93.0
+            "playoff": 92.04
         },
         {
             "name": "Gimnasia Mendoza",
@@ -464,7 +464,7 @@
             "dg": 5,
             "pts": 16,
             "pos": 4,
-            "playoff": 91.0
+            "playoff": 85.45
         },
         {
             "name": "Boca Juniors",
@@ -475,7 +475,7 @@
             "dg": 1,
             "pts": 14,
             "pos": 5,
-            "playoff": 87.0
+            "playoff": 63.76
         },
         {
             "name": "Independiente",
@@ -486,7 +486,7 @@
             "dg": 1,
             "pts": 14,
             "pos": 6,
-            "playoff": 87.0
+            "playoff": 63.76
         },
         {
             "name": "Lanús",
@@ -497,7 +497,7 @@
             "dg": 3,
             "pts": 13,
             "pos": 7,
-            "playoff": 85.0
+            "playoff": 50.0
         },
         {
             "name": "Unión de Santa Fe",
@@ -508,10 +508,10 @@
             "dg": 2,
             "pts": 13,
             "pos": 8,
-            "playoff": 85.0
+            "playoff": 50.0
         },
         {
-            "name": "Newells Old Boys",
+            "name": "Desconocido",
             "pj": 9,
             "pg": 3,
             "pe": 4,
@@ -519,7 +519,7 @@
             "dg": 2,
             "pts": 13,
             "pos": 9,
-            "playoff": 85.0
+            "playoff": 50.0
         },
         {
             "name": "San Lorenzo",
@@ -530,7 +530,7 @@
             "dg": -2,
             "pts": 11,
             "pos": 10,
-            "playoff": 80.67
+            "playoff": 24.07
         },
         {
             "name": "Estudiantes de La Plata",
@@ -541,7 +541,7 @@
             "dg": 0,
             "pts": 10,
             "pos": 11,
-            "playoff": 71.0
+            "playoff": 14.55
         },
         {
             "name": "Deportivo Riestra",
@@ -552,7 +552,7 @@
             "dg": -2,
             "pts": 9,
             "pos": 12,
-            "playoff": 61.33
+            "playoff": 7.96
         },
         {
             "name": "Platense",
@@ -563,7 +563,7 @@
             "dg": -5,
             "pts": 9,
             "pos": 13,
-            "playoff": 58.33
+            "playoff": 7.96
         },
         {
             "name": "Talleres de Córdoba",
@@ -574,10 +574,10 @@
             "dg": -4,
             "pts": 8,
             "pos": 14,
-            "playoff": 48.67
+            "playoff": 3.92
         },
         {
-            "name": "Central Córdoba SECentral Córdoba",
+            "name": "Central Córdoba SE",
             "pj": 9,
             "pg": 2,
             "pe": 1,
@@ -585,7 +585,7 @@
             "dg": -6,
             "pts": 7,
             "pos": 15,
-            "playoff": 39.0
+            "playoff": 1.74
         }
     ],
     "zonaB": [
@@ -598,7 +598,7 @@
             "dg": 5,
             "pts": 18,
             "pos": 1,
-            "playoff": 95.0
+            "playoff": 96.08
         },
         {
             "name": "Sarmiento",
@@ -609,7 +609,7 @@
             "dg": 3,
             "pts": 16,
             "pos": 2,
-            "playoff": 91.0
+            "playoff": 85.45
         },
         {
             "name": "Gimnasia La Plata",
@@ -620,7 +620,7 @@
             "dg": 0,
             "pts": 16,
             "pos": 3,
-            "playoff": 91.0
+            "playoff": 85.45
         },
         {
             "name": "Rosario Central",
@@ -631,7 +631,7 @@
             "dg": 2,
             "pts": 15,
             "pos": 4,
-            "playoff": 89.0
+            "playoff": 75.93
         },
         {
             "name": "Independiente Rivadavia",
@@ -642,7 +642,7 @@
             "dg": 0,
             "pts": 14,
             "pos": 5,
-            "playoff": 87.0
+            "playoff": 63.76
         },
         {
             "name": "Belgrano",
@@ -653,7 +653,7 @@
             "dg": 3,
             "pts": 13,
             "pos": 6,
-            "playoff": 85.0
+            "playoff": 50.0
         },
         {
             "name": "River Plate",
@@ -664,7 +664,7 @@
             "dg": 2,
             "pts": 13,
             "pos": 7,
-            "playoff": 85.0
+            "playoff": 50.0
         },
         {
             "name": "Atlético Tucumán",
@@ -675,7 +675,7 @@
             "dg": 2,
             "pts": 13,
             "pos": 8,
-            "playoff": 85.0
+            "playoff": 50.0
         },
         {
             "name": "Huracán",
@@ -686,7 +686,7 @@
             "dg": 1,
             "pts": 13,
             "pos": 9,
-            "playoff": 85.0
+            "playoff": 50.0
         },
         {
             "name": "Tigre",
@@ -697,7 +697,7 @@
             "dg": 1,
             "pts": 12,
             "pos": 10,
-            "playoff": 87.33
+            "playoff": 36.24
         },
         {
             "name": "Barracas Central",
@@ -708,7 +708,7 @@
             "dg": -1,
             "pts": 12,
             "pos": 11,
-            "playoff": 84.33
+            "playoff": 36.24
         },
         {
             "name": "Banfield",
@@ -719,7 +719,7 @@
             "dg": -5,
             "pts": 8,
             "pos": 12,
-            "playoff": 54.67
+            "playoff": 3.92
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -730,7 +730,7 @@
             "dg": -7,
             "pts": 6,
             "pos": 13,
-            "playoff": 38.33
+            "playoff": 0.69
         },
         {
             "name": "Aldosivi",
@@ -741,7 +741,7 @@
             "dg": -5,
             "pts": 5,
             "pos": 14,
-            "playoff": 28.67
+            "playoff": 0.24
         },
         {
             "name": "Racing Club",
@@ -752,8 +752,8 @@
             "dg": -7,
             "pts": 5,
             "pos": 15,
-            "playoff": 25.67
+            "playoff": 0.24
         }
     ],
-    "ultima_actualizacion": "16/09/2026 a las 23:37 hs"
+    "ultima_actualizacion": "16/09/2026 a las 23:45 hs"
 }
