@@ -3,174 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats Liga Profesional</title>
+    <title>Stats Liga Profesional - Simulador</title>
     <style>
-        /* Variables Nativas - Tema Oscuro (Default) */
         :root {
-            --bg-body: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --accent: #38bdf8;
-            --hover-row: rgba(56, 189, 248, 0.05);
-            --sticky-bg: #1e293b;
+            --bg-body: #0f172a; --bg-card: #1e293b; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --border: #334155; --accent: #38bdf8;
+            --hover-row: rgba(56, 189, 248, 0.05); --sticky-bg: #1e293b;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-            --champ: 251, 191, 36;
-            --lib: 16, 185, 129;
-            --sud: 59, 130, 246;
-            --rel: 239, 68, 68;
+            --champ: 251, 191, 36; --lib: 16, 185, 129;
+            --sud: 59, 130, 246; --rel: 239, 68, 68;
+            --sim-bg: #0f172a;
         }
 
-        /* Variables Nativas - Tema Claro */
         [data-theme="light"] {
-            --bg-body: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #475569;
-            --border: #cbd5e1;
-            --accent: #0284c7;
-            --hover-row: rgba(2, 132, 199, 0.05);
-            --sticky-bg: #ffffff;
+            --bg-body: #f8fafc; --bg-card: #ffffff; --text-main: #0f172a;
+            --text-muted: #475569; --border: #cbd5e1; --accent: #0284c7;
+            --hover-row: rgba(2, 132, 199, 0.05); --sticky-bg: #ffffff;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --sim-bg: #e2e8f0;
         }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px 10px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Header y Controles */
-        .header-controls {
-            max-width: 1200px;
-            margin: 0 auto 20px auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-
-        h1 { margin: 0; font-size: 24px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 20px 10px; transition: 0.3s; }
+        .header-controls { max-width: 1200px; margin: 0 auto 20px auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        h1 { margin: 0; font-size: 24px; text-align: center; }
         .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; text-align: center; }
         .timestamp { color: var(--accent); font-weight: 600; font-size: 13px; margin-top: 6px; text-align: center; }
 
-        .toolbar {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        .toolbar { display: flex; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 10px; }
+        .search-box { flex: 1; min-width: 200px; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main); outline: none; }
+        .btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .btn:hover { background: var(--hover-row); }
+        .btn-sim { background: var(--accent); color: #fff; border: none; }
+        .btn-sim:hover { opacity: 0.9; }
 
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg-card);
-            color: var(--text-main);
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .search-box:focus { border-color: var(--accent); }
-
-        .theme-btn {
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-        .theme-btn:hover { background: var(--hover-row); }
-
-        /* Pestañas */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            background: var(--bg-card);
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        .tab-btn:hover { background: var(--hover-row); color: var(--text-main); }
+        .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
         .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        /* Contenedor y Tabla Responsive */
-        .table-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: none;
-            background: var(--bg-card);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
+        /* Panel Simulador */
+        .simulator-panel { display: none; background: var(--sim-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin: 0 auto 20px auto; max-width: 800px; box-shadow: var(--shadow); }
+        .simulator-panel.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        .sim-row { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
+        .sim-select { padding: 8px; border-radius: 6px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); font-weight: bold; }
+        .sim-action { background: #334155; color: white; padding: 8px 12px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold; }
+        .sim-action:hover { filter: brightness(1.2); }
+        .sim-badge { background: #ef4444; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 10px; vertical-align: middle; }
+
+        .table-container { max-width: 1200px; margin: 0 auto; display: none; background: var(--bg-card); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
         .table-container.active { display: block; }
-
         .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
         table { width: 100%; border-collapse: collapse; min-width: 800px; text-align: center; }
         th, td { padding: 12px 10px; border-bottom: 1px solid var(--border); font-size: 14px; }
-        
-        th { 
-            color: var(--text-muted); font-size: 12px; text-transform: uppercase; 
-            cursor: pointer; user-select: none; transition: background 0.2s;
-        }
-        th:hover { background: var(--hover-row); color: var(--accent); }
-        
-        /* Efecto Sticky en celulares para el Nombre del Equipo */
-        th:first-child, td:first-child {
-            position: sticky; left: 0; z-index: 2;
-            background: var(--sticky-bg); text-align: left;
-            padding-left: 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-        }
+        th { color: var(--text-muted); font-size: 12px; cursor: pointer; }
+        th:hover { color: var(--accent); }
+        th:first-child, td:first-child { position: sticky; left: 0; z-index: 2; background: var(--sticky-bg); text-align: left; padding-left: 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.05); }
         th:first-child { z-index: 3; }
-
         tbody tr:hover td { background: var(--hover-row); }
-        tbody tr:hover td:first-child { background: var(--hover-row); } 
-
+        
         .pos { display: inline-block; width: 24px; color: var(--text-muted); font-size: 12px; }
         .team-name { font-weight: 600; }
         .stat-pts { font-weight: bold; color: var(--text-main); font-size: 15px; }
-
         .pct-cell { font-weight: 600; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         .pct-0 { color: var(--border); font-weight: normal; text-shadow: none; }
-        
-        /* Íconos de Sort */
-        .sort-icon::after { content: ' \2195'; opacity: 0.3; }
-        .sort-asc::after { content: ' \25B2'; opacity: 1; color: var(--accent); }
-        .sort-desc::after { content: ' \25BC'; opacity: 1; color: var(--accent); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div class="header-controls">
         <div>
-            <h1>⚽ Stats Liga Profesional</h1>
-            <div class="subtitle">Pronósticos y posiciones automatizadas en tiempo real</div>
+            <h1>⚽ Stats Liga Profesional <span id="simBadge" class="sim-badge" style="display:none;">SIMULADOR ACTIVO</span></h1>
             <div id="lastUpdate" class="timestamp">⏳ Cargando datos...</div>
         </div>
-        
         <div class="toolbar">
             <input type="text" id="searchInput" class="search-box" placeholder="Buscar equipo...">
-            <button id="themeToggle" class="theme-btn">🌓 Tema Oscuro/Claro</button>
+            <button id="toggleSim" class="btn btn-sim">🔮 Modo Simulador</button>
+            <button id="themeToggle" class="btn">🌓 Tema</button>
+        </div>
+    </div>
+
+    <!-- Panel del Simulador -->
+    <div id="simulatorPanel" class="simulator-panel">
+        <div style="text-align: center; margin-bottom: 15px; color: var(--text-muted); font-size: 14px;">
+            Simulá resultados para alterar las probabilidades en tiempo real.
+        </div>
+        <div class="sim-row">
+            <select id="simLocal" class="sim-select"></select>
+            <span style="font-weight:bold;">VS</span>
+            <select id="simVisitante" class="sim-select"></select>
+        </div>
+        <div class="sim-row">
+            <button class="sim-action" onclick="applySim('L')">Gana Local</button>
+            <button class="sim-action" onclick="applySim('E')">Empate</button>
+            <button class="sim-action" onclick="applySim('V')">Gana Visita</button>
+            <button class="btn" style="margin-left: 15px;" onclick="resetSim()">🔄 Resetear</button>
         </div>
     </div>
 
@@ -180,179 +106,240 @@
         <button class="tab-btn" data-target="zonaB">Clausura - Zona B</button>
     </div>
 
-    <!-- Contenedores generados por JavaScript -->
     <div id="anual" class="table-container active"><div class="table-wrapper"><table id="table-anual"></table></div></div>
     <div id="zonaA" class="table-container"><div class="table-wrapper"><table id="table-zonaA"></table></div></div>
     <div id="zonaB" class="table-container"><div class="table-wrapper"><table id="table-zonaB"></table></div></div>
 
     <script>
-        // 1. Manejo del Tema Local
         const themeToggle = document.getElementById('themeToggle');
-        const currentTheme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', currentTheme);
-
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
         themeToggle.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            let switchTo = theme === 'dark' ? 'light' : 'dark';
+            let switchTo = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', switchTo);
             localStorage.setItem('theme', switchTo);
         });
 
-        // 2. Variables de App
         let apiData = { anual: [], zonaA: [], zonaB: [] };
+        let currentData = { anual: [], zonaA: [], zonaB: [] };
         let currentTab = 'anual';
-        let sortConfig = { key: 'pos', asc: true };
+        let sortConfig = { key: 'pts', asc: false };
+        let isSimMode = false;
 
-        const thAnual = `
-            <thead>
-                <tr>
-                    <th data-key="name" class="sort-icon">Equipo</th>
-                    <th data-key="pj" class="sort-icon" title="Partidos Jugados">PJ</th>
-                    <th data-key="pg" class="sort-icon" title="Ganados">G</th>
-                    <th data-key="pe" class="sort-icon" title="Empatados">E</th>
-                    <th data-key="pp" class="sort-icon" title="Perdidos">P</th>
-                    <th data-key="dg" class="sort-icon" title="Diferencia de Goles">DG</th>
-                    <th data-key="pts" class="sort-icon sort-desc" title="Puntos actuales">PTS</th>
-                    <th data-key="champ" class="sort-icon" title="Probabilidad de salir campeón">🏆 CAMP</th>
-                    <th data-key="lib" class="sort-icon" title="Libertadores (1-3)">🌎 LIB</th>
-                    <th data-key="sud" class="sort-icon" title="Sudamericana (4-9)">✈️ SUD</th>
-                    <th data-key="rel" class="sort-icon" title="Zona de Descenso">⬇️ DESC</th>
-                </tr>
-            </thead><tbody></tbody>`;
-
-        const thZonas = `
-            <thead>
-                <tr>
-                    <th data-key="name" class="sort-icon">Equipo</th>
-                    <th data-key="pj" class="sort-icon">PJ</th>
-                    <th data-key="pg" class="sort-icon">G</th>
-                    <th data-key="pe" class="sort-icon">E</th>
-                    <th data-key="pp" class="sort-icon">P</th>
-                    <th data-key="dg" class="sort-icon">DG</th>
-                    <th data-key="pts" class="sort-icon sort-desc">PTS</th>
-                    <th data-key="playoff" class="sort-icon">✅ PLAYOFFS (1-8)</th>
-                </tr>
-            </thead><tbody></tbody>`;
+        const thAnual = `<thead><tr><th data-key="pos">#</th><th data-key="name">Equipo</th><th data-key="pj">PJ</th><th data-key="pg">G</th><th data-key="pe">E</th><th data-key="pp">P</th><th data-key="dg">DG</th><th data-key="pts">PTS</th><th data-key="champ">🏆 CAMP</th><th data-key="lib">🌎 LIB</th><th data-key="sud">✈️ SUD</th><th data-key="rel">⬇️ DESC</th></tr></thead><tbody></tbody>`;
+        const thZonas = `<thead><tr><th data-key="pos">#</th><th data-key="name">Equipo</th><th data-key="pj">PJ</th><th data-key="pg">G</th><th data-key="pe">E</th><th data-key="pp">P</th><th data-key="dg">DG</th><th data-key="pts">PTS</th><th data-key="playoff">✅ PLAYOFFS</th></tr></thead><tbody></tbody>`;
 
         document.getElementById('table-anual').innerHTML = thAnual;
         document.getElementById('table-zonaA').innerHTML = thZonas;
         document.getElementById('table-zonaB').innerHTML = thZonas;
 
-        // 3. Extracción con Cache-Busting
-        const cacheBuster = new Date().getTime();
-        fetch(`pronosticos.json?v=${cacheBuster}`)
-            .then(response => response.json())
+        fetch(`pronosticos.json?v=${new Date().getTime()}`)
+            .then(res => res.json())
             .then(data => {
-                apiData = data;
-                
-                const updateTag = document.getElementById('lastUpdate');
-                if(data.ultima_actualizacion) {
-                    updateTag.innerText = "🔄 Última actualización: " + data.ultima_actualizacion;
-                } else {
-                    updateTag.style.display = 'none';
-                }
-
+                apiData = JSON.parse(JSON.stringify(data));
+                currentData = JSON.parse(JSON.stringify(data));
+                if(data.ultima_actualizacion) document.getElementById('lastUpdate').innerText = "🔄 " + data.ultima_actualizacion;
+                populateSimSelects();
                 renderAll();
                 setupSortListeners();
-            }).catch(e => console.error("Error al cargar JSON", e));
+            });
 
-        function getBgOpacity(value, varColor) {
-            if (!value || value <= 0.01) return 'transparent';
-            const opacity = Math.max(0.15, (value / 100) * 0.9);
-            return `rgba(var(--${varColor}), ${opacity})`;
+        // --- MOTOR MATEMÁTICO EN JS (Clon de Python) ---
+        function erf(x) {
+            let sign = (x >= 0) ? 1 : -1; x = Math.abs(x);
+            let t = 1.0 / (1.0 + 0.3275911 * x);
+            let y = 1.0 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+            return sign * y;
+        }
+        function normal_cdf(x, mu, sigma) {
+            if (sigma === 0) return x <= mu ? 1.0 : 0.0;
+            return 0.5 * (1 + erf((x - mu) / (sigma * Math.sqrt(2))));
+        }
+        function redistribuir_porcentajes(probs, slots) {
+            for (let k = 0; k < 10; k++) {
+                let exceso = probs.reduce((sum, p) => sum + (p > 100.0 ? p - 100.0 : 0), 0);
+                if (exceso <= 0.01) break;
+                probs = probs.map(p => Math.min(100.0, p));
+                let receptores = probs.map((p, i) => (p < 100.0 && p > 0.0) ? i : -1).filter(i => i !== -1);
+                if (receptores.length === 0) break;
+                let espacio_libre = receptores.reduce((sum, i) => sum + probs[i], 0);
+                receptores.forEach(i => {
+                    probs[i] += espacio_libre > 0 ? exceso * (probs[i] / espacio_libre) : exceso / receptores.length;
+                });
+            }
+            return probs.map(p => Math.min(100.0, p));
         }
 
-        // 4. Precisión de dos decimales
-        function formatPct(val) {
-            return (!val || val <= 0.00) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`;
+        function recalcularProbabilidades(datos, tipo) {
+            let total = datos.length;
+            if (total === 0) return;
+            let pj_total = tipo === "anual" ? 32 : 16;
+            
+            datos.sort((a, b) => b.pts !== a.pts ? b.pts - a.pts : b.dg - a.dg);
+            datos.forEach((eq, i) => eq.pos = i + 1);
+
+            let pts_1 = datos[0]?.pts || 0;
+            let pts_3 = datos[2]?.pts || 0;
+            let pts_8 = datos[7]?.pts || 0;
+            let pts_9 = datos[8]?.pts || 0;
+            
+            datos.forEach(eq => {
+                let pj_res = Math.max(0, pj_total - eq.pj);
+                let ppg = eq.pj > 0 ? eq.pts / eq.pj : 1.3;
+                eq.mu = eq.pts + (pj_res * ppg);
+                eq.pmax = eq.pts + (pj_res * 3);
+                eq.pmin = eq.pts;
+                eq.pj_res = pj_res;
+            });
+            let pts_max_descenso = total > 1 ? datos[total-2].pmax : 0;
+
+            function calc_softmax(slots, pts_corte, es_descenso = false) {
+                let pesos = [];
+                let max_mu = Math.max(...datos.map(d => d.mu));
+                datos.forEach(eq => {
+                    let alpha = 3.0 / Math.max(1, eq.pj_res);
+                    if (!es_descenso) {
+                        if (eq.pmax < pts_corte) pesos.push(0.0);
+                        else if (eq.pj_res === 0 && eq.pts >= pts_corte) pesos.push(Infinity);
+                        else pesos.push(Math.exp(alpha * (eq.mu - max_mu)));
+                    } else {
+                        if (eq.pmin > pts_max_descenso) pesos.push(0.0);
+                        else if (eq.pj_res === 0 && eq.pts <= pts_max_descenso) pesos.push(Infinity);
+                        else pesos.push(Math.exp(-alpha * (eq.mu - max_mu)));
+                    }
+                });
+                let inf_count = pesos.filter(w => w === Infinity).length;
+                if (inf_count > 0) return pesos.map(w => Math.min(100.0, w === Infinity ? (slots / inf_count * 100.0) : 0.0));
+                let suma = pesos.reduce((a, b) => a + b, 0);
+                if (suma === 0) return Array(total).fill(0.0);
+                return redistribuir_porcentajes(pesos.map(w => (w / suma) * slots * 100.0), slots);
+            }
+
+            if (tipo === "anual") {
+                let p1 = calc_softmax(1, pts_1);
+                let p3 = calc_softmax(3, pts_3);
+                let p9 = calc_softmax(9, pts_9);
+                let pDesc = calc_softmax(2, 0, true);
+
+                datos.forEach((eq, i) => {
+                    let c1 = p1[i], c3 = Math.max(c1, p3[i]), c9 = Math.max(c3, p9[i]);
+                    let champ = c1, lib = c3 - c1, sud = c9 - c3, rel = pDesc[i];
+                    
+                    if(eq.pmax >= pts_1 && champ < 0.01) champ = 0.01;
+                    if(eq.pmax >= pts_3 && lib < 0.01 && champ === 0) lib = 0.01;
+                    if(eq.pmax >= pts_9 && sud < 0.01 && lib === 0 && champ === 0) sud = 0.01;
+                    if(eq.pmin <= pts_max_descenso && rel < 0.01) rel = 0.01;
+
+                    eq.champ = champ; eq.lib = lib; eq.sud = sud; eq.rel = rel;
+                });
+            } else {
+                let p8 = calc_softmax(8, pts_8);
+                datos.forEach((eq, i) => {
+                    let playoff = p8[i];
+                    if(eq.pmax >= pts_8 && playoff < 0.01) playoff = 0.01;
+                    eq.playoff = playoff;
+                });
+            }
         }
+
+        // --- LÓGICA DEL SIMULADOR ---
+        document.getElementById('toggleSim').addEventListener('click', () => {
+            isSimMode = !isSimMode;
+            document.getElementById('simulatorPanel').classList.toggle('active', isSimMode);
+            document.getElementById('simBadge').style.display = isSimMode ? 'inline-block' : 'none';
+        });
+
+        function populateSimSelects() {
+            let options = currentData.anual.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
+            document.getElementById('simLocal').innerHTML = options;
+            document.getElementById('simVisitante').innerHTML = options;
+            document.getElementById('simVisitante').selectedIndex = 1;
+        }
+
+        function applySim(res) {
+            let locName = document.getElementById('simLocal').value;
+            let visName = document.getElementById('simVisitante').value;
+            if(locName === visName) return alert("¡Elegí dos equipos distintos!");
+
+            ['anual', 'zonaA', 'zonaB'].forEach(zona => {
+                let loc = currentData[zona].find(t => t.name === locName);
+                let vis = currentData[zona].find(t => t.name === visName);
+                
+                if(loc && vis) {
+                    loc.pj++; vis.pj++;
+                    if(res === 'L') { loc.pts += 3; loc.pg++; vis.pp++; }
+                    else if(res === 'V') { vis.pts += 3; vis.pg++; loc.pp++; }
+                    else { loc.pts += 1; vis.pts += 1; loc.pe++; vis.pe++; }
+                    recalcularProbabilidades(currentData[zona], zona === 'anual' ? 'anual' : 'zona');
+                }
+            });
+            renderAll();
+        }
+
+        function resetSim() {
+            currentData = JSON.parse(JSON.stringify(apiData));
+            renderAll();
+        }
+
+        // --- RENDERIZADO VISUAL ---
+        function getBg(val, color) { return (!val || val <= 0.01) ? 'transparent' : `rgba(var(--${color}), ${Math.max(0.15, val/100)})`; }
+        function fmt(val) { return (!val || val <= 0.01) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`; }
 
         function renderTable(tabId) {
-            const isZone = tabId !== 'anual';
             const table = document.getElementById(`table-${tabId}`);
             const tbody = table.querySelector('tbody');
             tbody.innerHTML = '';
             
-            let data = [...(apiData[tabId] || [])];
-            
-            // Lógica Sort
+            let data = [...currentData[tabId]];
             data.sort((a, b) => {
-                let valA = a[sortConfig.key];
-                let valB = b[sortConfig.key];
-                if (typeof valA === 'string') return sortConfig.asc ? valA.localeCompare(valB) : valB.localeCompare(valA);
-                return sortConfig.asc ? valA - valB : valB - valA;
+                let vA = a[sortConfig.key], vB = b[sortConfig.key];
+                if(typeof vA === 'string') return sortConfig.asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                return sortConfig.asc ? vA - vB : vB - vA;
             });
 
-            // Lógica Filtro Buscador
             const query = document.getElementById('searchInput').value.toLowerCase();
             if (query) data = data.filter(t => t.name.toLowerCase().includes(query));
 
             data.forEach(t => {
-                let probsHtml = '';
-                if (!isZone) {
-                    probsHtml = `
-                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.champ, 'champ')}">${formatPct(t.champ)}</td>
-                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.lib, 'lib')}">${formatPct(t.lib)}</td>
-                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.sud, 'sud')}">${formatPct(t.sud)}</td>
-                        <td class="pct-cell" style="background-color: ${getBgOpacity(t.rel, 'rel')}">${formatPct(t.rel)}</td>`;
-                } else {
-                    probsHtml = `<td class="pct-cell" style="background-color: ${getBgOpacity(t.playoff, 'lib')}">${formatPct(t.playoff)}</td>`;
-                }
+                let probs = tabId === 'anual' 
+                    ? `<td class="pct-cell" style="background:${getBg(t.champ,'champ')}">${fmt(t.champ)}</td>
+                       <td class="pct-cell" style="background:${getBg(t.lib,'lib')}">${fmt(t.lib)}</td>
+                       <td class="pct-cell" style="background:${getBg(t.sud,'sud')}">${fmt(t.sud)}</td>
+                       <td class="pct-cell" style="background:${getBg(t.rel,'rel')}">${fmt(t.rel)}</td>`
+                    : `<td class="pct-cell" style="background:${getBg(t.playoff,'lib')}">${fmt(t.playoff)}</td>`;
 
-                tbody.innerHTML += `
-                    <tr>
-                        <td><span class="pos">${t.pos}</span> <span class="team-name">${t.name}</span></td>
-                        <td>${t.pj}</td><td>${t.pg}</td><td>${t.pe}</td><td>${t.pp}</td>
-                        <td style="color: var(--text-muted);">${t.dg > 0 ? '+'+t.dg : t.dg}</td>
-                        <td class="stat-pts">${t.pts}</td>
-                        ${probsHtml}
-                    </tr>`;
+                tbody.innerHTML += `<tr>
+                    <td><span class="pos">${t.pos}</span></td><td class="team-name">${t.name}</td>
+                    <td>${t.pj}</td><td>${t.pg}</td><td>${t.pe}</td><td>${t.pp}</td>
+                    <td style="color:var(--text-muted);">${t.dg > 0 ? '+'+t.dg : t.dg}</td><td class="stat-pts">${t.pts}</td>${probs}
+                </tr>`;
             });
-            updateSortIcons(table);
+            table.querySelectorAll('th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+                if (th.getAttribute('data-key') === sortConfig.key) th.classList.add(sortConfig.asc ? 'sort-asc' : 'sort-desc');
+            });
         }
 
-        function renderAll() {
-            renderTable('anual');
-            renderTable('zonaA');
-            renderTable('zonaB');
-        }
+        function renderAll() { ['anual', 'zonaA', 'zonaB'].forEach(renderTable); }
 
-        // 5. Listeners Generales
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.table-container').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab-btn, .table-container').forEach(el => el.classList.remove('active'));
                 e.target.classList.add('active');
                 currentTab = e.target.getAttribute('data-target');
                 document.getElementById(currentTab).classList.add('active');
-                sortConfig = { key: 'pts', asc: false }; // Resetea el orden al cambiar de pestaña
-                renderAll();
+                sortConfig = { key: 'pos', asc: true }; renderAll();
             });
         });
 
         document.getElementById('searchInput').addEventListener('input', renderAll);
-
         function setupSortListeners() {
             document.querySelectorAll('th[data-key]').forEach(th => {
                 th.addEventListener('click', () => {
-                    const key = th.getAttribute('data-key');
-                    if (sortConfig.key === key) {
-                        sortConfig.asc = !sortConfig.asc;
-                    } else {
-                        sortConfig.key = key;
-                        sortConfig.asc = key === 'name' ? true : false; 
-                    }
+                    let key = th.getAttribute('data-key');
+                    if(sortConfig.key === key) sortConfig.asc = !sortConfig.asc;
+                    else { sortConfig.key = key; sortConfig.asc = key === 'name'; }
                     renderAll();
                 });
-            });
-        }
-
-        function updateSortIcons(table) {
-            table.querySelectorAll('th').forEach(th => {
-                th.classList.remove('sort-asc', 'sort-desc');
-                if (th.getAttribute('data-key') === sortConfig.key) {
-                    th.classList.add(sortConfig.asc ? 'sort-asc' : 'sort-desc');
-                }
             });
         }
     </script>
