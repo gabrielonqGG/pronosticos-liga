@@ -6,7 +6,7 @@ import io
 import math
 from datetime import datetime, timezone, timedelta
 
-# Nombres estrictos para evitar cualquier bug de lectura HTML y cruce de diccionarios
+# Nombres estrictos para evitar cualquier bug de lectura HTML
 EQUIPOS_OFICIALES = [
     "Argentinos Juniors", "Independiente Rivadavia", "Vélez Sarsfield", "Boca Juniors",
     "Gimnasia La Plata", "Rosario Central", "River Plate", "Estudiantes de La Plata",
@@ -19,6 +19,7 @@ EQUIPOS_OFICIALES = [
 
 # =================================================================
 # 1. BASE DE DATOS ESTÁTICA DEL APERTURA (16 Fechas)
+# Mapeo corregido con Nombres Oficiales para que la suma sea perfecta
 # =================================================================
 apertura_stats = {
     # --- ZONA A ---
@@ -57,85 +58,95 @@ apertura_stats = {
 }
 
 # =================================================================
-# 2. MOTOR MATEMÁTICO DE DATA SCIENCE (Campana de Gauss)
+# 2. MOTOR MATEMÁTICO DE DATA SCIENCE (Softmax Predictivo)
 # =================================================================
-def normal_cdf(x, mu, sigma):
-    if sigma == 0: return 1.0 if x <= mu else 0.0
-    return (1.0 + math.erf((x - mu) / (sigma * math.sqrt(2.0)))) / 2.0
-
 def aplicar_probabilidades(datos, tipo="anual"):
     total = len(datos)
     if total == 0: return
 
-    # Configurado a 32 fechas Anuales y 16 fechas de Zona
+    # Total real de fechas
     pj_total = 32 if tipo == "anual" else 16
-    
-    def get_rival(idx):
-        idx = max(0, min(idx, total - 1))
-        eq = datos[idx]
-        pj = eq['pj']
-        ppg = eq['pts'] / pj if pj > 0 else 1.3
-        return eq['pts'], max(0, pj_total - pj), ppg
 
-    for pos, eq in enumerate(datos, start=1):
+    # 1. Calculamos la esperanza matemática (mu) de cada equipo
+    for eq in datos:
         pts = eq['pts']
         pj = eq['pj']
-        ppg = pts / pj if pj > 0 else 1.3
         pj_restantes = max(0, pj_total - pj)
+        ppg = pts / pj if pj > 0 else 1.3
+        
+        eq['mu'] = pts + (pj_restantes * ppg)
+        eq['pmax'] = pts + (pj_restantes * 3)
+        eq['pmin'] = pts
 
-        def prob_superar(pts_B, pj_res_B, ppg_B):
-            if pts + (pj_restantes * 3) < pts_B: return 0.0
-            if pj_restantes == 0 and pj_res_B == 0: return 100.0 if pts >= pts_B else 0.0
+    # Puntos de corte actuales
+    pts_1 = datos[0]['pts'] if total > 0 else 0
+    pts_3 = datos[2]['pts'] if total > 2 else 0
+    pts_8 = datos[7]['pts'] if total > 7 else 0
+    pts_9 = datos[8]['pts'] if total > 8 else 0
+    pts_max_descenso = datos[-2]['pmax'] if total > 1 else 0
 
-            mu_A = pts + (pj_restantes * ppg)
-            sigma_A = math.sqrt(pj_restantes) * 1.35
-            mu_B = pts_B + (pj_res_B * ppg_B)
-            sigma_B = math.sqrt(pj_res_B) * 1.35
+    # 2. Función Softmax (distribuye los porcentajes exactos)
+    def calcular_softmax(slots, alpha, pts_corte, es_descenso=False):
+        pesos = []
+        max_mu = max([eq['mu'] for eq in datos])
+        
+        for eq in datos:
+            if not es_descenso:
+                # Si matemáticamente no alcanza al objetivo, peso = 0
+                if eq['pmax'] < pts_corte:
+                    pesos.append(0.0)
+                else:
+                    pesos.append(math.exp(alpha * (eq['mu'] - max_mu)))
+            else:
+                # Descenso: Si sus puntos superan el máximo posible del anteúltimo, está salvado
+                if eq['pmin'] > pts_max_descenso:
+                    pesos.append(0.0)
+                else:
+                    pesos.append(math.exp(-alpha * (eq['mu'] - max_mu))) # Alpha negativo castiga a los de abajo
+        
+        suma_pesos = sum(pesos)
+        if suma_pesos == 0: return [0.0] * total
+        
+        # Normalizamos a % según la cantidad de cupos (slots)
+        probs = [(w / suma_pesos) * slots * 100.0 for w in pesos]
+        # Evitamos que algún equipo pase de 100% individual
+        return [min(100.0, p) for p in probs]
 
-            mu_D = mu_A - mu_B
-            sigma_D = math.sqrt(sigma_A**2 + sigma_B**2)
+    if tipo == "anual":
+        p_top1 = calcular_softmax(1, 0.45, pts_1)         # 1 cupo Campeón
+        p_top3 = calcular_softmax(3, 0.35, pts_3)         # 3 cupos Libertadores
+        p_top9 = calcular_softmax(9, 0.25, pts_9)         # 9 cupos totales (Sudamericana incluye a los de arriba)
+        p_bot2 = calcular_softmax(2, 0.35, 0, True)       # 2 cupos Descenso
 
-            if sigma_D == 0: return 100.0 if mu_D >= 0 else 0.0
-            p = 1.0 - normal_cdf(0, mu_D, sigma_D)
-            return max(0.01, p * 100.0)
-
-        def prob_caer(pts_B, pj_res_B, ppg_B):
-            if pts_B + (pj_res_B * 3) < pts: return 0.0
-            if pj_restantes == 0 and pj_res_B == 0: return 100.0 if pts <= pts_B else 0.0
-
-            mu_A = pts + (pj_restantes * ppg)
-            sigma_A = math.sqrt(pj_restantes) * 1.35
-            mu_B = pts_B + (pj_res_B * ppg_B)
-            sigma_B = math.sqrt(pj_res_B) * 1.35
-
-            mu_D = mu_A - mu_B
-            sigma_D = math.sqrt(sigma_A**2 + sigma_B**2)
-
-            if sigma_D == 0: return 100.0 if mu_D <= 0 else 0.0
-            p = normal_cdf(0, mu_D, sigma_D)
-            return max(0.01, p * 100.0)
-
-        if tipo == "anual":
-            rival_champ = get_rival(1 if pos == 1 else 0)
-            champ = prob_superar(*rival_champ)
+        for i, eq in enumerate(datos):
+            c1 = p_top1[i]
+            c3 = max(c1, p_top3[i])
+            c9 = max(c3, p_top9[i])
             
-            rival_lib = get_rival(3 if pos <= 3 else 2)
-            lib = prob_superar(*rival_lib)
+            # Probabilidades Mutuamente Excluyentes
+            champ = c1
+            lib = c3 - c1
+            sud = c9 - c3
+            rel = p_bot2[i]
 
-            rival_sud = get_rival(9 if pos <= 9 else 8)
-            sud = prob_superar(*rival_sud)
+            # Mínimos residuales si aún tienen chances matemáticas
+            if eq['pmax'] >= pts_1 and champ < 0.01: champ = 0.01
+            if eq['pmax'] >= pts_3 and lib < 0.01 and champ == 0: lib = 0.01
+            if eq['pmax'] >= pts_9 and sud < 0.01 and lib == 0 and champ == 0: sud = 0.01
+            if eq['pmin'] <= pts_max_descenso and rel < 0.01: rel = 0.01
 
-            rival_desc = get_rival(total-3 if pos > total-2 else total-2)
-            rel = prob_caer(*rival_desc)
+            eq.update({
+                "champ": round(champ, 2),
+                "lib": round(lib, 2),
+                "sud": round(sud, 2),
+                "rel": round(rel, 2)
+            })
 
-            lib = max(0.0, lib - champ)
-            sud = max(0.0, sud - lib - champ)
-
-            eq.update({"champ": round(champ, 2), "lib": round(lib, 2), "sud": round(sud, 2), "rel": round(rel, 2)})
-
-        elif tipo == "zona":
-            rival_playoff = get_rival(8 if pos <= 8 else 7)
-            playoff = prob_superar(*rival_playoff)
+    elif tipo == "zona":
+        p_top8 = calcular_softmax(8, 0.30, pts_8)
+        for i, eq in enumerate(datos):
+            playoff = p_top8[i]
+            if eq['pmax'] >= pts_8 and playoff < 0.01: playoff = 0.01
             eq["playoff"] = round(playoff, 2)
 
 # =================================================================
@@ -155,10 +166,13 @@ def procesar_dataframe(df):
     for i in range(len(df)):
         nombre_crudo = str(df.iloc[i][col_equipo])
         
-        # Limpieza estricta: Si el nombre escrapeado contiene el nombre oficial, lo asigna
-        nombre_limpio = nombre_crudo
+        # Limpieza Alfa-numérica extrema para cruzar a la perfección
+        crudo_alpha = re.sub(r'[^a-z0-9]', '', nombre_crudo.lower())
+        nombre_limpio = "Desconocido"
+        
         for eq in nombres_ordenados:
-            if eq.replace(" ", "").lower() in nombre_crudo.replace(" ", "").lower():
+            eq_alpha = re.sub(r'[^a-z0-9]', '', eq.lower())
+            if eq_alpha in crudo_alpha:
                 nombre_limpio = eq
                 break
         
@@ -206,10 +220,10 @@ def procesar_datos():
                 for i, eq in enumerate(datos_finales[zona]): eq["pos"] = i + 1
                 aplicar_probabilidades(datos_finales[zona], "zona")
 
+            # Construimos la Tabla Anual cruzando con el Diccionario Normalizado
             todos_los_equipos = datos_finales["zonaA"] + datos_finales["zonaB"]
             for eq in todos_los_equipos:
                 nombre = eq["name"]
-                # Fallback actualizado: Si por algún error de tipeo no cruza, al menos suma los 16 PJ
                 historial = apertura_stats.get(nombre, {"pj": 16, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0})
                 
                 eq_anual = {
@@ -227,7 +241,7 @@ def procesar_datos():
             for i, eq in enumerate(datos_finales["anual"]): eq["pos"] = i + 1
             aplicar_probabilidades(datos_finales["anual"], "anual")
 
-        print(f"¡Éxito! Tabla Anual construida localmente y proyecciones calculadas. Actualizado el {fecha_actual}")
+        print(f"¡Éxito! Tabla Anual y porcentajes calibrados. Actualizado el {fecha_actual}")
         
     except Exception as e:
         print(f"Error detectado: {e}")
