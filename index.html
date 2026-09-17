@@ -19,8 +19,7 @@
             --bg-body: #f8fafc; --bg-card: #ffffff; --text-main: #0f172a;
             --text-muted: #475569; --border: #cbd5e1; --accent: #0284c7;
             --hover-row: rgba(2, 132, 199, 0.05); --sticky-bg: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --sim-bg: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --sim-bg: #e2e8f0;
         }
 
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 20px 10px; transition: 0.3s; }
@@ -40,7 +39,6 @@
         .tab-btn { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
         .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        /* Panel Simulador */
         .simulator-panel { display: none; background: var(--sim-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin: 0 auto 20px auto; max-width: 800px; box-shadow: var(--shadow); }
         .simulator-panel.active { display: block; animation: fadeIn 0.3s ease-in-out; }
         .sim-row { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
@@ -78,14 +76,13 @@
         <div class="toolbar">
             <input type="text" id="searchInput" class="search-box" placeholder="Buscar equipo...">
             <button id="toggleSim" class="btn btn-sim">🔮 Modo Simulador</button>
-            <button id="themeToggle" class="btn">🌓 Tema</button>
+            <button id="themeToggle" class="btn">🌓 Tema Oscuro/Claro</button>
         </div>
     </div>
 
-    <!-- Panel del Simulador -->
     <div id="simulatorPanel" class="simulator-panel">
         <div style="text-align: center; margin-bottom: 15px; color: var(--text-muted); font-size: 14px;">
-            Simulá resultados para alterar las probabilidades en tiempo real.
+            Cambiá resultados para recalcular la estadística en tiempo real.
         </div>
         <div class="sim-row">
             <select id="simLocal" class="sim-select"></select>
@@ -96,7 +93,7 @@
             <button class="sim-action" onclick="applySim('L')">Gana Local</button>
             <button class="sim-action" onclick="applySim('E')">Empate</button>
             <button class="sim-action" onclick="applySim('V')">Gana Visita</button>
-            <button class="btn" style="margin-left: 15px;" onclick="resetSim()">🔄 Resetear</button>
+            <button class="btn" style="margin-left: 15px;" onclick="resetSim()">🔄 Volver a la Realidad</button>
         </div>
     </div>
 
@@ -137,13 +134,13 @@
             .then(data => {
                 apiData = JSON.parse(JSON.stringify(data));
                 currentData = JSON.parse(JSON.stringify(data));
-                if(data.ultima_actualizacion) document.getElementById('lastUpdate').innerText = "🔄 " + data.ultima_actualizacion;
+                if(data.ultima_actualizacion) document.getElementById('lastUpdate').innerText = "🔄 Actualizado: " + data.ultima_actualizacion;
                 populateSimSelects();
                 renderAll();
                 setupSortListeners();
             });
 
-        // --- MOTOR MATEMÁTICO EN JS (Clon de Python) ---
+        // --- MOTOR MATEMÁTICO EN JS (Clon del de Python) ---
         function erf(x) {
             let sign = (x >= 0) ? 1 : -1; x = Math.abs(x);
             let t = 1.0 / (1.0 + 0.3275911 * x);
@@ -177,11 +174,6 @@
             datos.sort((a, b) => b.pts !== a.pts ? b.pts - a.pts : b.dg - a.dg);
             datos.forEach((eq, i) => eq.pos = i + 1);
 
-            let pts_1 = datos[0]?.pts || 0;
-            let pts_3 = datos[2]?.pts || 0;
-            let pts_8 = datos[7]?.pts || 0;
-            let pts_9 = datos[8]?.pts || 0;
-            
             datos.forEach(eq => {
                 let pj_res = Math.max(0, pj_total - eq.pj);
                 let ppg = eq.pj > 0 ? eq.pts / eq.pj : 1.3;
@@ -190,52 +182,76 @@
                 eq.pmin = eq.pts;
                 eq.pj_res = pj_res;
             });
-            let pts_max_descenso = total > 1 ? datos[total-2].pmax : 0;
 
-            function calc_softmax(slots, pts_corte, es_descenso = false) {
-                let pesos = [];
-                let max_mu = Math.max(...datos.map(d => d.mu));
-                datos.forEach(eq => {
-                    let alpha = 3.0 / Math.max(1, eq.pj_res);
-                    if (!es_descenso) {
-                        if (eq.pmax < pts_corte) pesos.push(0.0);
-                        else if (eq.pj_res === 0 && eq.pts >= pts_corte) pesos.push(Infinity);
-                        else pesos.push(Math.exp(alpha * (eq.mu - max_mu)));
-                    } else {
-                        if (eq.pmin > pts_max_descenso) pesos.push(0.0);
-                        else if (eq.pj_res === 0 && eq.pts <= pts_max_descenso) pesos.push(Infinity);
-                        else pesos.push(Math.exp(-alpha * (eq.mu - max_mu)));
-                    }
-                });
-                let inf_count = pesos.filter(w => w === Infinity).length;
-                if (inf_count > 0) return pesos.map(w => Math.min(100.0, w === Infinity ? (slots / inf_count * 100.0) : 0.0));
-                let suma = pesos.reduce((a, b) => a + b, 0);
-                if (suma === 0) return Array(total).fill(0.0);
-                return redistribuir_porcentajes(pesos.map(w => (w / suma) * slots * 100.0), slots);
+            function get_target(idx) {
+                idx = Math.max(0, Math.min(idx, total - 1));
+                return { mu: datos[idx]?.mu || 0, pts: datos[idx]?.pts || 0, pmax: datos[idx]?.pmax || 0 };
             }
 
             if (tipo === "anual") {
-                let p1 = calc_softmax(1, pts_1);
-                let p3 = calc_softmax(3, pts_3);
-                let p9 = calc_softmax(9, pts_9);
-                let pDesc = calc_softmax(2, 0, true);
+                let t1 = get_target(0);
+                let t3 = get_target(2);
+                let t9 = get_target(8);
+                let tDesc = get_target(total - 3);
+
+                function calc_raw(target_mu, target_ref, is_desc=false) {
+                    return datos.map(eq => {
+                        if (!is_desc) {
+                            if (eq.pmax < target_ref) return 0.0;
+                            if (eq.pj_res === 0 && eq.pts >= target_ref) return 1.0;
+                            let p = 1.0 - normal_cdf(target_mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35);
+                            return p * p;
+                        } else {
+                            if (eq.pmin > target_ref) return 0.0;
+                            if (eq.pj_res === 0 && eq.pts <= target_ref) return 1.0;
+                            let p = normal_cdf(target_mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35);
+                            return p * p;
+                        }
+                    });
+                }
+
+                let raw_1 = calc_raw(t1.mu, t1.pts);
+                let raw_3 = calc_raw(t3.mu, t3.pts);
+                let raw_9 = calc_raw(t9.mu, t9.pts);
+                let raw_desc = calc_raw(tDesc.mu, tDesc.pmax, true);
+
+                function normalize(raws, slots) {
+                    let s = raws.reduce((a,b)=>a+b, 0);
+                    if (s === 0) return Array(total).fill(0.0);
+                    let probs = raws.map(r => (r/s) * slots * 100.0);
+                    return redistribuir_porcentajes(probs, slots);
+                }
+
+                let p1 = normalize(raw_1, 1);
+                let p3 = normalize(raw_3, 3);
+                let p9 = normalize(raw_9, 9);
+                let pDesc = normalize(raw_desc, 2);
 
                 datos.forEach((eq, i) => {
                     let c1 = p1[i], c3 = Math.max(c1, p3[i]), c9 = Math.max(c3, p9[i]);
                     let champ = c1, lib = c3 - c1, sud = c9 - c3, rel = pDesc[i];
                     
-                    if(eq.pmax >= pts_1 && champ < 0.01) champ = 0.01;
-                    if(eq.pmax >= pts_3 && lib < 0.01 && champ === 0) lib = 0.01;
-                    if(eq.pmax >= pts_9 && sud < 0.01 && lib === 0 && champ === 0) sud = 0.01;
-                    if(eq.pmin <= pts_max_descenso && rel < 0.01) rel = 0.01;
+                    if(eq.pmax >= t1.pts && champ < 0.01) champ = 0.01;
+                    if(eq.pmax >= t3.pts && lib < 0.01 && champ === 0) lib = 0.01;
+                    if(eq.pmax >= t9.pts && sud < 0.01 && lib === 0 && champ === 0) sud = 0.01;
+                    if(eq.pmin <= tDesc.pmax && rel < 0.01) rel = 0.01;
 
                     eq.champ = champ; eq.lib = lib; eq.sud = sud; eq.rel = rel;
                 });
             } else {
-                let p8 = calc_softmax(8, pts_8);
+                let t8 = get_target(7);
+                let raw_playoff = datos.map(eq => {
+                    if (eq.pmax < t8.pts) return 0.0;
+                    if (eq.pj_res === 0 && eq.pts >= t8.pts) return 1.0;
+                    let p = 1.0 - normal_cdf(t8.mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35);
+                    return p * p;
+                });
+                let s = raw_playoff.reduce((a,b)=>a+b, 0);
+                let p8 = s === 0 ? Array(total).fill(0.0) : redistribuir_porcentajes(raw_playoff.map(r => (r/s) * 8 * 100.0), 8);
+                
                 datos.forEach((eq, i) => {
                     let playoff = p8[i];
-                    if(eq.pmax >= pts_8 && playoff < 0.01) playoff = 0.01;
+                    if(eq.pmax >= t8.pts && playoff < 0.01) playoff = 0.01;
                     eq.playoff = playoff;
                 });
             }
@@ -269,6 +285,10 @@
                     if(res === 'L') { loc.pts += 3; loc.pg++; vis.pp++; }
                     else if(res === 'V') { vis.pts += 3; vis.pg++; loc.pp++; }
                     else { loc.pts += 1; vis.pts += 1; loc.pe++; vis.pe++; }
+                    
+                    loc.dg += (res === 'L' ? 1 : (res === 'V' ? -1 : 0));
+                    vis.dg += (res === 'V' ? 1 : (res === 'L' ? -1 : 0));
+
                     recalcularProbabilidades(currentData[zona], zona === 'anual' ? 'anual' : 'zona');
                 }
             });
@@ -280,7 +300,6 @@
             renderAll();
         }
 
-        // --- RENDERIZADO VISUAL ---
         function getBg(val, color) { return (!val || val <= 0.01) ? 'transparent' : `rgba(var(--${color}), ${Math.max(0.15, val/100)})`; }
         function fmt(val) { return (!val || val <= 0.01) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`; }
 
