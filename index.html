@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats Liga Profesional - Simulador</title>
+    <title>Stats Liga Profesional - Simulador por Fecha</title>
     <style>
         :root {
-            --bg-body: #0f172a; --bg-card: #1e293b; --text-main: #f8fafc;
-            --text-muted: #94a3b8; --border: #334155; --accent: #38bdf8;
-            --hover-row: rgba(56, 189, 248, 0.05); --sticky-bg: #1e293b;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --bg-body: #064e3b; --bg-card: #065f46; --text-main: #f8fafc;
+            --text-muted: #a7f3d0; --border: #047857; --accent: #34d399;
+            --hover-row: rgba(52, 211, 153, 0.1); --sticky-bg: #065f46;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
             --champ: 251, 191, 36; --lib: 16, 185, 129;
             --sud: 59, 130, 246; --rel: 239, 68, 68;
-            --sim-bg: #0f172a;
+            --sim-bg: #022c22;
         }
 
         [data-theme="light"] {
             --bg-body: #f8fafc; --bg-card: #ffffff; --text-main: #0f172a;
             --text-muted: #475569; --border: #cbd5e1; --accent: #0284c7;
             --hover-row: rgba(2, 132, 199, 0.05); --sticky-bg: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --sim-bg: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); --sim-bg: #f1f5f9;
         }
 
         body { font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg-body); color: var(--text-main); margin: 0; padding: 20px 10px; transition: 0.3s; }
@@ -32,20 +32,29 @@
         .search-box { flex: 1; min-width: 200px; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-main); outline: none; }
         .btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; }
         .btn:hover { background: var(--hover-row); }
-        .btn-sim { background: var(--accent); color: #fff; border: none; }
-        .btn-sim:hover { opacity: 0.9; }
+        .btn-sim { background: var(--accent); color: #064e3b; border: none; }
+        .btn-sim:hover { filter: brightness(1.1); }
 
         .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
         .tab-btn { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-        .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .tab-btn.active { background: var(--accent); color: #064e3b; border-color: var(--accent); }
 
-        .simulator-panel { display: none; background: var(--sim-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin: 0 auto 20px auto; max-width: 800px; box-shadow: var(--shadow); }
+        /* Panel del Simulador Estilo DataRedonda */
+        .simulator-panel { display: none; background: var(--sim-bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 0 auto 20px auto; max-width: 750px; box-shadow: var(--shadow); }
         .simulator-panel.active { display: block; animation: fadeIn 0.3s ease-in-out; }
-        .sim-row { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 10px; }
-        .sim-select { padding: 8px; border-radius: 6px; background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); font-weight: bold; }
-        .sim-action { background: #334155; color: white; padding: 8px 12px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold; }
-        .sim-action:hover { filter: brightness(1.2); }
-        .sim-badge { background: #ef4444; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 10px; vertical-align: middle; }
+        
+        .fecha-nav { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 10px 15px; border-radius: 8px; margin-bottom: 15px; font-weight: bold; }
+        .fecha-arrow { background: none; border: none; color: var(--text-main); font-size: 18px; cursor: pointer; padding: 0 10px; }
+        .fecha-arrow:hover { color: var(--accent); }
+
+        .match-card { display: flex; align-items: center; justify-content: space-between; background: var(--bg-card); padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border); flex-wrap: wrap; gap: 8px; }
+        .match-date { font-size: 12px; background: rgba(0,0,0,0.2); padding: 4px 8px; border-radius: 4px; color: var(--text-muted); width: 85px; text-align: center; }
+        .match-teams { flex: 1; display: flex; justify-content: space-between; align-items: center; min-width: 250px; font-weight: 600; font-size: 14px; }
+        .team-home { text-align: right; flex: 1; padding-right: 10px; }
+        .team-vis { text-align: left; flex: 1; padding-left: 10px; }
+        .score-input { width: 35px; height: 32px; text-align: center; font-weight: bold; font-size: 14px; background: var(--bg-body); color: var(--text-main); border: 1px solid var(--border); border-radius: 6px; outline: none; }
+        
+        .sim-actions-footer { display: flex; justify-content: space-between; margin-top: 15px; flex-wrap: wrap; gap: 10px; }
 
         .table-container { max-width: 1200px; margin: 0 auto; display: none; background: var(--bg-card); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
         .table-container.active { display: block; }
@@ -70,30 +79,27 @@
 
     <div class="header-controls">
         <div>
-            <h1>⚽ Stats Liga Profesional <span id="simBadge" class="sim-badge" style="display:none;">SIMULADOR ACTIVO</span></h1>
+            <h1>⚽ Stats Liga Profesional</h1>
             <div id="lastUpdate" class="timestamp">⏳ Cargando datos...</div>
         </div>
         <div class="toolbar">
             <input type="text" id="searchInput" class="search-box" placeholder="Buscar equipo...">
-            <button id="toggleSim" class="btn btn-sim">🔮 Modo Simulador</button>
-            <button id="themeToggle" class="btn">🌓 Tema Oscuro/Claro</button>
+            <button id="toggleSim" class="btn btn-sim">🔮 Simulador por Fecha</button>
+            <button id="themeToggle" class="btn">🌓 Tema</button>
         </div>
     </div>
 
+    <!-- Panel Interactivo de Fechas -->
     <div id="simulatorPanel" class="simulator-panel">
-        <div style="text-align: center; margin-bottom: 15px; color: var(--text-muted); font-size: 14px;">
-            Cambiá resultados para recalcular la estadística en tiempo real.
+        <div class="fecha-nav">
+            <button class="fecha-arrow" onclick="cambiarFecha(-1)">&#10094;</button>
+            <div id="tituloFecha">Fecha 10</div>
+            <button class="fecha-arrow" onclick="cambiarFecha(1)">&#10095;</button>
         </div>
-        <div class="sim-row">
-            <select id="simLocal" class="sim-select"></select>
-            <span style="font-weight:bold;">VS</span>
-            <select id="simVisitante" class="sim-select"></select>
-        </div>
-        <div class="sim-row">
-            <button class="sim-action" onclick="applySim('L')">Gana Local</button>
-            <button class="sim-action" onclick="applySim('E')">Empate</button>
-            <button class="sim-action" onclick="applySim('V')">Gana Visita</button>
-            <button class="btn" style="margin-left: 15px;" onclick="resetSim()">🔄 Volver a la Realidad</button>
+        <div id="matchdayContainer"></div>
+        <div class="sim-actions-footer">
+            <button class="btn btn-sim" onclick="completarRestantes()">Completar restantes</button>
+            <button class="btn" onclick="resetSim()">Restablecer resultados</button>
         </div>
     </div>
 
@@ -121,6 +127,43 @@
         let currentTab = 'anual';
         let sortConfig = { key: 'pts', asc: false };
         let isSimMode = false;
+        let fechaActualIndex = 0;
+
+        // Fixture simulado de fechas restantes (Ejemplo con fechas reales de septiembre 2026)
+        const fixtureRestante = [
+            {
+                titulo: "Fecha 10",
+                partidos: [
+                    { fecha: "18/09/2026", local: "Central Córdoba SE", visita: "Defensa y Justicia", gl: null, gv: null },
+                    { fecha: "18/09/2026", local: "Racing Club", visita: "Sarmiento", gl: null, gv: null },
+                    { fecha: "19/09/2026", local: "Gimnasia Mendoza", visita: "Deportivo Riestra", gl: null, gv: null },
+                    { fecha: "19/09/2026", local: "Gimnasia La Plata", visita: "Banfield", gl: null, gv: null },
+                    { fecha: "19/09/2026", local: "Unión de Santa Fe", visita: "Independiente", gl: null, gv: null },
+                    { fecha: "19/09/2026", local: "River Plate", visita: "Huracán", gl: null, gv: null },
+                    { fecha: "19/09/2026", local: "Instituto", visita: "Talleres de Córdoba", gl: null, gv: null },
+                    { fecha: "20/09/2026", local: "San Lorenzo", visita: "Boca Juniors", gl: null, gv: null },
+                    { fecha: "20/09/2026", local: "Platense", visita: "Newells Old Boys", gl: null, gv: null },
+                    { fecha: "20/09/2026", local: "Rosario Central", visita: "Argentinos Juniors", gl: null, gv: null },
+                    { fecha: "20/09/2026", local: "Belgrano", visita: "Estudiantes Río Cuarto", gl: null, gv: null },
+                    { fecha: "20/09/2026", local: "Vélez Sarsfield", visita: "Tigre", gl: null, gv: null },
+                    { fecha: "21/09/2026", local: "Aldosivi", visita: "Atlético Tucumán", gl: null, gv: null },
+                    { fecha: "21/09/2026", local: "Barracas Central", visita: "Independiente Rivadavia", gl: null, gv: null },
+                    { fecha: "21/09/2026", local: "Lanús", visita: "Estudiantes de La Plata", gl: null, gv: null }
+                ]
+            },
+            {
+                titulo: "Fecha 11",
+                partidos: [
+                    { fecha: "25/09/2026", local: "Boca Juniors", visita: "Estudiantes de La Plata", gl: null, gv: null },
+                    { fecha: "25/09/2026", local: "Independiente", visita: "River Plate", gl: null, gv: null },
+                    { fecha: "26/09/2026", local: "Argentinos Juniors", visita: "Vélez Sarsfield", gl: null, gv: null },
+                    { fecha: "26/09/2026", local: "Talleres de Córdoba", visita: "Belgrano", gl: null, gv: null },
+                    { fecha: "26/09/2026", local: "Huracán", visita: "San Lorenzo", gl: null, gv: null },
+                    { fecha: "27/09/2026", local: "Racing Club", visita: "Independiente Rivadavia", gl: null, gv: null },
+                    { fecha: "27/09/2026", local: "Rosario Central", visita: "Newells Old Boys", gl: null, gv: null }
+                ]
+            }
+        ];
 
         const thAnual = `<thead><tr><th data-key="pos">#</th><th data-key="name">Equipo</th><th data-key="pj">PJ</th><th data-key="pg">G</th><th data-key="pe">E</th><th data-key="pp">P</th><th data-key="dg">DG</th><th data-key="pts">PTS</th><th data-key="champ">🏆 CAMP</th><th data-key="lib">🌎 LIB</th><th data-key="sud">✈️ SUD</th><th data-key="rel">⬇️ DESC</th></tr></thead><tbody></tbody>`;
         const thZonas = `<thead><tr><th data-key="pos">#</th><th data-key="name">Equipo</th><th data-key="pj">PJ</th><th data-key="pg">G</th><th data-key="pe">E</th><th data-key="pp">P</th><th data-key="dg">DG</th><th data-key="pts">PTS</th><th data-key="playoff">✅ PLAYOFFS</th></tr></thead><tbody></tbody>`;
@@ -135,12 +178,12 @@
                 apiData = JSON.parse(JSON.stringify(data));
                 currentData = JSON.parse(JSON.stringify(data));
                 if(data.ultima_actualizacion) document.getElementById('lastUpdate').innerText = "🔄 Actualizado: " + data.ultima_actualizacion;
-                populateSimSelects();
+                renderizarFecha();
                 renderAll();
                 setupSortListeners();
             });
 
-        // --- MOTOR MATEMÁTICO EN JS (Clon del de Python) ---
+        // --- MATEMÁTICA Y PROBABILIDADES ---
         function erf(x) {
             let sign = (x >= 0) ? 1 : -1; x = Math.abs(x);
             let t = 1.0 / (1.0 + 0.3275911 * x);
@@ -189,11 +232,7 @@
             }
 
             if (tipo === "anual") {
-                let t1 = get_target(0);
-                let t3 = get_target(2);
-                let t9 = get_target(8);
-                let tDesc = get_target(total - 3);
-
+                let t1 = get_target(0), t3 = get_target(2), t9 = get_target(8), tDesc = get_target(total - 3);
                 function calc_raw(target_mu, target_ref, is_desc=false) {
                     return datos.map(eq => {
                         if (!is_desc) {
@@ -209,97 +248,113 @@
                         }
                     });
                 }
-
-                let raw_1 = calc_raw(t1.mu, t1.pts);
-                let raw_3 = calc_raw(t3.mu, t3.pts);
-                let raw_9 = calc_raw(t9.mu, t9.pts);
-                let raw_desc = calc_raw(tDesc.mu, tDesc.pmax, true);
-
-                function normalize(raws, slots) {
-                    let s = raws.reduce((a,b)=>a+b, 0);
-                    if (s === 0) return Array(total).fill(0.0);
-                    let probs = raws.map(r => (r/s) * slots * 100.0);
-                    return redistribuir_porcentajes(probs, slots);
-                }
-
-                let p1 = normalize(raw_1, 1);
-                let p3 = normalize(raw_3, 3);
-                let p9 = normalize(raw_9, 9);
-                let pDesc = normalize(raw_desc, 2);
+                let p_1 = normalize_arr(calc_raw(t1.mu, t1.pts), 1);
+                let p_3 = normalize_arr(calc_raw(t3.mu, t3.pts), 3);
+                let p_9 = normalize_arr(calc_raw(t9.mu, t9.pts), 9);
+                let p_desc = normalize_arr(calc_raw(tDesc.mu, tDesc.pmax, true), 2);
 
                 datos.forEach((eq, i) => {
-                    let c1 = p1[i], c3 = Math.max(c1, p3[i]), c9 = Math.max(c3, p9[i]);
-                    let champ = c1, lib = c3 - c1, sud = c9 - c3, rel = pDesc[i];
-                    
-                    if(eq.pmax >= t1.pts && champ < 0.01) champ = 0.01;
-                    if(eq.pmax >= t3.pts && lib < 0.01 && champ === 0) lib = 0.01;
-                    if(eq.pmax >= t9.pts && sud < 0.01 && lib === 0 && champ === 0) sud = 0.01;
-                    if(eq.pmin <= tDesc.pmax && rel < 0.01) rel = 0.01;
-
-                    eq.champ = champ; eq.lib = lib; eq.sud = sud; eq.rel = rel;
+                    let c1 = p_1[i], c3 = Math.max(c1, p_3[i]), c9 = Math.max(c3, p_9[i]);
+                    eq.champ = c1; eq.lib = c3 - c1; eq.sud = c9 - c3; eq.rel = p_desc[i];
                 });
             } else {
                 let t8 = get_target(7);
-                let raw_playoff = datos.map(eq => {
-                    if (eq.pmax < t8.pts) return 0.0;
-                    if (eq.pj_res === 0 && eq.pts >= t8.pts) return 1.0;
-                    let p = 1.0 - normal_cdf(t8.mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35);
-                    return p * p;
-                });
-                let s = raw_playoff.reduce((a,b)=>a+b, 0);
-                let p8 = s === 0 ? Array(total).fill(0.0) : redistribuir_porcentajes(raw_playoff.map(r => (r/s) * 8 * 100.0), 8);
-                
-                datos.forEach((eq, i) => {
-                    let playoff = p8[i];
-                    if(eq.pmax >= t8.pts && playoff < 0.01) playoff = 0.01;
-                    eq.playoff = playoff;
-                });
+                let raw_pl = datos.map(eq => eq.pmax < t8.pts ? 0.0 : 1.0 - normal_cdf(t8.mu, eq.mu, Math.sqrt(eq.pj_res) * 1.35));
+                let p_8 = normalize_arr(raw_pl, 8);
+                datos.forEach((eq, i) => eq.playoff = p_8[i]);
             }
         }
+        function normalize_arr(raws, slots) {
+            let s = raws.reduce((a,b)=>a+b, 0);
+            return s === 0 ? Array(raws.length).fill(0.0) : redistribuir_porcentajes(raws.map(r => (r/s) * slots * 100.0), slots);
+        }
 
-        // --- LÓGICA DEL SIMULADOR ---
+        // --- GESTIÓN DE FECHAS SIMULADOR ---
         document.getElementById('toggleSim').addEventListener('click', () => {
             isSimMode = !isSimMode;
             document.getElementById('simulatorPanel').classList.toggle('active', isSimMode);
-            document.getElementById('simBadge').style.display = isSimMode ? 'inline-block' : 'none';
         });
 
-        function populateSimSelects() {
-            let options = currentData.anual.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
-            document.getElementById('simLocal').innerHTML = options;
-            document.getElementById('simVisitante').innerHTML = options;
-            document.getElementById('simVisitante').selectedIndex = 1;
+        function cambiarFecha(dir) {
+            fechaActualIndex += dir;
+            if (fechaActualIndex < 0) fechaActualIndex = 0;
+            if (fechaActualIndex >= fixtureRestante.length) fechaActualIndex = fixtureRestante.length - 1;
+            renderizarFecha();
         }
 
-        function applySim(res) {
-            let locName = document.getElementById('simLocal').value;
-            let visName = document.getElementById('simVisitante').value;
-            if(locName === visName) return alert("¡Elegí dos equipos distintos!");
-
-            ['anual', 'zonaA', 'zonaB'].forEach(zona => {
-                let loc = currentData[zona].find(t => t.name === locName);
-                let vis = currentData[zona].find(t => t.name === visName);
-                
-                if(loc && vis) {
-                    loc.pj++; vis.pj++;
-                    if(res === 'L') { loc.pts += 3; loc.pg++; vis.pp++; }
-                    else if(res === 'V') { vis.pts += 3; vis.pg++; loc.pp++; }
-                    else { loc.pts += 1; vis.pts += 1; loc.pe++; vis.pe++; }
-                    
-                    loc.dg += (res === 'L' ? 1 : (res === 'V' ? -1 : 0));
-                    vis.dg += (res === 'V' ? 1 : (res === 'L' ? -1 : 0));
-
-                    recalcularProbabilidades(currentData[zona], zona === 'anual' ? 'anual' : 'zona');
-                }
+        function renderizarFecha() {
+            let f = fixtureRestante[fechaActualIndex];
+            document.getElementById('tituloFecha').innerText = f.titulo;
+            let html = "";
+            f.partidos.forEach((p, idx) => {
+                html += `<div class="match-card">
+                    <div class="match-date">${p.fecha}</div>
+                    <div class="match-teams">
+                        <span class="team-home">${p.local}</span>
+                        <div>
+                            <input type="number" class="score-input" min="0" value="${p.gl !== null ? p.gl : ''}" onchange="actualizarPartido(${fechaActualIndex}, ${idx}, 'gl', this.value)">
+                            <span>-</span>
+                            <input type="number" class="score-input" min="0" value="${p.gv !== null ? p.gv : ''}" onchange="actualizarPartido(${fechaActualIndex}, ${idx}, 'gv', this.value)">
+                        </div>
+                        <span class="team-vis">${p.visita}</span>
+                    </div>
+                </div>`;
             });
-            renderAll();
+            document.getElementById('matchdayContainer').innerHTML = html;
+        }
+
+        function actualizarPartido(fIdx, pIdx, campo, val) {
+            let match = fixtureRestante[fIdx].partidos[pIdx];
+            match[campo] = val === "" ? null : parseInt(val);
+            recalcularTablaTotal();
+        }
+
+        function completarRestantes() {
+            let f = fixtureRestante[fechaActualIndex];
+            f.partidos.forEach(p => {
+                if(p.gl === null) p.gl = Math.floor(Math.random() * 3);
+                if(p.gv === null) p.gv = Math.floor(Math.random() * 3);
+            });
+            renderizarFecha();
+            recalcularTablaTotal();
         }
 
         function resetSim() {
             currentData = JSON.parse(JSON.stringify(apiData));
+            fixtureRestante.forEach(f => f.partidos.forEach(p => { p.gl = null; p.gv = null; }));
+            renderizarFecha();
             renderAll();
         }
 
+        function recalcularTablaTotal() {
+            currentData = JSON.parse(JSON.stringify(apiData));
+            
+            // Aplicar todos los partidos simulados con goles ingresados
+            fixtureRestante.forEach(f => {
+                f.partidos.forEach(p => {
+                    if(p.gl !== null && p.gv !== null) {
+                        ['anual', 'zonaA', 'zonaB'].forEach(zona => {
+                            let loc = currentData[zona].find(t => t.name.toLowerCase().includes(p.local.toLowerCase().substring(0,5)));
+                            let vis = currentData[zona].find(t => t.name.toLowerCase().includes(p.visita.toLowerCase().substring(0,5)));
+                            if(loc && vis) {
+                                loc.pj++; vis.pj++;
+                                loc.dg += (p.gl - p.gv); vis.dg += (p.gv - p.gl);
+                                if(p.gl > p.gv) { loc.pts += 3; loc.pg++; vis.pp++; }
+                                else if(p.gl < p.gv) { vis.pts += 3; vis.pg++; loc.pp++; }
+                                else { loc.pts += 1; vis.pts += 1; loc.pe++; vis.pe++; }
+                            }
+                        });
+                    }
+                });
+            });
+
+            ['anual', 'zonaA', 'zonaB'].forEach(zona => {
+                recalcularProbabilidades(currentData[zona], zona === 'anual' ? 'anual' : 'zona');
+            });
+            renderAll();
+        }
+
+        // --- RENDERIZADO TABLAS ---
         function getBg(val, color) { return (!val || val <= 0.01) ? 'transparent' : `rgba(var(--${color}), ${Math.max(0.15, val/100)})`; }
         function fmt(val) { return (!val || val <= 0.01) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`; }
 
@@ -324,7 +379,7 @@
                        <td class="pct-cell" style="background:${getBg(t.lib,'lib')}">${fmt(t.lib)}</td>
                        <td class="pct-cell" style="background:${getBg(t.sud,'sud')}">${fmt(t.sud)}</td>
                        <td class="pct-cell" style="background:${getBg(t.rel,'rel')}">${fmt(t.rel)}</td>`
-                    : `<td class="pct-cell" style="background:${getBg(t.playoff,'lib')}">${fmt(t.playoff)}</td>`;
+                    : `<td class="pct-cell" style="background:${getBg(t.lib,'lib')}">${fmt(t.playoff)}</td>`;
 
                 tbody.innerHTML += `<tr>
                     <td><span class="pos">${t.pos}</span></td><td class="team-name">${t.name}</td>
