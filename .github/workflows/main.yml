@@ -1,7 +1,7 @@
 name: Actualizar Pronosticos
 on:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
       - name: Instalar librerias
         run: pip install pandas lxml html5lib
 
-      - name: Ejecutar motor alternativo
+      - name: Ejecutar motor de extraccion
         run: python generar_pronosticos.py
 
       - name: Guardar cambios
@@ -25,5 +25,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add pronosticos.json
-          git commit -m "Actualizacion automatica sin bloqueos" || echo "Sin cambios"
+          git commit -m "Actualizacion automatica diaria" || echo "Sin cambios"
           git push
