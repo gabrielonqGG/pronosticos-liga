@@ -12,8 +12,9 @@
             "mu": 61.44,
             "pmax": 69,
             "pmin": 48,
-            "champ": 49.98,
-            "lib": 50.02,
+            "pj_res": 7,
+            "champ": 49.08,
+            "lib": 50.92,
             "sud": 0.0,
             "rel": 0.0
         },
@@ -29,9 +30,10 @@
             "mu": 60.16,
             "pmax": 68,
             "pmin": 47,
-            "champ": 28.09,
-            "lib": 50.55,
-            "sud": 21.35,
+            "pj_res": 7,
+            "champ": 28.36,
+            "lib": 71.64,
+            "sud": 0.0,
             "rel": 0.0
         },
         {
@@ -46,9 +48,10 @@
             "mu": 57.6,
             "pmax": 66,
             "pmin": 45,
-            "champ": 8.88,
-            "lib": 23.22,
-            "sud": 67.9,
+            "pj_res": 7,
+            "champ": 9.47,
+            "lib": 32.48,
+            "sud": 58.05,
             "rel": 0.0
         },
         {
@@ -63,9 +66,10 @@
             "mu": 56.32,
             "pmax": 65,
             "pmin": 44,
-            "champ": 4.99,
-            "lib": 15.52,
-            "sud": 55.05,
+            "pj_res": 7,
+            "champ": 5.47,
+            "lib": 18.77,
+            "sud": 75.76,
             "rel": 0.0
         },
         {
@@ -80,9 +84,10 @@
             "mu": 55.04,
             "pmax": 64,
             "pmin": 43,
-            "champ": 2.81,
-            "lib": 10.3,
-            "sud": 41.77,
+            "pj_res": 7,
+            "champ": 3.16,
+            "lib": 10.84,
+            "sud": 86.0,
             "rel": 0.0
         },
         {
@@ -97,26 +102,10 @@
             "mu": 53.76,
             "pmax": 63,
             "pmin": 42,
-            "champ": 1.58,
-            "lib": 6.8,
-            "sud": 31.47,
-            "rel": 0.0
-        },
-        {
-            "name": "Gimnasia La Plata",
-            "pj": 25,
-            "pg": 13,
-            "pe": 3,
-            "pp": 9,
-            "dg": 0,
-            "pts": 42,
-            "pos": 7,
-            "mu": 53.76,
-            "pmax": 63,
-            "pmin": 42,
-            "champ": 1.58,
-            "lib": 6.8,
-            "sud": 31.47,
+            "pj_res": 7,
+            "champ": 1.83,
+            "lib": 6.27,
+            "sud": 91.91,
             "rel": 0.0
         },
         {
@@ -127,13 +116,14 @@
             "pp": 8,
             "dg": 12,
             "pts": 41,
-            "pos": 8,
+            "pos": 7,
             "mu": 52.48,
             "pmax": 62,
             "pmin": 41,
-            "champ": 0.89,
-            "lib": 4.46,
-            "sud": 23.58,
+            "pj_res": 7,
+            "champ": 1.05,
+            "lib": 3.62,
+            "sud": 95.33,
             "rel": 0.0
         },
         {
@@ -144,13 +134,14 @@
             "pp": 9,
             "dg": 4,
             "pts": 40,
-            "pos": 9,
+            "pos": 8,
             "mu": 51.2,
             "pmax": 61,
             "pmin": 40,
-            "champ": 0.5,
-            "lib": 2.92,
-            "sud": 17.59,
+            "pj_res": 7,
+            "champ": 0.61,
+            "lib": 2.09,
+            "sud": 74.02,
             "rel": 0.0
         },
         {
@@ -161,13 +152,14 @@
             "pp": 6,
             "dg": 7,
             "pts": 39,
-            "pos": 10,
+            "pos": 9,
             "mu": 49.92,
             "pmax": 60,
             "pmin": 39,
-            "champ": 0.28,
-            "lib": 1.9,
-            "sud": 13.07,
+            "pj_res": 7,
+            "champ": 0.35,
+            "lib": 1.21,
+            "sud": 42.77,
             "rel": 0.0
         },
         {
@@ -178,13 +170,14 @@
             "pp": 7,
             "dg": 5,
             "pts": 38,
-            "pos": 11,
+            "pos": 10,
             "mu": 48.64,
             "pmax": 59,
             "pmin": 38,
-            "champ": 0.16,
-            "lib": 1.24,
-            "sud": 9.68,
+            "pj_res": 7,
+            "champ": 0.2,
+            "lib": 0.7,
+            "sud": 24.71,
             "rel": 0.0
         },
         {
@@ -195,13 +188,14 @@
             "pp": 8,
             "dg": 6,
             "pts": 37,
-            "pos": 12,
+            "pos": 11,
             "mu": 47.36,
             "pmax": 58,
             "pmin": 37,
-            "champ": 0.09,
-            "lib": 0.8,
-            "sud": 7.15,
+            "pj_res": 7,
+            "champ": 0.12,
+            "lib": 0.4,
+            "sud": 14.28,
             "rel": 0.0
         },
         {
@@ -212,13 +206,14 @@
             "pp": 7,
             "dg": -1,
             "pts": 36,
-            "pos": 13,
+            "pos": 12,
             "mu": 46.08,
             "pmax": 57,
             "pmin": 36,
-            "champ": 0.05,
-            "lib": 0.52,
-            "sud": 5.27,
+            "pj_res": 7,
+            "champ": 0.07,
+            "lib": 0.23,
+            "sud": 8.25,
             "rel": 0.0
         },
         {
@@ -229,13 +224,14 @@
             "pp": 6,
             "dg": 5,
             "pts": 35,
-            "pos": 14,
+            "pos": 13,
             "mu": 44.8,
             "pmax": 56,
             "pmin": 35,
-            "champ": 0.03,
-            "lib": 0.34,
-            "sud": 3.88,
+            "pj_res": 7,
+            "champ": 0.04,
+            "lib": 0.13,
+            "sud": 4.77,
             "rel": 0.0
         },
         {
@@ -246,13 +242,14 @@
             "pp": 10,
             "dg": -3,
             "pts": 35,
-            "pos": 15,
+            "pos": 14,
             "mu": 44.8,
             "pmax": 56,
             "pmin": 35,
-            "champ": 0.03,
-            "lib": 0.34,
-            "sud": 3.88,
+            "pj_res": 7,
+            "champ": 0.04,
+            "lib": 0.13,
+            "sud": 4.77,
             "rel": 0.0
         },
         {
@@ -263,13 +260,32 @@
             "pp": 12,
             "dg": -4,
             "pts": 35,
+            "pos": 15,
+            "mu": 44.8,
+            "pmax": 56,
+            "pmin": 35,
+            "pj_res": 7,
+            "champ": 0.04,
+            "lib": 0.13,
+            "sud": 4.77,
+            "rel": 0.0
+        },
+        {
+            "name": "Gimnasia Mendoza",
+            "pj": 25,
+            "pg": 10,
+            "pe": 5,
+            "pp": 10,
+            "dg": -8,
+            "pts": 35,
             "pos": 16,
             "mu": 44.8,
             "pmax": 56,
             "pmin": 35,
-            "champ": 0.03,
-            "lib": 0.34,
-            "sud": 3.88,
+            "pj_res": 7,
+            "champ": 0.04,
+            "lib": 0.13,
+            "sud": 4.77,
             "rel": 0.0
         },
         {
@@ -284,9 +300,10 @@
             "mu": 43.52,
             "pmax": 55,
             "pmin": 34,
+            "pj_res": 7,
             "champ": 0.02,
-            "lib": 0.22,
-            "sud": 2.85,
+            "lib": 0.08,
+            "sud": 2.75,
             "rel": 0.01
         },
         {
@@ -301,9 +318,10 @@
             "mu": 43.52,
             "pmax": 55,
             "pmin": 34,
+            "pj_res": 7,
             "champ": 0.02,
-            "lib": 0.22,
-            "sud": 2.85,
+            "lib": 0.08,
+            "sud": 2.75,
             "rel": 0.01
         },
         {
@@ -318,9 +336,10 @@
             "mu": 42.24,
             "pmax": 54,
             "pmin": 33,
+            "pj_res": 7,
             "champ": 0.01,
-            "lib": 0.14,
-            "sud": 2.09,
+            "lib": 0.04,
+            "sud": 1.59,
             "rel": 0.01
         },
         {
@@ -335,9 +354,10 @@
             "mu": 42.24,
             "pmax": 54,
             "pmin": 33,
+            "pj_res": 7,
             "champ": 0.01,
-            "lib": 0.14,
-            "sud": 2.09,
+            "lib": 0.04,
+            "sud": 1.59,
             "rel": 0.01
         },
         {
@@ -352,9 +372,10 @@
             "mu": 40.96,
             "pmax": 53,
             "pmin": 32,
+            "pj_res": 7,
             "champ": 0.01,
-            "lib": 0.09,
-            "sud": 1.53,
+            "lib": 0.03,
+            "sud": 0.92,
             "rel": 0.01
         },
         {
@@ -369,10 +390,11 @@
             "mu": 35.84,
             "pmax": 49,
             "pmin": 28,
+            "pj_res": 7,
             "champ": 0.01,
-            "lib": 0.02,
-            "sud": 0.44,
-            "rel": 0.07
+            "lib": 0.0,
+            "sud": 0.1,
+            "rel": 0.03
         },
         {
             "name": "Atlético Tucumán",
@@ -386,10 +408,11 @@
             "mu": 34.56,
             "pmax": 48,
             "pmin": 27,
+            "pj_res": 7,
             "champ": 0.01,
-            "lib": 0.01,
-            "sud": 0.32,
-            "rel": 0.11
+            "lib": 0.0,
+            "sud": 0.06,
+            "rel": 0.04
         },
         {
             "name": "Racing Club",
@@ -403,10 +426,11 @@
             "mu": 33.28,
             "pmax": 47,
             "pmin": 26,
+            "pj_res": 7,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.23,
-            "rel": 0.17
+            "sud": 0.03,
+            "rel": 0.08
         },
         {
             "name": "Banfield",
@@ -420,10 +444,11 @@
             "mu": 33.28,
             "pmax": 47,
             "pmin": 26,
+            "pj_res": 7,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.23,
-            "rel": 0.17
+            "sud": 0.03,
+            "rel": 0.08
         },
         {
             "name": "Platense",
@@ -437,10 +462,11 @@
             "mu": 32.0,
             "pmax": 46,
             "pmin": 25,
+            "pj_res": 7,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.17,
-            "rel": 0.26
+            "sud": 0.02,
+            "rel": 0.13
         },
         {
             "name": "Central Córdoba SE",
@@ -454,10 +480,11 @@
             "mu": 29.44,
             "pmax": 44,
             "pmin": 23,
+            "pj_res": 7,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.09,
-            "rel": 0.64
+            "sud": 0.01,
+            "rel": 0.4
         },
         {
             "name": "Deportivo Riestra",
@@ -471,10 +498,11 @@
             "mu": 25.6,
             "pmax": 41,
             "pmin": 20,
+            "pj_res": 7,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.03,
-            "rel": 2.47
+            "sud": 0.01,
+            "rel": 2.09
         },
         {
             "name": "Aldosivi",
@@ -488,10 +516,11 @@
             "mu": 16.64,
             "pmax": 34,
             "pmin": 13,
+            "pj_res": 7,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 56.84
+            "rel": 97.14
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -505,6 +534,7 @@
             "mu": 14.08,
             "pmax": 32,
             "pmin": 11,
+            "pj_res": 7,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
@@ -524,6 +554,7 @@
             "mu": 33.77777777777778,
             "pmax": 40,
             "pmin": 19,
+            "pj_res": 7,
             "playoff": 100.0
         },
         {
@@ -538,6 +569,7 @@
             "mu": 30.22222222222222,
             "pmax": 38,
             "pmin": 17,
+            "pj_res": 7,
             "playoff": 100.0
         },
         {
@@ -552,6 +584,7 @@
             "mu": 30.22222222222222,
             "pmax": 38,
             "pmin": 17,
+            "pj_res": 7,
             "playoff": 100.0
         },
         {
@@ -566,7 +599,8 @@
             "mu": 28.444444444444443,
             "pmax": 37,
             "pmin": 16,
-            "playoff": 73.82
+            "pj_res": 7,
+            "playoff": 100.0
         },
         {
             "name": "Boca Juniors",
@@ -580,7 +614,8 @@
             "mu": 24.88888888888889,
             "pmax": 35,
             "pmin": 14,
-            "playoff": 25.41
+            "pj_res": 7,
+            "playoff": 100.0
         },
         {
             "name": "Independiente",
@@ -594,7 +629,8 @@
             "mu": 24.88888888888889,
             "pmax": 35,
             "pmin": 14,
-            "playoff": 25.41
+            "pj_res": 7,
+            "playoff": 100.0
         },
         {
             "name": "Lanús",
@@ -608,7 +644,8 @@
             "mu": 23.11111111111111,
             "pmax": 34,
             "pmin": 13,
-            "playoff": 14.9
+            "pj_res": 7,
+            "playoff": 58.02
         },
         {
             "name": "Unión de Santa Fe",
@@ -622,7 +659,8 @@
             "mu": 23.11111111111111,
             "pmax": 34,
             "pmin": 13,
-            "playoff": 14.9
+            "pj_res": 7,
+            "playoff": 58.02
         },
         {
             "name": "Newells Old Boys",
@@ -636,7 +674,8 @@
             "mu": 23.11111111111111,
             "pmax": 34,
             "pmin": 13,
-            "playoff": 14.9
+            "pj_res": 7,
+            "playoff": 58.02
         },
         {
             "name": "San Lorenzo",
@@ -650,7 +689,8 @@
             "mu": 19.555555555555557,
             "pmax": 32,
             "pmin": 11,
-            "playoff": 5.13
+            "pj_res": 7,
+            "playoff": 12.64
         },
         {
             "name": "Estudiantes de La Plata",
@@ -664,7 +704,8 @@
             "mu": 17.77777777777778,
             "pmax": 31,
             "pmin": 10,
-            "playoff": 3.01
+            "pj_res": 7,
+            "playoff": 5.9
         },
         {
             "name": "Deportivo Riestra",
@@ -678,7 +719,8 @@
             "mu": 16.0,
             "pmax": 30,
             "pmin": 9,
-            "playoff": 1.77
+            "pj_res": 7,
+            "playoff": 2.75
         },
         {
             "name": "Platense",
@@ -692,7 +734,8 @@
             "mu": 16.0,
             "pmax": 30,
             "pmin": 9,
-            "playoff": 1.77
+            "pj_res": 7,
+            "playoff": 2.75
         },
         {
             "name": "Talleres de Córdoba",
@@ -706,7 +749,8 @@
             "mu": 14.222222222222221,
             "pmax": 29,
             "pmin": 8,
-            "playoff": 1.04
+            "pj_res": 7,
+            "playoff": 1.29
         },
         {
             "name": "Central Córdoba SE",
@@ -720,7 +764,8 @@
             "mu": 12.444444444444445,
             "pmax": 28,
             "pmin": 7,
-            "playoff": 0.61
+            "pj_res": 7,
+            "playoff": 0.6
         }
     ],
     "zonaB": [
@@ -736,6 +781,7 @@
             "mu": 32.0,
             "pmax": 39,
             "pmin": 18,
+            "pj_res": 7,
             "playoff": 100.0
         },
         {
@@ -750,10 +796,11 @@
             "mu": 28.444444444444443,
             "pmax": 37,
             "pmin": 16,
+            "pj_res": 7,
             "playoff": 100.0
         },
         {
-            "name": "Gimnasia La Plata",
+            "name": "Gimnasia Mendoza",
             "pj": 9,
             "pg": 5,
             "pe": 1,
@@ -764,6 +811,7 @@
             "mu": 28.444444444444443,
             "pmax": 37,
             "pmin": 16,
+            "pj_res": 7,
             "playoff": 100.0
         },
         {
@@ -778,7 +826,8 @@
             "mu": 26.666666666666668,
             "pmax": 36,
             "pmin": 15,
-            "playoff": 67.96
+            "pj_res": 7,
+            "playoff": 100.0
         },
         {
             "name": "Independiente Rivadavia",
@@ -792,7 +841,8 @@
             "mu": 24.88888888888889,
             "pmax": 35,
             "pmin": 14,
-            "playoff": 39.87
+            "pj_res": 7,
+            "playoff": 100.0
         },
         {
             "name": "Belgrano",
@@ -806,7 +856,8 @@
             "mu": 23.11111111111111,
             "pmax": 34,
             "pmin": 13,
-            "playoff": 23.39
+            "pj_res": 7,
+            "playoff": 60.42
         },
         {
             "name": "River Plate",
@@ -820,7 +871,8 @@
             "mu": 23.11111111111111,
             "pmax": 34,
             "pmin": 13,
-            "playoff": 23.39
+            "pj_res": 7,
+            "playoff": 60.42
         },
         {
             "name": "Atlético Tucumán",
@@ -834,7 +886,8 @@
             "mu": 23.11111111111111,
             "pmax": 34,
             "pmin": 13,
-            "playoff": 23.39
+            "pj_res": 7,
+            "playoff": 60.42
         },
         {
             "name": "Huracán",
@@ -848,7 +901,8 @@
             "mu": 23.11111111111111,
             "pmax": 34,
             "pmin": 13,
-            "playoff": 23.39
+            "pj_res": 7,
+            "playoff": 60.42
         },
         {
             "name": "Tigre",
@@ -862,7 +916,8 @@
             "mu": 21.333333333333332,
             "pmax": 33,
             "pmin": 12,
-            "playoff": 13.72
+            "pj_res": 7,
+            "playoff": 28.2
         },
         {
             "name": "Barracas Central",
@@ -876,7 +931,8 @@
             "mu": 21.333333333333332,
             "pmax": 33,
             "pmin": 12,
-            "playoff": 13.72
+            "pj_res": 7,
+            "playoff": 28.2
         },
         {
             "name": "Banfield",
@@ -890,7 +946,8 @@
             "mu": 14.222222222222221,
             "pmax": 29,
             "pmin": 8,
-            "playoff": 1.63
+            "pj_res": 7,
+            "playoff": 1.34
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -904,7 +961,8 @@
             "mu": 10.666666666666666,
             "pmax": 27,
             "pmin": 6,
-            "playoff": 0.56
+            "pj_res": 7,
+            "playoff": 0.29
         },
         {
             "name": "Aldosivi",
@@ -918,7 +976,8 @@
             "mu": 8.88888888888889,
             "pmax": 26,
             "pmin": 5,
-            "playoff": 0.33
+            "pj_res": 7,
+            "playoff": 0.14
         },
         {
             "name": "Racing Club",
@@ -932,8 +991,9 @@
             "mu": 8.88888888888889,
             "pmax": 26,
             "pmin": 5,
-            "playoff": 0.33
+            "pj_res": 7,
+            "playoff": 0.14
         }
     ],
-    "ultima_actualizacion": "17/09/2026 a las 00:05 hs"
+    "ultima_actualizacion": "17/09/2026 a las 00:08 hs"
 }
