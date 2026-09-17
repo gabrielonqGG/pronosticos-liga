@@ -155,7 +155,7 @@
 <body>
 
     <div class="header-controls">
-        <div>
+        <div style="text-align: center;">
             <h1>⚽ Stats Liga Profesional</h1>
             <div class="subtitle">Pronósticos y posiciones automatizadas</div>
             <div id="lastUpdate" class="timestamp">⏳ Cargando última actualización...</div>
@@ -248,14 +248,14 @@
             }).catch(e => console.error("Generando JSON en GitHub Actions...", e));
 
         function getBgOpacity(value, varColor) {
-            if (!value || value <= 0.1) return 'transparent';
+            if (!value || value <= 0.01) return 'transparent';
             const opacity = Math.max(0.15, (value / 100) * 0.9);
             return `rgba(var(--${varColor}), ${opacity})`;
         }
 
+        // Formato con 2 decimales
         function formatPct(val) {
             return (!val || val <= 0.01) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`;
-        }
         }
 
         function renderTable(tabId) {
