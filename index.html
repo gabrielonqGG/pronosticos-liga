@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats Liga Profesional</title>
     <style>
+        /* Variables Nativas - Tema Oscuro (Default) */
         :root {
             --bg-body: #0f172a;
             --bg-card: #1e293b;
@@ -21,6 +22,7 @@
             --rel: 239, 68, 68;
         }
 
+        /* Variables Nativas - Tema Claro */
         [data-theme="light"] {
             --bg-body: #f8fafc;
             --bg-card: #ffffff;
@@ -42,6 +44,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* Header y Controles */
         .header-controls {
             max-width: 1200px;
             margin: 0 auto 20px auto;
@@ -51,9 +54,9 @@
             gap: 15px;
         }
 
-        h1 { margin: 0; font-size: 24px; display: flex; align-items: center; gap: 8px; }
+        h1 { margin: 0; font-size: 24px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 4px; text-align: center; }
-        .timestamp { color: var(--accent); font-weight: 600; font-size: 13px; margin-top: 6px; }
+        .timestamp { color: var(--accent); font-weight: 600; font-size: 13px; margin-top: 6px; text-align: center; }
 
         .toolbar {
             display: flex;
@@ -88,6 +91,7 @@
         }
         .theme-btn:hover { background: var(--hover-row); }
 
+        /* Pestañas */
         .tabs {
             display: flex;
             justify-content: center;
@@ -108,6 +112,7 @@
         .tab-btn:hover { background: var(--hover-row); color: var(--text-main); }
         .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
+        /* Contenedor y Tabla Responsive */
         .table-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -130,6 +135,7 @@
         }
         th:hover { background: var(--hover-row); color: var(--accent); }
         
+        /* Efecto Sticky en celulares para el Nombre del Equipo */
         th:first-child, td:first-child {
             position: sticky; left: 0; z-index: 2;
             background: var(--sticky-bg); text-align: left;
@@ -147,6 +153,7 @@
         .pct-cell { font-weight: 600; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         .pct-0 { color: var(--border); font-weight: normal; text-shadow: none; }
         
+        /* Íconos de Sort */
         .sort-icon::after { content: ' \2195'; opacity: 0.3; }
         .sort-asc::after { content: ' \25B2'; opacity: 1; color: var(--accent); }
         .sort-desc::after { content: ' \25BC'; opacity: 1; color: var(--accent); }
@@ -155,10 +162,10 @@
 <body>
 
     <div class="header-controls">
-        <div style="text-align: center;">
+        <div>
             <h1>⚽ Stats Liga Profesional</h1>
-            <div class="subtitle">Pronósticos y posiciones automatizadas</div>
-            <div id="lastUpdate" class="timestamp">⏳ Cargando última actualización...</div>
+            <div class="subtitle">Pronósticos y posiciones automatizadas en tiempo real</div>
+            <div id="lastUpdate" class="timestamp">⏳ Cargando datos...</div>
         </div>
         
         <div class="toolbar">
@@ -173,11 +180,13 @@
         <button class="tab-btn" data-target="zonaB">Clausura - Zona B</button>
     </div>
 
+    <!-- Contenedores generados por JavaScript -->
     <div id="anual" class="table-container active"><div class="table-wrapper"><table id="table-anual"></table></div></div>
     <div id="zonaA" class="table-container"><div class="table-wrapper"><table id="table-zonaA"></table></div></div>
     <div id="zonaB" class="table-container"><div class="table-wrapper"><table id="table-zonaB"></table></div></div>
 
     <script>
+        // 1. Manejo del Tema Local
         const themeToggle = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', currentTheme);
@@ -189,6 +198,7 @@
             localStorage.setItem('theme', switchTo);
         });
 
+        // 2. Variables de App
         let apiData = { anual: [], zonaA: [], zonaB: [] };
         let currentTab = 'anual';
         let sortConfig = { key: 'pos', asc: true };
@@ -228,14 +238,13 @@
         document.getElementById('table-zonaA').innerHTML = thZonas;
         document.getElementById('table-zonaB').innerHTML = thZonas;
 
-        // El truco del Caché-Busting
+        // 3. Extracción con Cache-Busting
         const cacheBuster = new Date().getTime();
         fetch(`pronosticos.json?v=${cacheBuster}`)
             .then(response => response.json())
             .then(data => {
                 apiData = data;
                 
-                // Actualizar la hora en pantalla
                 const updateTag = document.getElementById('lastUpdate');
                 if(data.ultima_actualizacion) {
                     updateTag.innerText = "🔄 Última actualización: " + data.ultima_actualizacion;
@@ -245,7 +254,7 @@
 
                 renderAll();
                 setupSortListeners();
-            }).catch(e => console.error("Generando JSON en GitHub Actions...", e));
+            }).catch(e => console.error("Error al cargar JSON", e));
 
         function getBgOpacity(value, varColor) {
             if (!value || value <= 0.01) return 'transparent';
@@ -253,9 +262,9 @@
             return `rgba(var(--${varColor}), ${opacity})`;
         }
 
-        // Formato con 2 decimales
+        // 4. Precisión de dos decimales
         function formatPct(val) {
-            return (!val || val <= 0.01) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`;
+            return (!val || val <= 0.00) ? '<span class="pct-0">-</span>' : `${val.toFixed(2)}%`;
         }
 
         function renderTable(tabId) {
@@ -266,6 +275,7 @@
             
             let data = [...(apiData[tabId] || [])];
             
+            // Lógica Sort
             data.sort((a, b) => {
                 let valA = a[sortConfig.key];
                 let valB = b[sortConfig.key];
@@ -273,6 +283,7 @@
                 return sortConfig.asc ? valA - valB : valB - valA;
             });
 
+            // Lógica Filtro Buscador
             const query = document.getElementById('searchInput').value.toLowerCase();
             if (query) data = data.filter(t => t.name.toLowerCase().includes(query));
 
@@ -306,6 +317,7 @@
             renderTable('zonaB');
         }
 
+        // 5. Listeners Generales
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -313,7 +325,7 @@
                 e.target.classList.add('active');
                 currentTab = e.target.getAttribute('data-target');
                 document.getElementById(currentTab).classList.add('active');
-                sortConfig = { key: 'pts', asc: false };
+                sortConfig = { key: 'pts', asc: false }; // Resetea el orden al cambiar de pestaña
                 renderAll();
             });
         });
