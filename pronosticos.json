@@ -379,7 +379,7 @@
             "rel": 3.8
         },
         {
-            "name": "Desconocido",
+            "name": "Newell's Old BoysNewell's",
             "pj": 25,
             "pg": 3,
             "pe": 4,
@@ -511,7 +511,7 @@
             "playoff": 50.0
         },
         {
-            "name": "Desconocido",
+            "name": "Newell's Old BoysNewell's",
             "pj": 9,
             "pg": 3,
             "pe": 4,
@@ -755,5 +755,5 @@
             "playoff": 0.24
         }
     ],
-    "ultima_actualizacion": "16/09/2026 a las 23:45 hs"
+    "ultima_actualizacion": "16/09/2026 a las 23:56 hs"
 }
