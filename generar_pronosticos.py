@@ -6,7 +6,7 @@ import io
 import math
 from datetime import datetime, timezone, timedelta
 
-# Nombres estrictos para evitar cualquier bug de lectura HTML
+# Nombres estrictos para evitar cualquier bug de lectura HTML y cruce de diccionarios
 EQUIPOS_OFICIALES = [
     "Argentinos Juniors", "Independiente Rivadavia", "Vélez Sarsfield", "Boca Juniors",
     "Gimnasia La Plata", "Rosario Central", "River Plate", "Estudiantes de La Plata",
@@ -19,7 +19,6 @@ EQUIPOS_OFICIALES = [
 
 # =================================================================
 # 1. BASE DE DATOS ESTÁTICA DEL APERTURA (16 Fechas)
-# Totalmente normalizada para que cruce perfecto con el Clausura
 # =================================================================
 apertura_stats = {
     # --- ZONA A ---
@@ -68,6 +67,7 @@ def aplicar_probabilidades(datos, tipo="anual"):
     total = len(datos)
     if total == 0: return
 
+    # Configurado a 32 fechas Anuales y 16 fechas de Zona
     pj_total = 32 if tipo == "anual" else 16
     
     def get_rival(idx):
@@ -125,7 +125,6 @@ def aplicar_probabilidades(datos, tipo="anual"):
             rival_sud = get_rival(9 if pos <= 9 else 8)
             sud = prob_superar(*rival_sud)
 
-            # Asumimos que descienden 2 (comparamos con el que se salva en posición total-3)
             rival_desc = get_rival(total-3 if pos > total-2 else total-2)
             rel = prob_caer(*rival_desc)
 
@@ -151,15 +150,15 @@ def procesar_dataframe(df):
     df.columns = [str(c).upper().strip() for c in df.columns]
     col_equipo = [c for c in df.columns if 'EQUIPO' in c][0]
     
-    # Ordenamos de mayor a menor longitud para que "Independiente Rivadavia" machee antes que "Independiente"
     nombres_ordenados = sorted(EQUIPOS_OFICIALES, key=len, reverse=True)
     
     for i in range(len(df)):
-        nombre_crudo = str(df.iloc[i][col_equipo]).replace(" ", "").lower()
-        nombre_limpio = "Desconocido"
+        nombre_crudo = str(df.iloc[i][col_equipo])
         
+        # Limpieza estricta: Si el nombre escrapeado contiene el nombre oficial, lo asigna
+        nombre_limpio = nombre_crudo
         for eq in nombres_ordenados:
-            if eq.replace(" ", "").lower() in nombre_crudo:
+            if eq.replace(" ", "").lower() in nombre_crudo.replace(" ", "").lower():
                 nombre_limpio = eq
                 break
         
@@ -210,6 +209,7 @@ def procesar_datos():
             todos_los_equipos = datos_finales["zonaA"] + datos_finales["zonaB"]
             for eq in todos_los_equipos:
                 nombre = eq["name"]
+                # Fallback actualizado: Si por algún error de tipeo no cruza, al menos suma los 16 PJ
                 historial = apertura_stats.get(nombre, {"pj": 16, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0})
                 
                 eq_anual = {
