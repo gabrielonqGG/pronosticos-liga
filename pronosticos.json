@@ -9,9 +9,12 @@
             "dg": 14,
             "pts": 48,
             "pos": 1,
-            "champ": 60.0,
-            "lib": 24.46,
-            "sud": 14.41,
+            "mu": 61.44,
+            "pmax": 69,
+            "pmin": 48,
+            "champ": 49.98,
+            "lib": 50.02,
+            "sud": 0.0,
             "rel": 0.0
         },
         {
@@ -23,9 +26,12 @@
             "dg": 9,
             "pts": 47,
             "pos": 2,
-            "champ": 40.0,
-            "lib": 37.65,
-            "sud": 20.22,
+            "mu": 60.16,
+            "pmax": 68,
+            "pmin": 47,
+            "champ": 28.09,
+            "lib": 50.55,
+            "sud": 21.35,
             "rel": 0.0
         },
         {
@@ -37,9 +43,12 @@
             "dg": 11,
             "pts": 45,
             "pos": 3,
-            "champ": 22.36,
-            "lib": 37.65,
-            "sud": 33.58,
+            "mu": 57.6,
+            "pmax": 66,
+            "pmin": 45,
+            "champ": 8.88,
+            "lib": 23.22,
+            "sud": 67.9,
             "rel": 0.0
         },
         {
@@ -51,9 +60,12 @@
             "dg": 14,
             "pts": 44,
             "pos": 4,
-            "champ": 15.54,
-            "lib": 24.46,
-            "sud": 49.74,
+            "mu": 56.32,
+            "pmax": 65,
+            "pmin": 44,
+            "champ": 4.99,
+            "lib": 15.52,
+            "sud": 55.05,
             "rel": 0.0
         },
         {
@@ -65,9 +77,12 @@
             "dg": 6,
             "pts": 43,
             "pos": 5,
-            "champ": 10.26,
-            "lib": 20.36,
-            "sud": 53.85,
+            "mu": 55.04,
+            "pmax": 64,
+            "pmin": 43,
+            "champ": 2.81,
+            "lib": 10.3,
+            "sud": 41.77,
             "rel": 0.0
         },
         {
@@ -79,9 +94,12 @@
             "dg": 12,
             "pts": 42,
             "pos": 6,
-            "champ": 6.42,
-            "lib": 15.94,
-            "sud": 55.29,
+            "mu": 53.76,
+            "pmax": 63,
+            "pmin": 42,
+            "champ": 1.58,
+            "lib": 6.8,
+            "sud": 31.47,
             "rel": 0.0
         },
         {
@@ -93,9 +111,12 @@
             "dg": 0,
             "pts": 42,
             "pos": 7,
-            "champ": 6.42,
-            "lib": 15.94,
-            "sud": 55.29,
+            "mu": 53.76,
+            "pmax": 63,
+            "pmin": 42,
+            "champ": 1.58,
+            "lib": 6.8,
+            "sud": 31.47,
             "rel": 0.0
         },
         {
@@ -107,9 +128,12 @@
             "dg": 12,
             "pts": 41,
             "pos": 8,
-            "champ": 3.8,
-            "lib": 11.73,
-            "sud": 53.85,
+            "mu": 52.48,
+            "pmax": 62,
+            "pmin": 41,
+            "champ": 0.89,
+            "lib": 4.46,
+            "sud": 23.58,
             "rel": 0.0
         },
         {
@@ -121,9 +145,12 @@
             "dg": 4,
             "pts": 40,
             "pos": 9,
-            "champ": 2.13,
-            "lib": 8.13,
-            "sud": 49.74,
+            "mu": 51.2,
+            "pmax": 61,
+            "pmin": 40,
+            "champ": 0.5,
+            "lib": 2.92,
+            "sud": 17.59,
             "rel": 0.0
         },
         {
@@ -135,9 +162,12 @@
             "dg": 7,
             "pts": 39,
             "pos": 10,
-            "champ": 1.13,
-            "lib": 5.29,
-            "sud": 33.58,
+            "mu": 49.92,
+            "pmax": 60,
+            "pmin": 39,
+            "champ": 0.28,
+            "lib": 1.9,
+            "sud": 13.07,
             "rel": 0.0
         },
         {
@@ -149,9 +179,12 @@
             "dg": 5,
             "pts": 38,
             "pos": 11,
-            "champ": 0.56,
-            "lib": 3.24,
-            "sud": 26.81,
+            "mu": 48.64,
+            "pmax": 59,
+            "pmin": 38,
+            "champ": 0.16,
+            "lib": 1.24,
+            "sud": 9.68,
             "rel": 0.0
         },
         {
@@ -163,9 +196,12 @@
             "dg": 6,
             "pts": 37,
             "pos": 12,
-            "champ": 0.27,
-            "lib": 1.87,
-            "sud": 20.22,
+            "mu": 47.36,
+            "pmax": 58,
+            "pmin": 37,
+            "champ": 0.09,
+            "lib": 0.8,
+            "sud": 7.15,
             "rel": 0.0
         },
         {
@@ -177,9 +213,12 @@
             "dg": -1,
             "pts": 36,
             "pos": 13,
-            "champ": 0.12,
-            "lib": 1.01,
-            "sud": 14.41,
+            "mu": 46.08,
+            "pmax": 57,
+            "pmin": 36,
+            "champ": 0.05,
+            "lib": 0.52,
+            "sud": 5.27,
             "rel": 0.0
         },
         {
@@ -191,9 +230,12 @@
             "dg": 5,
             "pts": 35,
             "pos": 14,
-            "champ": 0.05,
-            "lib": 0.51,
-            "sud": 9.69,
+            "mu": 44.8,
+            "pmax": 56,
+            "pmin": 35,
+            "champ": 0.03,
+            "lib": 0.34,
+            "sud": 3.88,
             "rel": 0.0
         },
         {
@@ -205,9 +247,12 @@
             "dg": -3,
             "pts": 35,
             "pos": 15,
-            "champ": 0.05,
-            "lib": 0.51,
-            "sud": 9.69,
+            "mu": 44.8,
+            "pmax": 56,
+            "pmin": 35,
+            "champ": 0.03,
+            "lib": 0.34,
+            "sud": 3.88,
             "rel": 0.0
         },
         {
@@ -219,9 +264,12 @@
             "dg": -4,
             "pts": 35,
             "pos": 16,
-            "champ": 0.05,
-            "lib": 0.51,
-            "sud": 9.69,
+            "mu": 44.8,
+            "pmax": 56,
+            "pmin": 35,
+            "champ": 0.03,
+            "lib": 0.34,
+            "sud": 3.88,
             "rel": 0.0
         },
         {
@@ -233,9 +281,12 @@
             "dg": 6,
             "pts": 34,
             "pos": 17,
+            "mu": 43.52,
+            "pmax": 55,
+            "pmin": 34,
             "champ": 0.02,
-            "lib": 0.25,
-            "sud": 6.15,
+            "lib": 0.22,
+            "sud": 2.85,
             "rel": 0.01
         },
         {
@@ -247,9 +298,12 @@
             "dg": 0,
             "pts": 34,
             "pos": 18,
+            "mu": 43.52,
+            "pmax": 55,
+            "pmin": 34,
             "champ": 0.02,
-            "lib": 0.25,
-            "sud": 6.15,
+            "lib": 0.22,
+            "sud": 2.85,
             "rel": 0.01
         },
         {
@@ -261,9 +315,12 @@
             "dg": -1,
             "pts": 33,
             "pos": 19,
+            "mu": 42.24,
+            "pmax": 54,
+            "pmin": 33,
             "champ": 0.01,
-            "lib": 0.11,
-            "sud": 3.69,
+            "lib": 0.14,
+            "sud": 2.09,
             "rel": 0.01
         },
         {
@@ -275,9 +332,12 @@
             "dg": -2,
             "pts": 33,
             "pos": 20,
+            "mu": 42.24,
+            "pmax": 54,
+            "pmin": 33,
             "champ": 0.01,
-            "lib": 0.11,
-            "sud": 3.69,
+            "lib": 0.14,
+            "sud": 2.09,
             "rel": 0.01
         },
         {
@@ -289,10 +349,30 @@
             "dg": 4,
             "pts": 32,
             "pos": 21,
+            "mu": 40.96,
+            "pmax": 53,
+            "pmin": 32,
             "champ": 0.01,
-            "lib": 0.04,
-            "sud": 2.08,
+            "lib": 0.09,
+            "sud": 1.53,
             "rel": 0.01
+        },
+        {
+            "name": "Newells Old Boys",
+            "pj": 25,
+            "pg": 6,
+            "pe": 10,
+            "pp": 9,
+            "dg": -10,
+            "pts": 28,
+            "pos": 22,
+            "mu": 35.84,
+            "pmax": 49,
+            "pmin": 28,
+            "champ": 0.01,
+            "lib": 0.02,
+            "sud": 0.44,
+            "rel": 0.07
         },
         {
             "name": "Atlético Tucumán",
@@ -302,11 +382,14 @@
             "pp": 10,
             "dg": -3,
             "pts": 27,
-            "pos": 22,
+            "pos": 23,
+            "mu": 34.56,
+            "pmax": 48,
+            "pmin": 27,
             "champ": 0.01,
-            "lib": 0.0,
-            "sud": 0.04,
-            "rel": 0.02
+            "lib": 0.01,
+            "sud": 0.32,
+            "rel": 0.11
         },
         {
             "name": "Racing Club",
@@ -316,11 +399,14 @@
             "pp": 11,
             "dg": -5,
             "pts": 26,
-            "pos": 23,
+            "pos": 24,
+            "mu": 33.28,
+            "pmax": 47,
+            "pmin": 26,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.01,
-            "rel": 0.05
+            "sud": 0.23,
+            "rel": 0.17
         },
         {
             "name": "Banfield",
@@ -330,11 +416,14 @@
             "pp": 13,
             "dg": -7,
             "pts": 26,
-            "pos": 24,
+            "pos": 25,
+            "mu": 33.28,
+            "pmax": 47,
+            "pmin": 26,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.01,
-            "rel": 0.05
+            "sud": 0.23,
+            "rel": 0.17
         },
         {
             "name": "Platense",
@@ -344,11 +433,14 @@
             "pp": 10,
             "dg": -10,
             "pts": 25,
-            "pos": 25,
+            "pos": 26,
+            "mu": 32.0,
+            "pmax": 46,
+            "pmin": 25,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.0,
-            "rel": 0.12
+            "sud": 0.17,
+            "rel": 0.26
         },
         {
             "name": "Central Córdoba SE",
@@ -358,11 +450,14 @@
             "pp": 14,
             "dg": -16,
             "pts": 23,
-            "pos": 26,
+            "pos": 27,
+            "mu": 29.44,
+            "pmax": 44,
+            "pmin": 23,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.01,
-            "rel": 0.56
+            "sud": 0.09,
+            "rel": 0.64
         },
         {
             "name": "Deportivo Riestra",
@@ -372,25 +467,14 @@
             "pp": 11,
             "dg": -9,
             "pts": 20,
-            "pos": 27,
-            "champ": 0.0,
-            "lib": 0.0,
-            "sud": 0.01,
-            "rel": 3.8
-        },
-        {
-            "name": "Newell's Old BoysNewell's",
-            "pj": 25,
-            "pg": 3,
-            "pe": 4,
-            "pp": 2,
-            "dg": 2,
-            "pts": 13,
             "pos": 28,
+            "mu": 25.6,
+            "pmax": 41,
+            "pmin": 20,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.0,
-            "rel": 50.0
+            "sud": 0.03,
+            "rel": 2.47
         },
         {
             "name": "Aldosivi",
@@ -401,10 +485,13 @@
             "dg": -18,
             "pts": 13,
             "pos": 29,
+            "mu": 16.64,
+            "pmax": 34,
+            "pmin": 13,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 50.0
+            "rel": 56.84
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -415,10 +502,13 @@
             "dg": -26,
             "pts": 11,
             "pos": 30,
+            "mu": 14.08,
+            "pmax": 32,
+            "pmin": 11,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 69.39
+            "rel": 100.0
         }
     ],
     "zonaA": [
@@ -431,7 +521,10 @@
             "dg": 4,
             "pts": 19,
             "pos": 1,
-            "playoff": 98.26
+            "mu": 33.77777777777778,
+            "pmax": 40,
+            "pmin": 19,
+            "playoff": 100.0
         },
         {
             "name": "Vélez Sarsfield",
@@ -442,7 +535,10 @@
             "dg": 5,
             "pts": 17,
             "pos": 2,
-            "playoff": 92.04
+            "mu": 30.22222222222222,
+            "pmax": 38,
+            "pmin": 17,
+            "playoff": 100.0
         },
         {
             "name": "Defensa y Justicia",
@@ -453,7 +549,10 @@
             "dg": 2,
             "pts": 17,
             "pos": 3,
-            "playoff": 92.04
+            "mu": 30.22222222222222,
+            "pmax": 38,
+            "pmin": 17,
+            "playoff": 100.0
         },
         {
             "name": "Gimnasia Mendoza",
@@ -464,7 +563,10 @@
             "dg": 5,
             "pts": 16,
             "pos": 4,
-            "playoff": 85.45
+            "mu": 28.444444444444443,
+            "pmax": 37,
+            "pmin": 16,
+            "playoff": 73.82
         },
         {
             "name": "Boca Juniors",
@@ -475,7 +577,10 @@
             "dg": 1,
             "pts": 14,
             "pos": 5,
-            "playoff": 63.76
+            "mu": 24.88888888888889,
+            "pmax": 35,
+            "pmin": 14,
+            "playoff": 25.41
         },
         {
             "name": "Independiente",
@@ -486,7 +591,10 @@
             "dg": 1,
             "pts": 14,
             "pos": 6,
-            "playoff": 63.76
+            "mu": 24.88888888888889,
+            "pmax": 35,
+            "pmin": 14,
+            "playoff": 25.41
         },
         {
             "name": "Lanús",
@@ -497,7 +605,10 @@
             "dg": 3,
             "pts": 13,
             "pos": 7,
-            "playoff": 50.0
+            "mu": 23.11111111111111,
+            "pmax": 34,
+            "pmin": 13,
+            "playoff": 14.9
         },
         {
             "name": "Unión de Santa Fe",
@@ -508,10 +619,13 @@
             "dg": 2,
             "pts": 13,
             "pos": 8,
-            "playoff": 50.0
+            "mu": 23.11111111111111,
+            "pmax": 34,
+            "pmin": 13,
+            "playoff": 14.9
         },
         {
-            "name": "Newell's Old BoysNewell's",
+            "name": "Newells Old Boys",
             "pj": 9,
             "pg": 3,
             "pe": 4,
@@ -519,7 +633,10 @@
             "dg": 2,
             "pts": 13,
             "pos": 9,
-            "playoff": 50.0
+            "mu": 23.11111111111111,
+            "pmax": 34,
+            "pmin": 13,
+            "playoff": 14.9
         },
         {
             "name": "San Lorenzo",
@@ -530,7 +647,10 @@
             "dg": -2,
             "pts": 11,
             "pos": 10,
-            "playoff": 24.07
+            "mu": 19.555555555555557,
+            "pmax": 32,
+            "pmin": 11,
+            "playoff": 5.13
         },
         {
             "name": "Estudiantes de La Plata",
@@ -541,7 +661,10 @@
             "dg": 0,
             "pts": 10,
             "pos": 11,
-            "playoff": 14.55
+            "mu": 17.77777777777778,
+            "pmax": 31,
+            "pmin": 10,
+            "playoff": 3.01
         },
         {
             "name": "Deportivo Riestra",
@@ -552,7 +675,10 @@
             "dg": -2,
             "pts": 9,
             "pos": 12,
-            "playoff": 7.96
+            "mu": 16.0,
+            "pmax": 30,
+            "pmin": 9,
+            "playoff": 1.77
         },
         {
             "name": "Platense",
@@ -563,7 +689,10 @@
             "dg": -5,
             "pts": 9,
             "pos": 13,
-            "playoff": 7.96
+            "mu": 16.0,
+            "pmax": 30,
+            "pmin": 9,
+            "playoff": 1.77
         },
         {
             "name": "Talleres de Córdoba",
@@ -574,7 +703,10 @@
             "dg": -4,
             "pts": 8,
             "pos": 14,
-            "playoff": 3.92
+            "mu": 14.222222222222221,
+            "pmax": 29,
+            "pmin": 8,
+            "playoff": 1.04
         },
         {
             "name": "Central Córdoba SE",
@@ -585,7 +717,10 @@
             "dg": -6,
             "pts": 7,
             "pos": 15,
-            "playoff": 1.74
+            "mu": 12.444444444444445,
+            "pmax": 28,
+            "pmin": 7,
+            "playoff": 0.61
         }
     ],
     "zonaB": [
@@ -598,7 +733,10 @@
             "dg": 5,
             "pts": 18,
             "pos": 1,
-            "playoff": 96.08
+            "mu": 32.0,
+            "pmax": 39,
+            "pmin": 18,
+            "playoff": 100.0
         },
         {
             "name": "Sarmiento",
@@ -609,7 +747,10 @@
             "dg": 3,
             "pts": 16,
             "pos": 2,
-            "playoff": 85.45
+            "mu": 28.444444444444443,
+            "pmax": 37,
+            "pmin": 16,
+            "playoff": 100.0
         },
         {
             "name": "Gimnasia La Plata",
@@ -620,7 +761,10 @@
             "dg": 0,
             "pts": 16,
             "pos": 3,
-            "playoff": 85.45
+            "mu": 28.444444444444443,
+            "pmax": 37,
+            "pmin": 16,
+            "playoff": 100.0
         },
         {
             "name": "Rosario Central",
@@ -631,7 +775,10 @@
             "dg": 2,
             "pts": 15,
             "pos": 4,
-            "playoff": 75.93
+            "mu": 26.666666666666668,
+            "pmax": 36,
+            "pmin": 15,
+            "playoff": 67.96
         },
         {
             "name": "Independiente Rivadavia",
@@ -642,7 +789,10 @@
             "dg": 0,
             "pts": 14,
             "pos": 5,
-            "playoff": 63.76
+            "mu": 24.88888888888889,
+            "pmax": 35,
+            "pmin": 14,
+            "playoff": 39.87
         },
         {
             "name": "Belgrano",
@@ -653,7 +803,10 @@
             "dg": 3,
             "pts": 13,
             "pos": 6,
-            "playoff": 50.0
+            "mu": 23.11111111111111,
+            "pmax": 34,
+            "pmin": 13,
+            "playoff": 23.39
         },
         {
             "name": "River Plate",
@@ -664,7 +817,10 @@
             "dg": 2,
             "pts": 13,
             "pos": 7,
-            "playoff": 50.0
+            "mu": 23.11111111111111,
+            "pmax": 34,
+            "pmin": 13,
+            "playoff": 23.39
         },
         {
             "name": "Atlético Tucumán",
@@ -675,7 +831,10 @@
             "dg": 2,
             "pts": 13,
             "pos": 8,
-            "playoff": 50.0
+            "mu": 23.11111111111111,
+            "pmax": 34,
+            "pmin": 13,
+            "playoff": 23.39
         },
         {
             "name": "Huracán",
@@ -686,7 +845,10 @@
             "dg": 1,
             "pts": 13,
             "pos": 9,
-            "playoff": 50.0
+            "mu": 23.11111111111111,
+            "pmax": 34,
+            "pmin": 13,
+            "playoff": 23.39
         },
         {
             "name": "Tigre",
@@ -697,7 +859,10 @@
             "dg": 1,
             "pts": 12,
             "pos": 10,
-            "playoff": 36.24
+            "mu": 21.333333333333332,
+            "pmax": 33,
+            "pmin": 12,
+            "playoff": 13.72
         },
         {
             "name": "Barracas Central",
@@ -708,7 +873,10 @@
             "dg": -1,
             "pts": 12,
             "pos": 11,
-            "playoff": 36.24
+            "mu": 21.333333333333332,
+            "pmax": 33,
+            "pmin": 12,
+            "playoff": 13.72
         },
         {
             "name": "Banfield",
@@ -719,7 +887,10 @@
             "dg": -5,
             "pts": 8,
             "pos": 12,
-            "playoff": 3.92
+            "mu": 14.222222222222221,
+            "pmax": 29,
+            "pmin": 8,
+            "playoff": 1.63
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -730,7 +901,10 @@
             "dg": -7,
             "pts": 6,
             "pos": 13,
-            "playoff": 0.69
+            "mu": 10.666666666666666,
+            "pmax": 27,
+            "pmin": 6,
+            "playoff": 0.56
         },
         {
             "name": "Aldosivi",
@@ -741,7 +915,10 @@
             "dg": -5,
             "pts": 5,
             "pos": 14,
-            "playoff": 0.24
+            "mu": 8.88888888888889,
+            "pmax": 26,
+            "pmin": 5,
+            "playoff": 0.33
         },
         {
             "name": "Racing Club",
@@ -752,8 +929,11 @@
             "dg": -7,
             "pts": 5,
             "pos": 15,
-            "playoff": 0.24
+            "mu": 8.88888888888889,
+            "pmax": 26,
+            "pmin": 5,
+            "playoff": 0.33
         }
     ],
-    "ultima_actualizacion": "16/09/2026 a las 23:56 hs"
+    "ultima_actualizacion": "17/09/2026 a las 00:01 hs"
 }
