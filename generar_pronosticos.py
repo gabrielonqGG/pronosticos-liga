@@ -12,41 +12,41 @@ from datetime import datetime, timezone, timedelta
 # El sistema los sumará automáticamente al Clausura en vivo.
 # =================================================================
 apertura_stats = {
-    "Argentinos J":     {"pj": 14, "pg": 8, "pe": 4, "pp": 2, "dg": 10, "pts": 28}, # 28 + 18 = 46
-    "Estudiantes RC":   {"pj": 14, "pg": 1, "pe": 2, "pp": 11, "dg": -15, "pts": 5}, # 5 + 6 = 11
     
-    # --- ZONA A ---
-    "Instituto":        {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Gimnasia M":       {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Gimnasia":         {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Rosario":          {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Independiente":    {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Ind Rivadavia":    {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Belgrano":         {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "River":            {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "A Tucumán":        {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Barracas Central": {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Riestra":          {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Talleres":         {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Banfield":         {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
+# --- ZONA A ---
+    "Estudiantes":      {"pj": 16, "pg": 9, "pe": 4, "pp": 3, "dg": 12, "pts": 31},
+    "Boca Juniors":     {"pj": 16, "pg": 8, "pe": 6, "pp": 2, "dg": 13, "pts": 30},
+    "Vélez":            {"pj": 16, "pg": 7, "pe": 7, "pp": 2, "dg": 6, "pts": 28},
+    "Talleres":         {"pj": 16, "pg": 7, "pe": 5, "pp": 4, "dg": 4, "pts": 26},
+    "Independiente":    {"pj": 16, "pg": 6, "pe": 6, "pp": 4, "dg": 4, "pts": 24},
+    "Lanús":            {"pj": 16, "pg": 6, "pe": 6, "pp": 4, "dg": 3, "pts": 24},
+    "San Lorenzo":      {"pj": 16, "pg": 5, "pe": 7, "pp": 4, "dg": 0, "pts": 22},
+    "Unión":            {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 4, "pts": 21},
+    "Instituto":        {"pj": 16, "pg": 6, "pe": 3, "pp": 7, "dg": 0, "pts": 21},
+    "Defensa y Jus.":   {"pj": 16, "pg": 4, "pe": 7, "pp": 5, "dg": -3, "pts": 19},
+    "Gimnasia (M)":     {"pj": 16, "pg": 5, "pe": 4, "pp": 7, "dg": -8, "pts": 19},
+    "Platense":         {"pj": 16, "pg": 3, "pe": 7, "pp": 6, "dg": -5, "pts": 16},
+    "Córdoba SdE":      {"pj": 16, "pg": 4, "pe": 4, "pp": 8, "dg": -10, "pts": 16},
+    "Newell's":         {"pj": 16, "pg": 3, "pe": 6, "pp": 7, "dg": -12, "pts": 15},
+    "Riestra":          {"pj": 16, "pg": 1, "pe": 8, "pp": 7, "dg": -7, "pts": 11},
 
     # --- ZONA B ---
-    "Vélez":            {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Defensa":          {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Sarmiento":        {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Boca Juniors":     {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Lanús":            {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Unión":            {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Newells":          {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Huracán":          {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Tigre":            {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "San Lorenzo":      {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Estudiantes":      {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Platense":         {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Central Córdoba":  {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Aldosivi":         {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0},
-    "Racing":           {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0}
-}
+    "Independ. (M)":    {"pj": 16, "pg": 10, "pe": 4, "pp": 2, "dg": 14, "pts": 34},
+    "River":            {"pj": 16, "pg": 9, "pe": 2, "pp": 5, "dg": 10, "pts": 29},
+    "Argentinos":       {"pj": 16, "pg": 8, "pe": 5, "pp": 3, "dg": 4, "pts": 29},
+    "Central":          {"pj": 16, "pg": 8, "pe": 4, "pp": 4, "dg": 4, "pts": 28},
+    "Belgrano":         {"pj": 16, "pg": 7, "pe": 5, "pp": 4, "dg": 4, "pts": 26},
+    "Gimnasia (LP)":    {"pj": 16, "pg": 8, "pe": 2, "pp": 6, "dg": 0, "pts": 26},
+    "Huracán":          {"pj": 16, "pg": 5, "pe": 7, "pp": 4, "dg": 4, "pts": 22},
+    "Racing":           {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 2, "pts": 21},
+    "Barracas":         {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 0, "pts": 21},
+    "Tigre":            {"pj": 16, "pg": 4, "pe": 8, "pp": 4, "dg": 3, "pts": 20},
+    "Sarmiento":        {"pj": 16, "pg": 6, "pe": 1, "pp": 9, "dg": -7, "pts": 19},
+    "Banfield":         {"pj": 16, "pg": 5, "pe": 3, "pp": 8, "dg": -2, "pts": 18},
+    "Atl. Tucumán":     {"pj": 16, "pg": 3, "pe": 5, "pp": 8, "dg": -5, "pts": 14},
+    "Aldosivi":         {"pj": 16, "pg": 0, "pe": 8, "pp": 8, "dg": -13, "pts": 8},
+    "Estudiantes RC":   {"pj": 16, "pg": 1, "pe": 2, "pp": 13, "dg": -19, "pts": 5}
+
 
 # =================================================================
 # 2. MOTOR MATEMÁTICO DE PROBABILIDADES
