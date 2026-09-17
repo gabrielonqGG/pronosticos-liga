@@ -6,51 +6,59 @@ import io
 import math
 from datetime import datetime, timezone, timedelta
 
+# Nombres estrictos para evitar cualquier bug de lectura HTML
+EQUIPOS_OFICIALES = [
+    "Argentinos Juniors", "Independiente Rivadavia", "Vélez Sarsfield", "Boca Juniors",
+    "Gimnasia La Plata", "Rosario Central", "River Plate", "Estudiantes de La Plata",
+    "Belgrano", "Independiente", "Instituto", "Defensa y Justicia", "Gimnasia Mendoza",
+    "Unión de Santa Fe", "Lanús", "Sarmiento", "Tigre", "Huracán", "Barracas Central",
+    "San Lorenzo", "Talleres de Córdoba", "Newells Old Boys", "Atlético Tucumán",
+    "Racing Club", "Banfield", "Platense", "Central Córdoba SE", "Aldosivi",
+    "Estudiantes Río Cuarto", "Deportivo Riestra"
+]
+
 # =================================================================
-# 1. BASE DE DATOS ESTÁTICA DEL APERTURA (14 Fechas)
-# Completá los puntos reales con los que terminó cada equipo.
-# El sistema los sumará automáticamente al Clausura en vivo.
+# 1. BASE DE DATOS ESTÁTICA DEL APERTURA (16 Fechas)
+# Totalmente normalizada para que cruce perfecto con el Clausura
 # =================================================================
 apertura_stats = {
-    
-# --- ZONA A ---
-    "Estudiantes":      {"pj": 16, "pg": 9, "pe": 4, "pp": 3, "dg": 12, "pts": 31},
-    "Boca Juniors":     {"pj": 16, "pg": 8, "pe": 6, "pp": 2, "dg": 13, "pts": 30},
-    "Vélez":            {"pj": 16, "pg": 7, "pe": 7, "pp": 2, "dg": 6, "pts": 28},
-    "Talleres":         {"pj": 16, "pg": 7, "pe": 5, "pp": 4, "dg": 4, "pts": 26},
-    "Independiente":    {"pj": 16, "pg": 6, "pe": 6, "pp": 4, "dg": 4, "pts": 24},
-    "Lanús":            {"pj": 16, "pg": 6, "pe": 6, "pp": 4, "dg": 3, "pts": 24},
-    "San Lorenzo":      {"pj": 16, "pg": 5, "pe": 7, "pp": 4, "dg": 0, "pts": 22},
-    "Unión":            {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 4, "pts": 21},
-    "Instituto":        {"pj": 16, "pg": 6, "pe": 3, "pp": 7, "dg": 0, "pts": 21},
-    "Defensa y Jus.":   {"pj": 16, "pg": 4, "pe": 7, "pp": 5, "dg": -3, "pts": 19},
-    "Gimnasia (M)":     {"pj": 16, "pg": 5, "pe": 4, "pp": 7, "dg": -8, "pts": 19},
-    "Platense":         {"pj": 16, "pg": 3, "pe": 7, "pp": 6, "dg": -5, "pts": 16},
-    "Córdoba SdE":      {"pj": 16, "pg": 4, "pe": 4, "pp": 8, "dg": -10, "pts": 16},
-    "Newell's":         {"pj": 16, "pg": 3, "pe": 6, "pp": 7, "dg": -12, "pts": 15},
-    "Riestra":          {"pj": 16, "pg": 1, "pe": 8, "pp": 7, "dg": -7, "pts": 11},
+    # --- ZONA A ---
+    "Estudiantes de La Plata":  {"pj": 16, "pg": 9, "pe": 4, "pp": 3, "dg": 12, "pts": 31},
+    "Boca Juniors":             {"pj": 16, "pg": 8, "pe": 6, "pp": 2, "dg": 13, "pts": 30},
+    "Vélez Sarsfield":          {"pj": 16, "pg": 7, "pe": 7, "pp": 2, "dg": 6, "pts": 28},
+    "Talleres de Córdoba":      {"pj": 16, "pg": 7, "pe": 5, "pp": 4, "dg": 4, "pts": 26},
+    "Independiente":            {"pj": 16, "pg": 6, "pe": 6, "pp": 4, "dg": 4, "pts": 24},
+    "Lanús":                    {"pj": 16, "pg": 6, "pe": 6, "pp": 4, "dg": 3, "pts": 24},
+    "San Lorenzo":              {"pj": 16, "pg": 5, "pe": 7, "pp": 4, "dg": 0, "pts": 22},
+    "Unión de Santa Fe":        {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 4, "pts": 21},
+    "Instituto":                {"pj": 16, "pg": 6, "pe": 3, "pp": 7, "dg": 0, "pts": 21},
+    "Defensa y Justicia":       {"pj": 16, "pg": 4, "pe": 7, "pp": 5, "dg": -3, "pts": 19},
+    "Gimnasia Mendoza":         {"pj": 16, "pg": 5, "pe": 4, "pp": 7, "dg": -8, "pts": 19},
+    "Platense":                 {"pj": 16, "pg": 3, "pe": 7, "pp": 6, "dg": -5, "pts": 16},
+    "Central Córdoba SE":       {"pj": 16, "pg": 4, "pe": 4, "pp": 8, "dg": -10, "pts": 16},
+    "Newells Old Boys":         {"pj": 16, "pg": 3, "pe": 6, "pp": 7, "dg": -12, "pts": 15},
+    "Deportivo Riestra":        {"pj": 16, "pg": 1, "pe": 8, "pp": 7, "dg": -7, "pts": 11},
 
     # --- ZONA B ---
-    "Independ. (M)":    {"pj": 16, "pg": 10, "pe": 4, "pp": 2, "dg": 14, "pts": 34},
-    "River":            {"pj": 16, "pg": 9, "pe": 2, "pp": 5, "dg": 10, "pts": 29},
-    "Argentinos":       {"pj": 16, "pg": 8, "pe": 5, "pp": 3, "dg": 4, "pts": 29},
-    "Central":          {"pj": 16, "pg": 8, "pe": 4, "pp": 4, "dg": 4, "pts": 28},
-    "Belgrano":         {"pj": 16, "pg": 7, "pe": 5, "pp": 4, "dg": 4, "pts": 26},
-    "Gimnasia (LP)":    {"pj": 16, "pg": 8, "pe": 2, "pp": 6, "dg": 0, "pts": 26},
-    "Huracán":          {"pj": 16, "pg": 5, "pe": 7, "pp": 4, "dg": 4, "pts": 22},
-    "Racing":           {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 2, "pts": 21},
-    "Barracas":         {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 0, "pts": 21},
-    "Tigre":            {"pj": 16, "pg": 4, "pe": 8, "pp": 4, "dg": 3, "pts": 20},
-    "Sarmiento":        {"pj": 16, "pg": 6, "pe": 1, "pp": 9, "dg": -7, "pts": 19},
-    "Banfield":         {"pj": 16, "pg": 5, "pe": 3, "pp": 8, "dg": -2, "pts": 18},
-    "Atl. Tucumán":     {"pj": 16, "pg": 3, "pe": 5, "pp": 8, "dg": -5, "pts": 14},
-    "Aldosivi":         {"pj": 16, "pg": 0, "pe": 8, "pp": 8, "dg": -13, "pts": 8},
-    "Estudiantes RC":   {"pj": 16, "pg": 1, "pe": 2, "pp": 13, "dg": -19, "pts": 5}
+    "Independiente Rivadavia":  {"pj": 16, "pg": 10, "pe": 4, "pp": 2, "dg": 14, "pts": 34},
+    "River Plate":              {"pj": 16, "pg": 9, "pe": 2, "pp": 5, "dg": 10, "pts": 29},
+    "Argentinos Juniors":       {"pj": 16, "pg": 8, "pe": 5, "pp": 3, "dg": 4, "pts": 29},
+    "Rosario Central":          {"pj": 16, "pg": 8, "pe": 4, "pp": 4, "dg": 4, "pts": 28},
+    "Belgrano":                 {"pj": 16, "pg": 7, "pe": 5, "pp": 4, "dg": 4, "pts": 26},
+    "Gimnasia La Plata":        {"pj": 16, "pg": 8, "pe": 2, "pp": 6, "dg": 0, "pts": 26},
+    "Huracán":                  {"pj": 16, "pg": 5, "pe": 7, "pp": 4, "dg": 4, "pts": 22},
+    "Racing Club":              {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 2, "pts": 21},
+    "Barracas Central":         {"pj": 16, "pg": 5, "pe": 6, "pp": 5, "dg": 0, "pts": 21},
+    "Tigre":                    {"pj": 16, "pg": 4, "pe": 8, "pp": 4, "dg": 3, "pts": 20},
+    "Sarmiento":                {"pj": 16, "pg": 6, "pe": 1, "pp": 9, "dg": -7, "pts": 19},
+    "Banfield":                 {"pj": 16, "pg": 5, "pe": 3, "pp": 8, "dg": -2, "pts": 18},
+    "Atlético Tucumán":         {"pj": 16, "pg": 3, "pe": 5, "pp": 8, "dg": -5, "pts": 14},
+    "Aldosivi":                 {"pj": 16, "pg": 0, "pe": 8, "pp": 8, "dg": -13, "pts": 8},
+    "Estudiantes Río Cuarto":   {"pj": 16, "pg": 1, "pe": 2, "pp": 13, "dg": -19, "pts": 5}
 }
 
-
 # =================================================================
-# 2. MOTOR MATEMÁTICO DE PROBABILIDADES
+# 2. MOTOR MATEMÁTICO DE DATA SCIENCE (Campana de Gauss)
 # =================================================================
 def normal_cdf(x, mu, sigma):
     if sigma == 0: return 1.0 if x <= mu else 0.0
@@ -60,85 +68,76 @@ def aplicar_probabilidades(datos, tipo="anual"):
     total = len(datos)
     if total == 0: return
 
-    pj_total = 41 if tipo == "anual" else 14
-    pts_1 = datos[0]['pts'] if total > 0 else 0
-    pts_3 = datos[2]['pts'] if total > 2 else 0
-    pts_8 = datos[7]['pts'] if total > 7 else 0
-    pts_9 = datos[8]['pts'] if total > 8 else 0
+    pj_total = 32 if tipo == "anual" else 16
     
-    if total > 1:
-        pts_max_descenso = datos[-2]['pts'] + (max(0, pj_total - datos[-2]['pj']) * 3)
-    else:
-        pts_max_descenso = 0
+    def get_rival(idx):
+        idx = max(0, min(idx, total - 1))
+        eq = datos[idx]
+        pj = eq['pj']
+        ppg = eq['pts'] / pj if pj > 0 else 1.3
+        return eq['pts'], max(0, pj_total - pj), ppg
 
     for pos, eq in enumerate(datos, start=1):
         pts = eq['pts']
         pj = eq['pj']
-        
+        ppg = pts / pj if pj > 0 else 1.3
         pj_restantes = max(0, pj_total - pj)
-        pts_en_juego = pj_restantes * 3
-        pts_maximos = pts + pts_en_juego
+
+        def prob_superar(pts_B, pj_res_B, ppg_B):
+            if pts + (pj_restantes * 3) < pts_B: return 0.0
+            if pj_restantes == 0 and pj_res_B == 0: return 100.0 if pts >= pts_B else 0.0
+
+            mu_A = pts + (pj_restantes * ppg)
+            sigma_A = math.sqrt(pj_restantes) * 1.35
+            mu_B = pts_B + (pj_res_B * ppg_B)
+            sigma_B = math.sqrt(pj_res_B) * 1.35
+
+            mu_D = mu_A - mu_B
+            sigma_D = math.sqrt(sigma_A**2 + sigma_B**2)
+
+            if sigma_D == 0: return 100.0 if mu_D >= 0 else 0.0
+            p = 1.0 - normal_cdf(0, mu_D, sigma_D)
+            return max(0.01, p * 100.0)
+
+        def prob_caer(pts_B, pj_res_B, ppg_B):
+            if pts_B + (pj_res_B * 3) < pts: return 0.0
+            if pj_restantes == 0 and pj_res_B == 0: return 100.0 if pts <= pts_B else 0.0
+
+            mu_A = pts + (pj_restantes * ppg)
+            sigma_A = math.sqrt(pj_restantes) * 1.35
+            mu_B = pts_B + (pj_res_B * ppg_B)
+            sigma_B = math.sqrt(pj_res_B) * 1.35
+
+            mu_D = mu_A - mu_B
+            sigma_D = math.sqrt(sigma_A**2 + sigma_B**2)
+
+            if sigma_D == 0: return 100.0 if mu_D <= 0 else 0.0
+            p = normal_cdf(0, mu_D, sigma_D)
+            return max(0.01, p * 100.0)
 
         if tipo == "anual":
-            puede_champ = pts_maximos >= pts_1
-            puede_lib = pts_maximos >= pts_3
-            puede_sud = pts_maximos >= pts_9
-            salvado_matematicamente = pts > pts_max_descenso
+            rival_champ = get_rival(1 if pos == 1 else 0)
+            champ = prob_superar(*rival_champ)
             
-            def calc_pct(puede_llegar, pts_objetivo, pos_actual, target_pos):
-                if not puede_llegar: return 0.0
-                if pts >= pts_objetivo and pj_restantes == 0: return 100.0
-                
-                distancia = pts_objetivo - pts
-                if distancia <= 0:
-                    ventaja = abs(distancia)
-                    return min(99.99, 80.0 + (ventaja * 2.5) + (15.0 / max(1, pj_restantes)))
-                
-                ratio = distancia / pts_en_juego if pts_en_juego > 0 else 1
-                prob = (1.0 - ratio) * 100.0
-                penalizacion = max(0, (pos_actual - target_pos) * 2.5)
-                return max(0.01, prob - penalizacion)
-            
-            champ = calc_pct(puede_champ, pts_1, pos, 1)
-            lib = calc_pct(puede_lib, pts_3, pos, 3)
-            sud = calc_pct(puede_sud, pts_9, pos, 9)
-            
-            if salvado_matematicamente:
-                rel = 0.0
-            else:
-                pts_salvacion = datos[-3]['pts'] if total > 2 else 0
-                distancia_a_salvacion = pts_salvacion - pts
-                if distancia_a_salvacion <= 0:
-                    rel = max(0.01, 15.0 - abs(distancia_a_salvacion) * 3)
-                else:
-                    ratio = distancia_a_salvacion / pts_en_juego if pts_en_juego > 0 else 1
-                    rel = min(99.99, 50.0 + (ratio * 50.0))
+            rival_lib = get_rival(3 if pos <= 3 else 2)
+            lib = prob_superar(*rival_lib)
 
-            if pos == 1: champ = max(champ, 90.0)
+            rival_sud = get_rival(9 if pos <= 9 else 8)
+            sud = prob_superar(*rival_sud)
+
+            # Asumimos que descienden 2 (comparamos con el que se salva en posición total-3)
+            rival_desc = get_rival(total-3 if pos > total-2 else total-2)
+            rel = prob_caer(*rival_desc)
+
             lib = max(0.0, lib - champ)
             sud = max(0.0, sud - lib - champ)
 
             eq.update({"champ": round(champ, 2), "lib": round(lib, 2), "sud": round(sud, 2), "rel": round(rel, 2)})
 
         elif tipo == "zona":
-            puede_playoff = pts_maximos >= pts_8
-            
-            if not puede_playoff:
-                prob = 0.0
-            elif pts >= pts_8 and pj_restantes == 0:
-                prob = 100.0
-            else:
-                distancia = pts_8 - pts
-                if distancia <= 0:
-                    ventaja = abs(distancia)
-                    prob = min(99.99, 85.0 + (ventaja * 2.0))
-                else:
-                    ratio = distancia / pts_en_juego if pts_en_juego > 0 else 1
-                    prob = (1.0 - ratio) * 100.0
-                    penalizacion = max(0, (pos - 8) * 3.0)
-                    prob = max(0.01, prob - penalizacion)
-                    
-            eq["playoff"] = round(prob, 2)
+            rival_playoff = get_rival(8 if pos <= 8 else 7)
+            playoff = prob_superar(*rival_playoff)
+            eq["playoff"] = round(playoff, 2)
 
 # =================================================================
 # 3. EXTRACCIÓN Y PROCESAMIENTO
@@ -152,10 +151,17 @@ def procesar_dataframe(df):
     df.columns = [str(c).upper().strip() for c in df.columns]
     col_equipo = [c for c in df.columns if 'EQUIPO' in c][0]
     
+    # Ordenamos de mayor a menor longitud para que "Independiente Rivadavia" machee antes que "Independiente"
+    nombres_ordenados = sorted(EQUIPOS_OFICIALES, key=len, reverse=True)
+    
     for i in range(len(df)):
-        nombre_crudo = str(df.iloc[i][col_equipo])
-        nombre_letras = re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]', '', nombre_crudo).strip()
-        nombre_limpio = re.sub(r'([a-zñáéíóú])([A-ZÑÁÉÍÓÚ])', r'\1|\2', nombre_letras).split('|')[0].strip()
+        nombre_crudo = str(df.iloc[i][col_equipo]).replace(" ", "").lower()
+        nombre_limpio = "Desconocido"
+        
+        for eq in nombres_ordenados:
+            if eq.replace(" ", "").lower() in nombre_crudo:
+                nombre_limpio = eq
+                break
         
         try:
             pts = int(df.iloc[i]['PTS'])
@@ -187,7 +193,6 @@ def procesar_datos():
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
     
     try:
-        # SOLO hacemos una petición web a la tabla del Clausura que está perfectamente actualizada
         url_zonas = "https://www.futbolargentino.com/primera-division/tabla-de-posiciones"
         req_zonas = urllib.request.Request(url_zonas, headers=headers)
         html_zonas = urllib.request.urlopen(req_zonas, timeout=15).read().decode('utf-8')
@@ -197,18 +202,15 @@ def procesar_datos():
             datos_finales["zonaA"] = procesar_dataframe(tablas_zonas[0])
             datos_finales["zonaB"] = procesar_dataframe(tablas_zonas[1])
             
-            # Calculamos las probabilidades para las zonas en base a los puntos de hoy
             for zona in ["zonaA", "zonaB"]:
                 datos_finales[zona].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
                 for i, eq in enumerate(datos_finales[zona]): eq["pos"] = i + 1
                 aplicar_probabilidades(datos_finales[zona], "zona")
 
-            # Construimos la Tabla Anual sumando el Apertura + el Clausura en vivo
             todos_los_equipos = datos_finales["zonaA"] + datos_finales["zonaB"]
             for eq in todos_los_equipos:
                 nombre = eq["name"]
-                # Buscamos los puntos históricos (Si no completaste alguno, por defecto suma 0)
-                historial = apertura_stats.get(nombre, {"pj": 14, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0})
+                historial = apertura_stats.get(nombre, {"pj": 16, "pg": 0, "pe": 0, "pp": 0, "dg": 0, "pts": 0})
                 
                 eq_anual = {
                     "name": nombre,
@@ -221,12 +223,11 @@ def procesar_datos():
                 }
                 datos_finales["anual"].append(eq_anual)
 
-            # Ordenamos y calculamos las probabilidades Anuales reales
             datos_finales["anual"].sort(key=lambda x: (x['pts'], x['dg']), reverse=True)
             for i, eq in enumerate(datos_finales["anual"]): eq["pos"] = i + 1
             aplicar_probabilidades(datos_finales["anual"], "anual")
 
-        print(f"¡Éxito! Tabla Anual construida localmente. Actualizado el {fecha_actual}")
+        print(f"¡Éxito! Tabla Anual construida localmente y proyecciones calculadas. Actualizado el {fecha_actual}")
         
     except Exception as e:
         print(f"Error detectado: {e}")
