@@ -141,7 +141,7 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.29,
-            "sud": 91.6,
+            "sud": 93.36,
             "rel": 0.01
         },
         {
@@ -159,7 +159,7 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.05,
-            "sud": 56.04,
+            "sud": 57.11,
             "rel": 0.01
         },
         {
@@ -177,7 +177,7 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.01,
-            "sud": 29.08,
+            "sud": 29.63,
             "rel": 0.01
         },
         {
@@ -195,25 +195,25 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 12.58,
+            "sud": 12.82,
             "rel": 0.01
         },
         {
             "name": "Defensa y Justicia",
-            "pj": 25,
+            "pj": 26,
             "pg": 9,
-            "pe": 9,
+            "pe": 10,
             "pp": 7,
             "dg": -1,
-            "pts": 36,
+            "pts": 37,
             "pos": 12,
-            "mu": 46.08,
-            "pmax": 57,
-            "pmin": 36,
-            "pj_res": 7,
+            "mu": 45.53846153846154,
+            "pmax": 55,
+            "pmin": 37,
+            "pj_res": 6,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 4.47,
+            "sud": 1.96,
             "rel": 0.01
         },
         {
@@ -231,7 +231,7 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 1.29,
+            "sud": 1.32,
             "rel": 0.01
         },
         {
@@ -249,25 +249,25 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 1.29,
+            "sud": 1.32,
             "rel": 0.01
         },
         {
             "name": "Sarmiento",
-            "pj": 25,
+            "pj": 26,
             "pg": 11,
             "pe": 2,
-            "pp": 12,
-            "dg": -4,
+            "pp": 13,
+            "dg": -6,
             "pts": 35,
             "pos": 15,
-            "mu": 44.8,
-            "pmax": 56,
+            "mu": 43.07692307692308,
+            "pmax": 53,
             "pmin": 35,
-            "pj_res": 7,
+            "pj_res": 6,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 1.29,
+            "sud": 0.08,
             "rel": 0.01
         },
         {
@@ -285,7 +285,7 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 1.29,
+            "sud": 1.32,
             "rel": 0.01
         },
         {
@@ -303,7 +303,7 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 0.3,
+            "sud": 0.31,
             "rel": 0.01
         },
         {
@@ -321,7 +321,7 @@
             "pj_res": 7,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 0.3,
+            "sud": 0.31,
             "rel": 0.01
         },
         {
@@ -379,6 +379,24 @@
             "rel": 0.01
         },
         {
+            "name": "Racing Club",
+            "pj": 26,
+            "pg": 7,
+            "pe": 8,
+            "pp": 11,
+            "dg": -3,
+            "pts": 29,
+            "pos": 22,
+            "mu": 35.69230769230769,
+            "pmax": 47,
+            "pmin": 29,
+            "pj_res": 6,
+            "champ": 0.0,
+            "lib": 0.01,
+            "sud": 0.0,
+            "rel": 0.01
+        },
+        {
             "name": "Newells Old Boys",
             "pj": 25,
             "pg": 6,
@@ -386,7 +404,7 @@
             "pp": 9,
             "dg": -10,
             "pts": 28,
-            "pos": 22,
+            "pos": 23,
             "mu": 35.84,
             "pmax": 49,
             "pmin": 28,
@@ -404,7 +422,7 @@
             "pp": 10,
             "dg": -3,
             "pts": 27,
-            "pos": 23,
+            "pos": 24,
             "mu": 34.56,
             "pmax": 48,
             "pmin": 27,
@@ -413,24 +431,6 @@
             "lib": 0.0,
             "sud": 0.0,
             "rel": 0.01
-        },
-        {
-            "name": "Racing Club",
-            "pj": 25,
-            "pg": 6,
-            "pe": 8,
-            "pp": 11,
-            "dg": -5,
-            "pts": 26,
-            "pos": 24,
-            "mu": 33.28,
-            "pmax": 47,
-            "pmin": 26,
-            "pj_res": 7,
-            "champ": 0.0,
-            "lib": 0.01,
-            "sud": 0.0,
-            "rel": 0.02
         },
         {
             "name": "Banfield",
@@ -470,21 +470,21 @@
         },
         {
             "name": "Central Córdoba SE",
-            "pj": 25,
+            "pj": 26,
             "pg": 6,
-            "pe": 5,
+            "pe": 6,
             "pp": 14,
             "dg": -16,
-            "pts": 23,
+            "pts": 24,
             "pos": 27,
-            "mu": 29.44,
-            "pmax": 44,
-            "pmin": 23,
-            "pj_res": 7,
+            "mu": 29.53846153846154,
+            "pmax": 42,
+            "pmin": 24,
+            "pj_res": 6,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.01,
-            "rel": 1.76
+            "rel": 1.21
         },
         {
             "name": "Deportivo Riestra",
@@ -502,7 +502,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.01,
-            "rel": 22.14
+            "rel": 22.2
         },
         {
             "name": "Aldosivi",
@@ -520,7 +520,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 87.49
+            "rel": 87.74
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -538,7 +538,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 88.44
+            "rel": 88.7
         }
     ],
     "zonaA": [
@@ -558,27 +558,27 @@
             "playoff": 100.0
         },
         {
+            "name": "Defensa y Justicia",
+            "pj": 10,
+            "pg": 5,
+            "pe": 3,
+            "pp": 2,
+            "dg": 2,
+            "pts": 18,
+            "pos": 2,
+            "mu": 28.8,
+            "pmax": 36,
+            "pmin": 18,
+            "pj_res": 6,
+            "playoff": 100.0
+        },
+        {
             "name": "Vélez Sarsfield",
             "pj": 9,
             "pg": 4,
             "pe": 5,
             "pp": 0,
             "dg": 5,
-            "pts": 17,
-            "pos": 2,
-            "mu": 30.22222222222222,
-            "pmax": 38,
-            "pmin": 17,
-            "pj_res": 7,
-            "playoff": 100.0
-        },
-        {
-            "name": "Defensa y Justicia",
-            "pj": 9,
-            "pg": 5,
-            "pe": 2,
-            "pp": 2,
-            "dg": 2,
             "pts": 17,
             "pos": 3,
             "mu": 30.22222222222222,
@@ -754,17 +754,17 @@
         },
         {
             "name": "Central Córdoba SE",
-            "pj": 9,
+            "pj": 10,
             "pg": 2,
-            "pe": 1,
+            "pe": 2,
             "pp": 6,
             "dg": -6,
-            "pts": 7,
+            "pts": 8,
             "pos": 15,
-            "mu": 12.444444444444445,
-            "pmax": 28,
-            "pmin": 7,
-            "pj_res": 7,
+            "mu": 12.8,
+            "pmax": 26,
+            "pmin": 8,
+            "pj_res": 6,
             "playoff": 0.01
         }
     ],
@@ -786,17 +786,17 @@
         },
         {
             "name": "Sarmiento",
-            "pj": 9,
+            "pj": 10,
             "pg": 5,
             "pe": 1,
-            "pp": 3,
-            "dg": 3,
+            "pp": 4,
+            "dg": 1,
             "pts": 16,
             "pos": 2,
-            "mu": 28.444444444444443,
-            "pmax": 37,
+            "mu": 25.6,
+            "pmax": 34,
             "pmin": 16,
-            "pj_res": 7,
+            "pj_res": 6,
             "playoff": 100.0
         },
         {
@@ -935,6 +935,21 @@
             "playoff": 24.09
         },
         {
+            "name": "Racing Club",
+            "pj": 10,
+            "pg": 2,
+            "pe": 2,
+            "pp": 6,
+            "dg": -5,
+            "pts": 8,
+            "pos": 12,
+            "mu": 12.8,
+            "pmax": 26,
+            "pmin": 8,
+            "pj_res": 6,
+            "playoff": 0.01
+        },
+        {
             "name": "Banfield",
             "pj": 9,
             "pg": 2,
@@ -942,7 +957,7 @@
             "pp": 5,
             "dg": -5,
             "pts": 8,
-            "pos": 12,
+            "pos": 13,
             "mu": 14.222222222222221,
             "pmax": 29,
             "pmin": 8,
@@ -957,7 +972,7 @@
             "pp": 5,
             "dg": -7,
             "pts": 6,
-            "pos": 13,
+            "pos": 14,
             "mu": 10.666666666666666,
             "pmax": 27,
             "pmin": 6,
@@ -972,21 +987,6 @@
             "pp": 6,
             "dg": -5,
             "pts": 5,
-            "pos": 14,
-            "mu": 8.88888888888889,
-            "pmax": 26,
-            "pmin": 5,
-            "pj_res": 7,
-            "playoff": 0.01
-        },
-        {
-            "name": "Racing Club",
-            "pj": 9,
-            "pg": 1,
-            "pe": 2,
-            "pp": 6,
-            "dg": -7,
-            "pts": 5,
             "pos": 15,
             "mu": 8.88888888888889,
             "pmax": 26,
@@ -995,5 +995,5 @@
             "playoff": 0.01
         }
     ],
-    "ultima_actualizacion": "18/09/2026 a las 00:05 hs"
+    "ultima_actualizacion": "19/09/2026 a las 00:04 hs"
 }
