@@ -13,8 +13,8 @@
             "pmax": 64,
             "pmin": 52,
             "pj_res": 4,
-            "champ": 40.0,
-            "lib": 60.0,
+            "champ": 47.3,
+            "lib": 52.7,
             "sud": 0.0,
             "rel": 0.0
         },
@@ -31,9 +31,9 @@
             "pmax": 63,
             "pmin": 51,
             "pj_res": 4,
-            "champ": 18.07,
-            "lib": 40.7,
-            "sud": 41.23,
+            "champ": 21.37,
+            "lib": 53.55,
+            "sud": 25.08,
             "rel": 0.0
         },
         {
@@ -49,9 +49,9 @@
             "pmax": 63,
             "pmin": 51,
             "pj_res": 4,
-            "champ": 18.07,
-            "lib": 40.7,
-            "sud": 41.23,
+            "champ": 21.37,
+            "lib": 53.55,
+            "sud": 25.08,
             "rel": 0.0
         },
         {
@@ -67,27 +67,27 @@
             "pmax": 62,
             "pmin": 50,
             "pj_res": 4,
-            "champ": 6.31,
-            "lib": 20.23,
-            "sud": 73.45,
+            "champ": 7.46,
+            "lib": 26.38,
+            "sud": 66.16,
             "rel": 0.0
         },
         {
             "name": "Vélez Sarsfield",
-            "pj": 27,
+            "pj": 28,
             "pg": 12,
             "pe": 13,
-            "pp": 2,
-            "dg": 12,
+            "pp": 3,
+            "dg": 10,
             "pts": 49,
             "pos": 5,
-            "mu": 58.074074074074076,
-            "pmax": 64,
+            "mu": 56.0,
+            "pmax": 61,
             "pmin": 49,
-            "pj_res": 5,
-            "champ": 17.09,
-            "lib": 35.29,
-            "sud": 47.62,
+            "pj_res": 4,
+            "champ": 1.97,
+            "lib": 9.85,
+            "sud": 88.18,
             "rel": 0.0
         },
         {
@@ -103,9 +103,9 @@
             "pmax": 60,
             "pmin": 48,
             "pj_res": 4,
-            "champ": 0.33,
-            "lib": 2.12,
-            "sud": 97.55,
+            "champ": 0.39,
+            "lib": 2.74,
+            "sud": 96.88,
             "rel": 0.0
         },
         {
@@ -121,9 +121,9 @@
             "pmax": 59,
             "pmin": 47,
             "pj_res": 4,
-            "champ": 0.05,
-            "lib": 0.43,
-            "sud": 99.52,
+            "champ": 0.06,
+            "lib": 0.56,
+            "sud": 99.39,
             "rel": 0.0
         },
         {
@@ -141,7 +141,7 @@
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.01,
-            "sud": 88.25,
+            "sud": 73.25,
             "rel": 0.0
         },
         {
@@ -157,9 +157,27 @@
             "pmax": 60,
             "pmin": 45,
             "pj_res": 5,
-            "champ": 0.08,
-            "lib": 0.52,
-            "sud": 99.4,
+            "champ": 0.09,
+            "lib": 0.67,
+            "sud": 99.24,
+            "rel": 0.0
+        },
+        {
+            "name": "Lanús",
+            "pj": 28,
+            "pg": 12,
+            "pe": 8,
+            "pp": 8,
+            "dg": 9,
+            "pts": 44,
+            "pos": 10,
+            "mu": 50.285714285714285,
+            "pmax": 56,
+            "pmin": 44,
+            "pj_res": 4,
+            "champ": 0.01,
+            "lib": 0.0,
+            "sud": 21.28,
             "rel": 0.0
         },
         {
@@ -170,14 +188,14 @@
             "pp": 7,
             "dg": 4,
             "pts": 43,
-            "pos": 10,
+            "pos": 11,
             "mu": 49.142857142857146,
             "pmax": 55,
             "pmin": 43,
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 5.56,
+            "sud": 4.62,
             "rel": 0.0
         },
         {
@@ -188,32 +206,14 @@
             "pp": 8,
             "dg": 3,
             "pts": 42,
-            "pos": 11,
+            "pos": 12,
             "mu": 48.0,
             "pmax": 54,
             "pmin": 42,
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 0.89,
-            "rel": 0.0
-        },
-        {
-            "name": "Lanús",
-            "pj": 27,
-            "pg": 11,
-            "pe": 8,
-            "pp": 8,
-            "dg": 7,
-            "pts": 41,
-            "pos": 12,
-            "mu": 48.592592592592595,
-            "pmax": 56,
-            "pmin": 41,
-            "pj_res": 5,
-            "champ": 0.01,
-            "lib": 0.0,
-            "sud": 5.17,
+            "sud": 0.74,
             "rel": 0.0
         },
         {
@@ -231,7 +231,7 @@
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 0.1,
+            "sud": 0.09,
             "rel": 0.0
         },
         {
@@ -253,6 +253,24 @@
             "rel": 0.0
         },
         {
+            "name": "Gimnasia Mendoza",
+            "pj": 28,
+            "pg": 11,
+            "pe": 6,
+            "pp": 11,
+            "dg": -5,
+            "pts": 39,
+            "pos": 15,
+            "mu": 44.57142857142857,
+            "pmax": 51,
+            "pmin": 39,
+            "pj_res": 4,
+            "champ": 0.0,
+            "lib": 0.01,
+            "sud": 0.0,
+            "rel": 0.0
+        },
+        {
             "name": "Sarmiento",
             "pj": 27,
             "pg": 12,
@@ -260,7 +278,7 @@
             "pp": 13,
             "dg": -4,
             "pts": 38,
-            "pos": 15,
+            "pos": 16,
             "mu": 45.03703703703704,
             "pmax": 53,
             "pmin": 38,
@@ -278,7 +296,7 @@
             "pp": 10,
             "dg": -8,
             "pts": 38,
-            "pos": 16,
+            "pos": 17,
             "mu": 43.42857142857143,
             "pmax": 50,
             "pmin": 38,
@@ -286,24 +304,6 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.01,
-            "rel": 0.0
-        },
-        {
-            "name": "Gimnasia Mendoza",
-            "pj": 27,
-            "pg": 10,
-            "pe": 6,
-            "pp": 11,
-            "dg": -6,
-            "pts": 36,
-            "pos": 17,
-            "mu": 42.666666666666664,
-            "pmax": 51,
-            "pmin": 36,
-            "pj_res": 5,
-            "champ": 0.0,
-            "lib": 0.01,
-            "sud": 0.0,
             "rel": 0.0
         },
         {
@@ -398,20 +398,20 @@
         },
         {
             "name": "Newells Old Boys",
-            "pj": 27,
+            "pj": 28,
             "pg": 7,
             "pe": 11,
-            "pp": 9,
-            "dg": -9,
+            "pp": 10,
+            "dg": -10,
             "pts": 32,
             "pos": 23,
-            "mu": 37.925925925925924,
-            "pmax": 47,
+            "mu": 36.57142857142857,
+            "pmax": 44,
             "pmin": 32,
-            "pj_res": 5,
+            "pj_res": 4,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.01,
+            "sud": 0.0,
             "rel": 0.01
         },
         {
@@ -589,17 +589,47 @@
         },
         {
             "name": "Vélez Sarsfield",
-            "pj": 11,
+            "pj": 12,
             "pg": 5,
             "pe": 6,
-            "pp": 0,
-            "dg": 6,
+            "pp": 1,
+            "dg": 4,
             "pts": 21,
             "pos": 4,
-            "mu": 30.545454545454547,
-            "pmax": 36,
+            "mu": 28.0,
+            "pmax": 33,
             "pmin": 21,
-            "pj_res": 5,
+            "pj_res": 4,
+            "playoff": 100.0
+        },
+        {
+            "name": "Lanús",
+            "pj": 12,
+            "pg": 6,
+            "pe": 2,
+            "pp": 4,
+            "dg": 6,
+            "pts": 20,
+            "pos": 5,
+            "mu": 26.666666666666668,
+            "pmax": 32,
+            "pmin": 20,
+            "pj_res": 4,
+            "playoff": 100.0
+        },
+        {
+            "name": "Gimnasia Mendoza",
+            "pj": 12,
+            "pg": 6,
+            "pe": 2,
+            "pp": 4,
+            "dg": 3,
+            "pts": 20,
+            "pos": 6,
+            "mu": 26.666666666666668,
+            "pmax": 32,
+            "pmin": 20,
+            "pj_res": 4,
             "playoff": 100.0
         },
         {
@@ -610,57 +640,27 @@
             "pp": 4,
             "dg": -1,
             "pts": 18,
-            "pos": 5,
+            "pos": 7,
             "mu": 24.0,
             "pmax": 30,
             "pmin": 18,
             "pj_res": 4,
-            "playoff": 99.8
-        },
-        {
-            "name": "Lanús",
-            "pj": 11,
-            "pg": 5,
-            "pe": 2,
-            "pp": 4,
-            "dg": 4,
-            "pts": 17,
-            "pos": 6,
-            "mu": 24.727272727272727,
-            "pmax": 32,
-            "pmin": 17,
-            "pj_res": 5,
             "playoff": 100.0
         },
         {
             "name": "Newells Old Boys",
-            "pj": 11,
+            "pj": 12,
             "pg": 4,
             "pe": 5,
-            "pp": 2,
-            "dg": 3,
-            "pts": 17,
-            "pos": 7,
-            "mu": 24.727272727272727,
-            "pmax": 32,
-            "pmin": 17,
-            "pj_res": 5,
-            "playoff": 100.0
-        },
-        {
-            "name": "Gimnasia Mendoza",
-            "pj": 11,
-            "pg": 5,
-            "pe": 2,
-            "pp": 4,
+            "pp": 3,
             "dg": 2,
             "pts": 17,
             "pos": 8,
-            "mu": 24.727272727272727,
-            "pmax": 32,
+            "mu": 22.666666666666668,
+            "pmax": 29,
             "pmin": 17,
-            "pj_res": 5,
-            "playoff": 100.0
+            "pj_res": 4,
+            "playoff": 96.09
         },
         {
             "name": "Estudiantes de La Plata",
@@ -675,7 +675,7 @@
             "pmax": 26,
             "pmin": 14,
             "pj_res": 4,
-            "playoff": 0.1
+            "playoff": 1.84
         },
         {
             "name": "San Lorenzo",
@@ -690,7 +690,7 @@
             "pmax": 26,
             "pmin": 14,
             "pj_res": 4,
-            "playoff": 0.1
+            "playoff": 1.84
         },
         {
             "name": "Unión de Santa Fe",
@@ -705,7 +705,7 @@
             "pmax": 25,
             "pmin": 13,
             "pj_res": 4,
-            "playoff": 0.01
+            "playoff": 0.22
         },
         {
             "name": "Deportivo Riestra",
@@ -995,5 +995,5 @@
             "playoff": 0.01
         }
     ],
-    "ultima_actualizacion": "12/10/2026 a las 00:08 hs"
+    "ultima_actualizacion": "13/10/2026 a las 00:07 hs"
 }
