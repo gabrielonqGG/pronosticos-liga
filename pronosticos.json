@@ -13,8 +13,8 @@
             "pmax": 64,
             "pmin": 52,
             "pj_res": 4,
-            "champ": 47.3,
-            "lib": 52.7,
+            "champ": 47.34,
+            "lib": 52.66,
             "sud": 0.0,
             "rel": 0.0
         },
@@ -31,9 +31,9 @@
             "pmax": 63,
             "pmin": 51,
             "pj_res": 4,
-            "champ": 21.37,
-            "lib": 53.55,
-            "sud": 25.08,
+            "champ": 21.38,
+            "lib": 53.79,
+            "sud": 24.83,
             "rel": 0.0
         },
         {
@@ -49,9 +49,9 @@
             "pmax": 63,
             "pmin": 51,
             "pj_res": 4,
-            "champ": 21.37,
-            "lib": 53.55,
-            "sud": 25.08,
+            "champ": 21.38,
+            "lib": 53.79,
+            "sud": 24.83,
             "rel": 0.0
         },
         {
@@ -67,9 +67,9 @@
             "pmax": 62,
             "pmin": 50,
             "pj_res": 4,
-            "champ": 7.46,
-            "lib": 26.38,
-            "sud": 66.16,
+            "champ": 7.47,
+            "lib": 26.48,
+            "sud": 66.05,
             "rel": 0.0
         },
         {
@@ -86,8 +86,8 @@
             "pmin": 49,
             "pj_res": 4,
             "champ": 1.97,
-            "lib": 9.85,
-            "sud": 88.18,
+            "lib": 9.89,
+            "sud": 88.14,
             "rel": 0.0
         },
         {
@@ -104,8 +104,8 @@
             "pmin": 48,
             "pj_res": 4,
             "champ": 0.39,
-            "lib": 2.74,
-            "sud": 96.88,
+            "lib": 2.75,
+            "sud": 96.87,
             "rel": 0.0
         },
         {
@@ -127,6 +127,24 @@
             "rel": 0.0
         },
         {
+            "name": "River Plate",
+            "pj": 28,
+            "pg": 14,
+            "pe": 4,
+            "pp": 10,
+            "dg": 12,
+            "pts": 46,
+            "pos": 8,
+            "mu": 52.57142857142857,
+            "pmax": 58,
+            "pmin": 46,
+            "pj_res": 4,
+            "champ": 0.01,
+            "lib": 0.08,
+            "sud": 99.91,
+            "rel": 0.0
+        },
+        {
             "name": "Estudiantes de La Plata",
             "pj": 28,
             "pg": 13,
@@ -134,32 +152,14 @@
             "pp": 9,
             "dg": 14,
             "pts": 45,
-            "pos": 8,
+            "pos": 9,
             "mu": 51.42857142857143,
             "pmax": 57,
             "pmin": 45,
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.01,
-            "sud": 73.25,
-            "rel": 0.0
-        },
-        {
-            "name": "River Plate",
-            "pj": 27,
-            "pg": 14,
-            "pe": 3,
-            "pp": 10,
-            "dg": 12,
-            "pts": 45,
-            "pos": 9,
-            "mu": 53.333333333333336,
-            "pmax": 60,
-            "pmin": 45,
-            "pj_res": 5,
-            "champ": 0.09,
-            "lib": 0.67,
-            "sud": 99.24,
+            "sud": 60.24,
             "rel": 0.0
         },
         {
@@ -177,7 +177,7 @@
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 21.28,
+            "sud": 27.21,
             "rel": 0.0
         },
         {
@@ -195,7 +195,7 @@
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 4.62,
+            "sud": 9.51,
             "rel": 0.0
         },
         {
@@ -213,7 +213,7 @@
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 0.74,
+            "sud": 2.51,
             "rel": 0.0
         },
         {
@@ -231,7 +231,7 @@
             "pj_res": 4,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 0.09,
+            "sud": 0.49,
             "rel": 0.0
         },
         {
@@ -249,7 +249,25 @@
             "pj_res": 4,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.0,
+            "sud": 0.01,
+            "rel": 0.0
+        },
+        {
+            "name": "Sarmiento",
+            "pj": 28,
+            "pg": 12,
+            "pe": 3,
+            "pp": 13,
+            "dg": -4,
+            "pts": 39,
+            "pos": 15,
+            "mu": 44.57142857142857,
+            "pmax": 51,
+            "pmin": 39,
+            "pj_res": 4,
+            "champ": 0.0,
+            "lib": 0.01,
+            "sud": 0.01,
             "rel": 0.0
         },
         {
@@ -260,31 +278,13 @@
             "pp": 11,
             "dg": -5,
             "pts": 39,
-            "pos": 15,
+            "pos": 16,
             "mu": 44.57142857142857,
             "pmax": 51,
             "pmin": 39,
             "pj_res": 4,
             "champ": 0.0,
             "lib": 0.01,
-            "sud": 0.0,
-            "rel": 0.0
-        },
-        {
-            "name": "Sarmiento",
-            "pj": 27,
-            "pg": 12,
-            "pe": 2,
-            "pp": 13,
-            "dg": -4,
-            "pts": 38,
-            "pos": 16,
-            "mu": 45.03703703703704,
-            "pmax": 53,
-            "pmin": 38,
-            "pj_res": 5,
-            "champ": 0.01,
-            "lib": 0.0,
             "sud": 0.01,
             "rel": 0.0
         },
@@ -816,17 +816,17 @@
         },
         {
             "name": "Sarmiento",
-            "pj": 11,
+            "pj": 12,
             "pg": 6,
-            "pe": 1,
+            "pe": 2,
             "pp": 4,
             "dg": 3,
-            "pts": 19,
+            "pts": 20,
             "pos": 4,
-            "mu": 27.636363636363637,
-            "pmax": 34,
-            "pmin": 19,
-            "pj_res": 5,
+            "mu": 26.666666666666668,
+            "pmax": 32,
+            "pmin": 20,
+            "pj_res": 4,
             "playoff": 100.0
         },
         {
@@ -872,7 +872,7 @@
             "pmax": 30,
             "pmin": 18,
             "pj_res": 4,
-            "playoff": 75.24
+            "playoff": 83.73
         },
         {
             "name": "Independiente Rivadavia",
@@ -887,22 +887,22 @@
             "pmax": 30,
             "pmin": 18,
             "pj_res": 4,
-            "playoff": 75.24
+            "playoff": 83.73
         },
         {
             "name": "River Plate",
-            "pj": 11,
+            "pj": 12,
             "pg": 5,
-            "pe": 1,
+            "pe": 2,
             "pp": 5,
             "dg": 2,
-            "pts": 16,
+            "pts": 17,
             "pos": 9,
-            "mu": 23.272727272727273,
-            "pmax": 31,
-            "pmin": 16,
-            "pj_res": 5,
-            "playoff": 49.32
+            "mu": 22.666666666666668,
+            "pmax": 29,
+            "pmin": 17,
+            "pj_res": 4,
+            "playoff": 32.33
         },
         {
             "name": "Atlético Tucumán",
@@ -917,7 +917,7 @@
             "pmax": 26,
             "pmin": 14,
             "pj_res": 4,
-            "playoff": 0.18
+            "playoff": 0.19
         },
         {
             "name": "Banfield",
@@ -932,7 +932,7 @@
             "pmax": 25,
             "pmin": 13,
             "pj_res": 4,
-            "playoff": 0.01
+            "playoff": 0.02
         },
         {
             "name": "Tigre",
@@ -995,5 +995,5 @@
             "playoff": 0.01
         }
     ],
-    "ultima_actualizacion": "14/10/2026 a las 00:18 hs"
+    "ultima_actualizacion": "15/10/2026 a las 00:17 hs"
 }
