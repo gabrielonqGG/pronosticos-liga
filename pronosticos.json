@@ -159,7 +159,7 @@
             "pj_res": 3,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 88.78,
+            "sud": 88.79,
             "rel": 0.0
         },
         {
@@ -254,17 +254,17 @@
         },
         {
             "name": "Barracas Central",
-            "pj": 28,
+            "pj": 29,
             "pg": 10,
-            "pe": 9,
+            "pe": 10,
             "pp": 9,
             "dg": 1,
-            "pts": 39,
+            "pts": 40,
             "pos": 15,
-            "mu": 44.57142857142857,
-            "pmax": 51,
-            "pmin": 39,
-            "pj_res": 4,
+            "mu": 44.13793103448276,
+            "pmax": 49,
+            "pmin": 40,
+            "pj_res": 3,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.01,
@@ -272,17 +272,17 @@
         },
         {
             "name": "Sarmiento",
-            "pj": 28,
+            "pj": 29,
             "pg": 12,
-            "pe": 3,
+            "pe": 4,
             "pp": 13,
             "dg": -4,
-            "pts": 39,
+            "pts": 40,
             "pos": 16,
-            "mu": 44.57142857142857,
-            "pmax": 51,
-            "pmin": 39,
-            "pj_res": 4,
+            "mu": 44.13793103448276,
+            "pmax": 49,
+            "pmin": 40,
+            "pj_res": 3,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.01,
@@ -325,12 +325,12 @@
             "rel": 0.0
         },
         {
-            "name": "Talleres de Córdoba",
+            "name": "Unión de Santa Fe",
             "pj": 29,
             "pg": 9,
             "pe": 8,
             "pp": 12,
-            "dg": -4,
+            "dg": 0,
             "pts": 35,
             "pos": 19,
             "mu": 38.62068965517241,
@@ -343,22 +343,40 @@
             "rel": 0.0
         },
         {
-            "name": "Unión de Santa Fe",
-            "pj": 28,
+            "name": "Talleres de Córdoba",
+            "pj": 29,
             "pg": 9,
-            "pe": 7,
+            "pe": 8,
             "pp": 12,
-            "dg": 0,
-            "pts": 34,
+            "dg": -4,
+            "pts": 35,
             "pos": 20,
-            "mu": 38.857142857142854,
-            "pmax": 46,
-            "pmin": 34,
-            "pj_res": 4,
+            "mu": 38.62068965517241,
+            "pmax": 44,
+            "pmin": 35,
+            "pj_res": 3,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.01
+            "rel": 0.0
+        },
+        {
+            "name": "Newells Old Boys",
+            "pj": 29,
+            "pg": 8,
+            "pe": 11,
+            "pp": 10,
+            "dg": -9,
+            "pts": 35,
+            "pos": 21,
+            "mu": 38.62068965517241,
+            "pmax": 44,
+            "pmin": 35,
+            "pj_res": 3,
+            "champ": 0.0,
+            "lib": 0.0,
+            "sud": 0.0,
+            "rel": 0.0
         },
         {
             "name": "Tigre",
@@ -368,7 +386,7 @@
             "pp": 10,
             "dg": 1,
             "pts": 33,
-            "pos": 21,
+            "pos": 22,
             "mu": 36.41379310344828,
             "pmax": 42,
             "pmin": 33,
@@ -376,7 +394,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.01
+            "rel": 0.0
         },
         {
             "name": "Racing Club",
@@ -386,7 +404,7 @@
             "pp": 12,
             "dg": -4,
             "pts": 33,
-            "pos": 22,
+            "pos": 23,
             "mu": 36.41379310344828,
             "pmax": 42,
             "pmin": 33,
@@ -394,25 +412,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.01
-        },
-        {
-            "name": "Newells Old Boys",
-            "pj": 28,
-            "pg": 7,
-            "pe": 11,
-            "pp": 10,
-            "dg": -10,
-            "pts": 32,
-            "pos": 23,
-            "mu": 36.57142857142857,
-            "pmax": 44,
-            "pmin": 32,
-            "pj_res": 4,
-            "champ": 0.0,
-            "lib": 0.0,
-            "sud": 0.0,
-            "rel": 0.01
+            "rel": 0.0
         },
         {
             "name": "Banfield",
@@ -466,43 +466,43 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.05
+            "rel": 0.08
         },
         {
             "name": "Central Córdoba SE",
-            "pj": 28,
+            "pj": 29,
             "pg": 6,
             "pe": 8,
-            "pp": 14,
-            "dg": -16,
+            "pp": 15,
+            "dg": -17,
             "pts": 26,
             "pos": 27,
-            "mu": 29.714285714285715,
-            "pmax": 38,
+            "mu": 28.689655172413794,
+            "pmax": 35,
             "pmin": 26,
-            "pj_res": 4,
+            "pj_res": 3,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.18
+            "rel": 0.55
         },
         {
             "name": "Deportivo Riestra",
-            "pj": 28,
+            "pj": 29,
             "pg": 3,
-            "pe": 13,
+            "pe": 14,
             "pp": 12,
             "dg": -10,
-            "pts": 22,
+            "pts": 23,
             "pos": 28,
-            "mu": 25.142857142857142,
-            "pmax": 34,
-            "pmin": 22,
-            "pj_res": 4,
+            "mu": 25.379310344827587,
+            "pmax": 32,
+            "pmin": 23,
+            "pj_res": 3,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 22.21
+            "rel": 22.16
         },
         {
             "name": "Aldosivi",
@@ -520,7 +520,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 88.72
+            "rel": 88.56
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -538,7 +538,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 88.84
+            "rel": 88.65
         }
     ],
     "zonaA": [
@@ -618,6 +618,21 @@
             "playoff": 100.0
         },
         {
+            "name": "Newells Old Boys",
+            "pj": 13,
+            "pg": 5,
+            "pe": 5,
+            "pp": 3,
+            "dg": 3,
+            "pts": 20,
+            "pos": 6,
+            "mu": 24.615384615384617,
+            "pmax": 29,
+            "pmin": 20,
+            "pj_res": 3,
+            "playoff": 100.0
+        },
+        {
             "name": "Gimnasia Mendoza",
             "pj": 13,
             "pg": 6,
@@ -625,7 +640,7 @@
             "pp": 5,
             "dg": 2,
             "pts": 20,
-            "pos": 6,
+            "pos": 7,
             "mu": 24.615384615384617,
             "pmax": 29,
             "pmin": 20,
@@ -640,27 +655,12 @@
             "pp": 4,
             "dg": -1,
             "pts": 19,
-            "pos": 7,
+            "pos": 8,
             "mu": 23.384615384615383,
             "pmax": 28,
             "pmin": 19,
             "pj_res": 3,
-            "playoff": 100.0
-        },
-        {
-            "name": "Newells Old Boys",
-            "pj": 12,
-            "pg": 4,
-            "pe": 5,
-            "pp": 3,
-            "dg": 2,
-            "pts": 17,
-            "pos": 8,
-            "mu": 22.666666666666668,
-            "pmax": 29,
-            "pmin": 17,
-            "pj_res": 4,
-            "playoff": 82.61
+            "playoff": 92.11
         },
         {
             "name": "San Lorenzo",
@@ -675,7 +675,7 @@
             "pmax": 26,
             "pmin": 17,
             "pj_res": 3,
-            "playoff": 17.17
+            "playoff": 7.88
         },
         {
             "name": "Estudiantes de La Plata",
@@ -690,36 +690,36 @@
             "pmax": 23,
             "pmin": 14,
             "pj_res": 3,
-            "playoff": 0.03
+            "playoff": 0.01
         },
         {
             "name": "Unión de Santa Fe",
-            "pj": 12,
+            "pj": 13,
             "pg": 4,
-            "pe": 1,
+            "pe": 2,
             "pp": 7,
             "dg": -4,
-            "pts": 13,
+            "pts": 14,
             "pos": 11,
-            "mu": 17.333333333333332,
-            "pmax": 25,
-            "pmin": 13,
-            "pj_res": 4,
-            "playoff": 0.19
+            "mu": 17.23076923076923,
+            "pmax": 23,
+            "pmin": 14,
+            "pj_res": 3,
+            "playoff": 0.01
         },
         {
             "name": "Deportivo Riestra",
-            "pj": 12,
+            "pj": 13,
             "pg": 2,
-            "pe": 5,
+            "pe": 6,
             "pp": 5,
             "dg": -3,
-            "pts": 11,
+            "pts": 12,
             "pos": 12,
-            "mu": 14.666666666666666,
-            "pmax": 23,
-            "pmin": 11,
-            "pj_res": 4,
+            "mu": 14.76923076923077,
+            "pmax": 21,
+            "pmin": 12,
+            "pj_res": 3,
             "playoff": 0.01
         },
         {
@@ -739,17 +739,17 @@
         },
         {
             "name": "Central Córdoba SE",
-            "pj": 12,
+            "pj": 13,
             "pg": 2,
             "pe": 4,
-            "pp": 6,
-            "dg": -6,
+            "pp": 7,
+            "dg": -7,
             "pts": 10,
             "pos": 14,
-            "mu": 13.333333333333334,
-            "pmax": 22,
+            "mu": 12.307692307692308,
+            "pmax": 19,
             "pmin": 10,
-            "pj_res": 4,
+            "pj_res": 3,
             "playoff": 0.01
         },
         {
@@ -765,7 +765,7 @@
             "pmax": 18,
             "pmin": 9,
             "pj_res": 3,
-            "playoff": 0.01
+            "playoff": 0.0
         }
     ],
     "zonaB": [
@@ -830,6 +830,21 @@
             "playoff": 100.0
         },
         {
+            "name": "Sarmiento",
+            "pj": 13,
+            "pg": 6,
+            "pe": 3,
+            "pp": 4,
+            "dg": 3,
+            "pts": 21,
+            "pos": 5,
+            "mu": 25.846153846153847,
+            "pmax": 30,
+            "pmin": 21,
+            "pj_res": 3,
+            "playoff": 100.0
+        },
+        {
             "name": "River Plate",
             "pj": 13,
             "pg": 6,
@@ -837,7 +852,7 @@
             "pp": 5,
             "dg": 5,
             "pts": 20,
-            "pos": 5,
+            "pos": 6,
             "mu": 24.615384615384617,
             "pmax": 29,
             "pmin": 20,
@@ -845,19 +860,19 @@
             "playoff": 100.0
         },
         {
-            "name": "Sarmiento",
-            "pj": 12,
-            "pg": 6,
-            "pe": 2,
+            "name": "Barracas Central",
+            "pj": 13,
+            "pg": 5,
+            "pe": 4,
             "pp": 4,
-            "dg": 3,
-            "pts": 20,
-            "pos": 6,
-            "mu": 26.666666666666668,
-            "pmax": 32,
-            "pmin": 20,
-            "pj_res": 4,
-            "playoff": 100.0
+            "dg": 1,
+            "pts": 19,
+            "pos": 7,
+            "mu": 23.384615384615383,
+            "pmax": 28,
+            "pmin": 19,
+            "pj_res": 3,
+            "playoff": 66.66
         },
         {
             "name": "Huracán",
@@ -867,12 +882,12 @@
             "pp": 4,
             "dg": 0,
             "pts": 19,
-            "pos": 7,
+            "pos": 8,
             "mu": 23.384615384615383,
             "pmax": 28,
             "pmin": 19,
             "pj_res": 3,
-            "playoff": 58.94
+            "playoff": 66.66
         },
         {
             "name": "Independiente Rivadavia",
@@ -882,27 +897,12 @@
             "pp": 4,
             "dg": -4,
             "pts": 19,
-            "pos": 8,
+            "pos": 9,
             "mu": 23.384615384615383,
             "pmax": 28,
             "pmin": 19,
             "pj_res": 3,
-            "playoff": 58.94
-        },
-        {
-            "name": "Barracas Central",
-            "pj": 12,
-            "pg": 5,
-            "pe": 3,
-            "pp": 4,
-            "dg": 1,
-            "pts": 18,
-            "pos": 9,
-            "mu": 24.0,
-            "pmax": 30,
-            "pmin": 18,
-            "pj_res": 4,
-            "playoff": 82.11
+            "playoff": 66.66
         },
         {
             "name": "Atlético Tucumán",
@@ -995,5 +995,5 @@
             "playoff": 0.0
         }
     ],
-    "ultima_actualizacion": "19/10/2026 a las 05:19 hs"
+    "ultima_actualizacion": "20/10/2026 a las 05:03 hs"
 }
