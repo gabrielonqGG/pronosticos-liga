@@ -159,7 +159,7 @@
             "pj_res": 3,
             "champ": 0.01,
             "lib": 0.0,
-            "sud": 88.79,
+            "sud": 88.78,
             "rel": 0.0
         },
         {
@@ -181,25 +181,25 @@
             "rel": 0.0
         },
         {
-            "name": "Defensa y Justicia",
-            "pj": 29,
-            "pg": 11,
-            "pe": 10,
-            "pp": 8,
-            "dg": 3,
-            "pts": 43,
+            "name": "Gimnasia Mendoza",
+            "pj": 30,
+            "pg": 12,
+            "pe": 8,
+            "pp": 10,
+            "dg": -5,
+            "pts": 44,
             "pos": 11,
-            "mu": 47.44827586206897,
-            "pmax": 52,
-            "pmin": 43,
-            "pj_res": 3,
+            "mu": 46.93333333333333,
+            "pmax": 50,
+            "pmin": 44,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.31,
+            "sud": 0.01,
             "rel": 0.0
         },
         {
-            "name": "Independiente",
+            "name": "Defensa y Justicia",
             "pj": 29,
             "pg": 11,
             "pe": 10,
@@ -217,30 +217,30 @@
             "rel": 0.0
         },
         {
+            "name": "Independiente",
+            "pj": 29,
+            "pg": 11,
+            "pe": 10,
+            "pp": 8,
+            "dg": 3,
+            "pts": 43,
+            "pos": 13,
+            "mu": 47.44827586206897,
+            "pmax": 52,
+            "pmin": 43,
+            "pj_res": 3,
+            "champ": 0.0,
+            "lib": 0.0,
+            "sud": 0.31,
+            "rel": 0.0
+        },
+        {
             "name": "Huracán",
             "pj": 29,
             "pg": 10,
             "pe": 11,
             "pp": 8,
             "dg": 4,
-            "pts": 41,
-            "pos": 13,
-            "mu": 45.241379310344826,
-            "pmax": 50,
-            "pmin": 41,
-            "pj_res": 3,
-            "champ": 0.0,
-            "lib": 0.0,
-            "sud": 0.01,
-            "rel": 0.0
-        },
-        {
-            "name": "Gimnasia Mendoza",
-            "pj": 29,
-            "pg": 11,
-            "pe": 8,
-            "pp": 10,
-            "dg": -7,
             "pts": 41,
             "pos": 14,
             "mu": 45.241379310344826,
@@ -272,20 +272,20 @@
         },
         {
             "name": "Sarmiento",
-            "pj": 29,
+            "pj": 30,
             "pg": 12,
             "pe": 4,
-            "pp": 13,
-            "dg": -4,
+            "pp": 14,
+            "dg": -6,
             "pts": 40,
             "pos": 16,
-            "mu": 44.13793103448276,
-            "pmax": 49,
+            "mu": 42.666666666666664,
+            "pmax": 46,
             "pmin": 40,
-            "pj_res": 3,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.01,
+            "sud": 0.0,
             "rel": 0.0
         },
         {
@@ -308,20 +308,20 @@
         },
         {
             "name": "Gimnasia Mendoza",
-            "pj": 29,
+            "pj": 30,
             "pg": 11,
             "pe": 6,
-            "pp": 12,
-            "dg": -6,
+            "pp": 13,
+            "dg": -7,
             "pts": 39,
             "pos": 18,
-            "mu": 43.03448275862069,
-            "pmax": 48,
+            "mu": 41.6,
+            "pmax": 45,
             "pmin": 39,
-            "pj_res": 3,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 0.01,
+            "sud": 0.0,
             "rel": 0.0
         },
         {
@@ -380,17 +380,17 @@
         },
         {
             "name": "Tigre",
-            "pj": 29,
+            "pj": 30,
             "pg": 7,
             "pe": 12,
-            "pp": 10,
-            "dg": 1,
+            "pp": 11,
+            "dg": 0,
             "pts": 33,
             "pos": 22,
-            "mu": 36.41379310344828,
-            "pmax": 42,
+            "mu": 35.2,
+            "pmax": 39,
             "pmin": 33,
-            "pj_res": 3,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
@@ -415,6 +415,24 @@
             "rel": 0.0
         },
         {
+            "name": "Atlético Tucumán",
+            "pj": 30,
+            "pg": 7,
+            "pe": 10,
+            "pp": 13,
+            "dg": -5,
+            "pts": 31,
+            "pos": 24,
+            "mu": 33.06666666666667,
+            "pmax": 37,
+            "pmin": 31,
+            "pj_res": 2,
+            "champ": 0.0,
+            "lib": 0.0,
+            "sud": 0.0,
+            "rel": 0.01
+        },
+        {
             "name": "Banfield",
             "pj": 29,
             "pg": 8,
@@ -422,7 +440,7 @@
             "pp": 14,
             "dg": -7,
             "pts": 31,
-            "pos": 24,
+            "pos": 25,
             "mu": 34.206896551724135,
             "pmax": 40,
             "pmin": 31,
@@ -433,40 +451,22 @@
             "rel": 0.01
         },
         {
-            "name": "Atlético Tucumán",
-            "pj": 29,
+            "name": "Platense",
+            "pj": 30,
             "pg": 6,
-            "pe": 10,
-            "pp": 13,
-            "dg": -6,
-            "pts": 28,
-            "pos": 25,
-            "mu": 30.896551724137932,
-            "pmax": 37,
-            "pmin": 28,
-            "pj_res": 3,
+            "pe": 12,
+            "pp": 12,
+            "dg": -11,
+            "pts": 30,
+            "pos": 26,
+            "mu": 32.0,
+            "pmax": 36,
+            "pmin": 30,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
             "rel": 0.01
-        },
-        {
-            "name": "Platense",
-            "pj": 29,
-            "pg": 5,
-            "pe": 12,
-            "pp": 12,
-            "dg": -12,
-            "pts": 27,
-            "pos": 26,
-            "mu": 29.79310344827586,
-            "pmax": 36,
-            "pmin": 27,
-            "pj_res": 3,
-            "champ": 0.0,
-            "lib": 0.0,
-            "sud": 0.0,
-            "rel": 0.08
         },
         {
             "name": "Central Córdoba SE",
@@ -502,7 +502,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 22.16
+            "rel": 22.17
         },
         {
             "name": "Aldosivi",
@@ -520,7 +520,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 88.56
+            "rel": 88.6
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -538,7 +538,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 88.65
+            "rel": 88.68
         }
     ],
     "zonaA": [
@@ -634,18 +634,18 @@
         },
         {
             "name": "Gimnasia Mendoza",
-            "pj": 13,
+            "pj": 14,
             "pg": 6,
             "pe": 2,
-            "pp": 5,
-            "dg": 2,
+            "pp": 6,
+            "dg": 1,
             "pts": 20,
             "pos": 7,
-            "mu": 24.615384615384617,
-            "pmax": 29,
+            "mu": 22.857142857142858,
+            "pmax": 26,
             "pmin": 20,
-            "pj_res": 3,
-            "playoff": 100.0
+            "pj_res": 2,
+            "playoff": 87.72
         },
         {
             "name": "Independiente",
@@ -660,7 +660,7 @@
             "pmax": 28,
             "pmin": 19,
             "pj_res": 3,
-            "playoff": 92.11
+            "playoff": 100.0
         },
         {
             "name": "San Lorenzo",
@@ -675,7 +675,7 @@
             "pmax": 26,
             "pmin": 17,
             "pj_res": 3,
-            "playoff": 7.88
+            "playoff": 12.26
         },
         {
             "name": "Estudiantes de La Plata",
@@ -708,6 +708,21 @@
             "playoff": 0.01
         },
         {
+            "name": "Platense",
+            "pj": 14,
+            "pg": 3,
+            "pe": 5,
+            "pp": 6,
+            "dg": -6,
+            "pts": 14,
+            "pos": 12,
+            "mu": 16.0,
+            "pmax": 20,
+            "pmin": 14,
+            "pj_res": 2,
+            "playoff": 0.01
+        },
+        {
             "name": "Deportivo Riestra",
             "pj": 13,
             "pg": 2,
@@ -715,25 +730,10 @@
             "pp": 5,
             "dg": -3,
             "pts": 12,
-            "pos": 12,
+            "pos": 13,
             "mu": 14.76923076923077,
             "pmax": 21,
             "pmin": 12,
-            "pj_res": 3,
-            "playoff": 0.01
-        },
-        {
-            "name": "Platense",
-            "pj": 13,
-            "pg": 2,
-            "pe": 5,
-            "pp": 6,
-            "dg": -7,
-            "pts": 11,
-            "pos": 13,
-            "mu": 13.538461538461538,
-            "pmax": 20,
-            "pmin": 11,
             "pj_res": 3,
             "playoff": 0.01
         },
@@ -800,27 +800,27 @@
             "playoff": 100.0
         },
         {
+            "name": "Gimnasia Mendoza",
+            "pj": 14,
+            "pg": 7,
+            "pe": 4,
+            "pp": 3,
+            "dg": 3,
+            "pts": 25,
+            "pos": 3,
+            "mu": 28.571428571428573,
+            "pmax": 31,
+            "pmin": 25,
+            "pj_res": 2,
+            "playoff": 100.0
+        },
+        {
             "name": "Belgrano",
             "pj": 13,
             "pg": 6,
             "pe": 4,
             "pp": 3,
             "dg": 4,
-            "pts": 22,
-            "pos": 3,
-            "mu": 27.076923076923077,
-            "pmax": 31,
-            "pmin": 22,
-            "pj_res": 3,
-            "playoff": 100.0
-        },
-        {
-            "name": "Gimnasia Mendoza",
-            "pj": 13,
-            "pg": 6,
-            "pe": 4,
-            "pp": 3,
-            "dg": 1,
             "pts": 22,
             "pos": 4,
             "mu": 27.076923076923077,
@@ -831,17 +831,17 @@
         },
         {
             "name": "Sarmiento",
-            "pj": 13,
+            "pj": 14,
             "pg": 6,
             "pe": 3,
-            "pp": 4,
-            "dg": 3,
+            "pp": 5,
+            "dg": 1,
             "pts": 21,
             "pos": 5,
-            "mu": 25.846153846153847,
-            "pmax": 30,
+            "mu": 24.0,
+            "pmax": 27,
             "pmin": 21,
-            "pj_res": 3,
+            "pj_res": 2,
             "playoff": 100.0
         },
         {
@@ -872,7 +872,7 @@
             "pmax": 28,
             "pmin": 19,
             "pj_res": 3,
-            "playoff": 66.66
+            "playoff": 66.63
         },
         {
             "name": "Huracán",
@@ -887,7 +887,7 @@
             "pmax": 28,
             "pmin": 19,
             "pj_res": 3,
-            "playoff": 66.66
+            "playoff": 66.63
         },
         {
             "name": "Independiente Rivadavia",
@@ -902,36 +902,36 @@
             "pmax": 28,
             "pmin": 19,
             "pj_res": 3,
-            "playoff": 66.66
+            "playoff": 66.63
         },
         {
             "name": "Atlético Tucumán",
-            "pj": 13,
-            "pg": 3,
+            "pj": 14,
+            "pg": 4,
             "pe": 5,
             "pp": 5,
-            "dg": -1,
-            "pts": 14,
+            "dg": 0,
+            "pts": 17,
             "pos": 10,
-            "mu": 17.23076923076923,
+            "mu": 19.428571428571427,
             "pmax": 23,
-            "pmin": 14,
-            "pj_res": 3,
-            "playoff": 0.01
+            "pmin": 17,
+            "pj_res": 2,
+            "playoff": 0.1
         },
         {
             "name": "Tigre",
-            "pj": 13,
+            "pj": 14,
             "pg": 3,
             "pe": 4,
-            "pp": 6,
-            "dg": -2,
+            "pp": 7,
+            "dg": -3,
             "pts": 13,
             "pos": 11,
-            "mu": 16.0,
-            "pmax": 22,
+            "mu": 14.857142857142858,
+            "pmax": 19,
             "pmin": 13,
-            "pj_res": 3,
+            "pj_res": 2,
             "playoff": 0.01
         },
         {
@@ -995,5 +995,5 @@
             "playoff": 0.0
         }
     ],
-    "ultima_actualizacion": "23/10/2026 a las 05:07 hs"
+    "ultima_actualizacion": "24/10/2026 a las 04:46 hs"
 }
