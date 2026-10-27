@@ -13,8 +13,8 @@
             "pmax": 63,
             "pmin": 57,
             "pj_res": 2,
-            "champ": 53.48,
-            "lib": 46.52,
+            "champ": 53.46,
+            "lib": 46.54,
             "sud": 0.0,
             "rel": 0.0
         },
@@ -32,8 +32,8 @@
             "pmin": 56,
             "pj_res": 2,
             "champ": 17.76,
-            "lib": 54.14,
-            "sud": 28.1,
+            "lib": 53.49,
+            "sud": 28.75,
             "rel": 0.0
         },
         {
@@ -50,8 +50,8 @@
             "pmin": 55,
             "pj_res": 2,
             "champ": 3.72,
-            "lib": 31.75,
-            "sud": 64.52,
+            "lib": 31.43,
+            "sud": 64.84,
             "rel": 0.0
         },
         {
@@ -67,9 +67,27 @@
             "pmax": 63,
             "pmin": 54,
             "pj_res": 3,
-            "champ": 19.49,
-            "lib": 41.01,
-            "sud": 39.5,
+            "champ": 19.48,
+            "lib": 40.47,
+            "sud": 40.05,
+            "rel": 0.0
+        },
+        {
+            "name": "Instituto",
+            "pj": 30,
+            "pg": 16,
+            "pe": 5,
+            "pp": 9,
+            "dg": 11,
+            "pts": 53,
+            "pos": 5,
+            "mu": 56.53333333333333,
+            "pmax": 59,
+            "pmin": 53,
+            "pj_res": 2,
+            "champ": 0.03,
+            "lib": 2.41,
+            "sud": 97.55,
             "rel": 0.0
         },
         {
@@ -80,14 +98,14 @@
             "pp": 6,
             "dg": 10,
             "pts": 53,
-            "pos": 5,
+            "pos": 6,
             "mu": 58.48275862068966,
             "pmax": 62,
             "pmin": 53,
             "pj_res": 3,
             "champ": 5.53,
-            "lib": 25.63,
-            "sud": 68.83,
+            "lib": 25.35,
+            "sud": 69.11,
             "rel": 0.0
         },
         {
@@ -98,7 +116,7 @@
             "pp": 10,
             "dg": 16,
             "pts": 52,
-            "pos": 6,
+            "pos": 7,
             "mu": 55.46666666666667,
             "pmax": 58,
             "pmin": 52,
@@ -106,24 +124,6 @@
             "champ": 0.01,
             "lib": 0.31,
             "sud": 99.69,
-            "rel": 0.0
-        },
-        {
-            "name": "Instituto",
-            "pj": 29,
-            "pg": 15,
-            "pe": 5,
-            "pp": 9,
-            "dg": 10,
-            "pts": 50,
-            "pos": 7,
-            "mu": 55.172413793103445,
-            "pmax": 59,
-            "pmin": 50,
-            "pj_res": 3,
-            "champ": 0.01,
-            "lib": 0.63,
-            "sud": 99.35,
             "rel": 0.0
         },
         {
@@ -141,7 +141,7 @@
             "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 85.87,
+            "sud": 96.2,
             "rel": 0.0
         },
         {
@@ -159,7 +159,7 @@
             "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 85.87,
+            "sud": 96.2,
             "rel": 0.0
         },
         {
@@ -177,25 +177,25 @@
             "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 5.98,
+            "sud": 6.7,
             "rel": 0.0
         },
         {
             "name": "Estudiantes de La Plata",
-            "pj": 29,
+            "pj": 30,
             "pg": 13,
             "pe": 6,
-            "pp": 10,
-            "dg": 13,
+            "pp": 11,
+            "dg": 11,
             "pts": 45,
             "pos": 11,
-            "mu": 49.6551724137931,
-            "pmax": 54,
+            "mu": 48.0,
+            "pmax": 51,
             "pmin": 45,
-            "pj_res": 3,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
-            "sud": 22.23,
+            "sud": 0.84,
             "rel": 0.0
         },
         {
@@ -325,17 +325,17 @@
             "rel": 0.0
         },
         {
-            "name": "Newells Old Boys",
+            "name": "Unión de Santa Fe",
             "pj": 30,
-            "pg": 8,
-            "pe": 12,
-            "pp": 10,
-            "dg": -9,
-            "pts": 36,
+            "pg": 10,
+            "pe": 8,
+            "pp": 12,
+            "dg": 2,
+            "pts": 38,
             "pos": 19,
-            "mu": 38.4,
-            "pmax": 42,
-            "pmin": 36,
+            "mu": 40.53333333333333,
+            "pmax": 44,
+            "pmin": 38,
             "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
@@ -343,18 +343,18 @@
             "rel": 0.0
         },
         {
-            "name": "Unión de Santa Fe",
-            "pj": 29,
-            "pg": 9,
-            "pe": 8,
-            "pp": 12,
-            "dg": 0,
-            "pts": 35,
+            "name": "Newells Old Boys",
+            "pj": 30,
+            "pg": 8,
+            "pe": 12,
+            "pp": 10,
+            "dg": -9,
+            "pts": 36,
             "pos": 20,
-            "mu": 38.62068965517241,
-            "pmax": 44,
-            "pmin": 35,
-            "pj_res": 3,
+            "mu": 38.4,
+            "pmax": 42,
+            "pmin": 36,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
@@ -430,7 +430,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.01
+            "rel": 0.0
         },
         {
             "name": "Atlético Tucumán",
@@ -448,7 +448,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.01
+            "rel": 0.0
         },
         {
             "name": "Platense",
@@ -466,7 +466,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 0.01
+            "rel": 0.0
         },
         {
             "name": "Central Córdoba SE",
@@ -484,25 +484,25 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 1.05
+            "rel": 0.2
         },
         {
             "name": "Deportivo Riestra",
-            "pj": 29,
+            "pj": 30,
             "pg": 3,
             "pe": 14,
-            "pp": 12,
-            "dg": -10,
+            "pp": 13,
+            "dg": -11,
             "pts": 23,
             "pos": 28,
-            "mu": 25.379310344827587,
-            "pmax": 32,
+            "mu": 24.533333333333335,
+            "pmax": 29,
             "pmin": 23,
-            "pj_res": 3,
+            "pj_res": 2,
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 22.18
+            "rel": 22.45
         },
         {
             "name": "Aldosivi",
@@ -520,7 +520,7 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 88.06
+            "rel": 87.54
         },
         {
             "name": "Estudiantes Río Cuarto",
@@ -538,23 +538,23 @@
             "champ": 0.0,
             "lib": 0.0,
             "sud": 0.0,
-            "rel": 88.71
+            "rel": 89.81
         }
     ],
     "zonaA": [
         {
             "name": "Instituto",
-            "pj": 13,
-            "pg": 9,
+            "pj": 14,
+            "pg": 10,
             "pe": 2,
             "pp": 2,
-            "dg": 10,
-            "pts": 29,
+            "dg": 11,
+            "pts": 32,
             "pos": 1,
-            "mu": 35.69230769230769,
+            "mu": 36.57142857142857,
             "pmax": 38,
-            "pmin": 29,
-            "pj_res": 3,
+            "pmin": 32,
+            "pj_res": 2,
             "playoff": 100.0
         },
         {
@@ -660,7 +660,7 @@
             "pmax": 25,
             "pmin": 19,
             "pj_res": 2,
-            "playoff": 76.45
+            "playoff": 73.78
         },
         {
             "name": "San Lorenzo",
@@ -675,37 +675,37 @@
             "pmax": 24,
             "pmin": 18,
             "pj_res": 2,
-            "playoff": 23.08
-        },
-        {
-            "name": "Estudiantes de La Plata",
-            "pj": 13,
-            "pg": 4,
-            "pe": 2,
-            "pp": 7,
-            "dg": 1,
-            "pts": 14,
-            "pos": 10,
-            "mu": 17.23076923076923,
-            "pmax": 23,
-            "pmin": 14,
-            "pj_res": 3,
-            "playoff": 0.23
+            "playoff": 22.27
         },
         {
             "name": "Unión de Santa Fe",
-            "pj": 13,
-            "pg": 4,
+            "pj": 14,
+            "pg": 5,
             "pe": 2,
             "pp": 7,
-            "dg": -4,
+            "dg": -2,
+            "pts": 17,
+            "pos": 10,
+            "mu": 19.428571428571427,
+            "pmax": 23,
+            "pmin": 17,
+            "pj_res": 2,
+            "playoff": 3.94
+        },
+        {
+            "name": "Estudiantes de La Plata",
+            "pj": 14,
+            "pg": 4,
+            "pe": 2,
+            "pp": 8,
+            "dg": -1,
             "pts": 14,
             "pos": 11,
-            "mu": 17.23076923076923,
-            "pmax": 23,
+            "mu": 16.0,
+            "pmax": 20,
             "pmin": 14,
-            "pj_res": 3,
-            "playoff": 0.23
+            "pj_res": 2,
+            "playoff": 0.01
         },
         {
             "name": "Platense",
@@ -724,18 +724,18 @@
         },
         {
             "name": "Deportivo Riestra",
-            "pj": 13,
+            "pj": 14,
             "pg": 2,
             "pe": 6,
-            "pp": 5,
-            "dg": -3,
+            "pp": 6,
+            "dg": -4,
             "pts": 12,
             "pos": 13,
-            "mu": 14.76923076923077,
-            "pmax": 21,
+            "mu": 13.714285714285714,
+            "pmax": 18,
             "pmin": 12,
-            "pj_res": 3,
-            "playoff": 0.01
+            "pj_res": 2,
+            "playoff": 0.0
         },
         {
             "name": "Central Córdoba SE",
@@ -995,5 +995,5 @@
             "playoff": 0.0
         }
     ],
-    "ultima_actualizacion": "26/10/2026 a las 05:19 hs"
+    "ultima_actualizacion": "27/10/2026 a las 05:31 hs"
 }
