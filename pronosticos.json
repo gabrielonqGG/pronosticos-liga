@@ -13,8 +13,26 @@
             "pmax": 63,
             "pmin": 57,
             "pj_res": 2,
-            "champ": 53.46,
-            "lib": 46.54,
+            "champ": 41.61,
+            "lib": 58.39,
+            "sud": 0.0,
+            "rel": 0.0
+        },
+        {
+            "name": "Argentinos Juniors",
+            "pj": 30,
+            "pg": 16,
+            "pe": 9,
+            "pp": 5,
+            "dg": 11,
+            "pts": 57,
+            "pos": 2,
+            "mu": 60.8,
+            "pmax": 63,
+            "pmin": 57,
+            "pj_res": 2,
+            "champ": 41.61,
+            "lib": 58.39,
             "sud": 0.0,
             "rel": 0.0
         },
@@ -26,14 +44,14 @@
             "pp": 6,
             "dg": 15,
             "pts": 56,
-            "pos": 2,
+            "pos": 3,
             "mu": 59.733333333333334,
             "pmax": 62,
             "pmin": 56,
             "pj_res": 2,
-            "champ": 17.76,
-            "lib": 53.49,
-            "sud": 28.75,
+            "champ": 13.82,
+            "lib": 60.23,
+            "sud": 25.95,
             "rel": 0.0
         },
         {
@@ -44,32 +62,14 @@
             "pp": 3,
             "dg": 16,
             "pts": 55,
-            "pos": 3,
+            "pos": 4,
             "mu": 58.666666666666664,
             "pmax": 61,
             "pmin": 55,
             "pj_res": 2,
-            "champ": 3.72,
-            "lib": 31.43,
-            "sud": 64.84,
-            "rel": 0.0
-        },
-        {
-            "name": "Argentinos Juniors",
-            "pj": 29,
-            "pg": 15,
-            "pe": 9,
-            "pp": 5,
-            "dg": 10,
-            "pts": 54,
-            "pos": 4,
-            "mu": 59.58620689655172,
-            "pmax": 63,
-            "pmin": 54,
-            "pj_res": 3,
-            "champ": 19.48,
-            "lib": 40.47,
-            "sud": 40.05,
+            "champ": 2.9,
+            "lib": 21.7,
+            "sud": 75.4,
             "rel": 0.0
         },
         {
@@ -86,26 +86,26 @@
             "pmin": 53,
             "pj_res": 2,
             "champ": 0.03,
-            "lib": 2.41,
-            "sud": 97.55,
+            "lib": 0.62,
+            "sud": 99.35,
             "rel": 0.0
         },
         {
             "name": "Independiente Rivadavia",
-            "pj": 29,
+            "pj": 30,
             "pg": 15,
             "pe": 8,
-            "pp": 6,
-            "dg": 10,
+            "pp": 7,
+            "dg": 9,
             "pts": 53,
             "pos": 6,
-            "mu": 58.48275862068966,
-            "pmax": 62,
+            "mu": 56.53333333333333,
+            "pmax": 59,
             "pmin": 53,
-            "pj_res": 3,
-            "champ": 5.53,
-            "lib": 25.35,
-            "sud": 69.11,
+            "pj_res": 2,
+            "champ": 0.03,
+            "lib": 0.62,
+            "sud": 99.35,
             "rel": 0.0
         },
         {
@@ -122,8 +122,8 @@
             "pmin": 52,
             "pj_res": 2,
             "champ": 0.01,
-            "lib": 0.31,
-            "sud": 99.69,
+            "lib": 0.05,
+            "sud": 99.95,
             "rel": 0.0
         },
         {
@@ -786,17 +786,17 @@
         },
         {
             "name": "Argentinos Juniors",
-            "pj": 13,
-            "pg": 7,
+            "pj": 14,
+            "pg": 8,
             "pe": 4,
             "pp": 2,
-            "dg": 6,
-            "pts": 25,
+            "dg": 7,
+            "pts": 28,
             "pos": 2,
-            "mu": 30.76923076923077,
+            "mu": 32.0,
             "pmax": 34,
-            "pmin": 25,
-            "pj_res": 3,
+            "pmin": 28,
+            "pj_res": 2,
             "playoff": 100.0
         },
         {
@@ -872,7 +872,7 @@
             "pmax": 27,
             "pmin": 21,
             "pj_res": 2,
-            "playoff": 96.15
+            "playoff": 100.0
         },
         {
             "name": "Huracán",
@@ -887,22 +887,22 @@
             "pmax": 25,
             "pmin": 19,
             "pj_res": 2,
-            "playoff": 30.73
+            "playoff": 48.7
         },
         {
             "name": "Independiente Rivadavia",
-            "pj": 13,
+            "pj": 14,
             "pg": 5,
             "pe": 4,
-            "pp": 4,
-            "dg": -4,
+            "pp": 5,
+            "dg": -5,
             "pts": 19,
             "pos": 9,
-            "mu": 23.384615384615383,
-            "pmax": 28,
+            "mu": 21.714285714285715,
+            "pmax": 25,
             "pmin": 19,
-            "pj_res": 3,
-            "playoff": 71.47
+            "pj_res": 2,
+            "playoff": 48.7
         },
         {
             "name": "Atlético Tucumán",
@@ -917,7 +917,7 @@
             "pmax": 23,
             "pmin": 17,
             "pj_res": 2,
-            "playoff": 1.64
+            "playoff": 2.6
         },
         {
             "name": "Banfield",
@@ -995,5 +995,5 @@
             "playoff": 0.0
         }
     ],
-    "ultima_actualizacion": "27/10/2026 a las 05:31 hs"
+    "ultima_actualizacion": "28/10/2026 a las 06:09 hs"
 }
